@@ -1,15 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Menu, X, Phone, Mail, MapPin, Clock, MessageCircle, ChevronRight } from "lucide-react";
+import {
+  Menu, X, Phone, Mail, MapPin, Clock, MessageCircle,
+  ChevronRight, ChevronDown, GraduationCap, BookOpen, Briefcase, HelpCircle,
+} from "lucide-react";
 import { navItems, contactInfo } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+
+// Icon mapping for Resources dropdown children
+const resourceIcons: Record<string, typeof GraduationCap> = {
+  Training: GraduationCap,
+  Blog: BookOpen,
+  Careers: Briefcase,
+  FAQs: HelpCircle,
+};
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -19,7 +32,12 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    const sections = navItems.map((n) => n.href.replace("#", ""));
+    // Collect all section IDs including Resources children
+    const ids = new Set<string>();
+    navItems.forEach((n) => {
+      ids.add(n.href.replace("#", ""));
+      n.children?.forEach((c) => ids.add(c.href.replace("#", "")));
+    });
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -28,12 +46,18 @@ export function Header() {
       },
       { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
     );
-    sections.forEach((id) => {
+    ids.forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
   }, []);
+
+  // Determine if the active section is a Resources child (so the parent stays highlighted)
+  const resourcesChildIds = navItems
+    .find((n) => n.label === "Resources")
+    ?.children?.map((c) => c.href.replace("#", "")) ?? [];
+  const isResourcesActive = resourcesChildIds.includes(activeSection);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -41,6 +65,8 @@ export function Header() {
 
   const handleNav = (href: string) => {
     setOpen(false);
+    setDropdownOpen(false);
+    setMobileResourcesOpen(false);
     const el = document.getElementById(href.replace("#", ""));
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -129,6 +155,104 @@ export function Header() {
             <nav className="hidden xl:flex items-center gap-1" aria-label="Primary">
               {navItems.map((item) => {
                 const isActive = activeSection === item.href.replace("#", "");
+                const isResActive = item.label === "Resources" && isResourcesActive;
+
+                // Resources dropdown item
+                if (item.children?.length) {
+                  return (
+                    <div
+                      key={item.href}
+                      className="relative"
+                      onMouseEnter={() => setDropdownOpen(true)}
+                      onMouseLeave={() => setDropdownOpen(false)}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => setDropdownOpen((v) => !v)}
+                        aria-haspopup="true"
+                        aria-expanded={dropdownOpen}
+                        className={cn(
+                          "relative px-3 py-2 text-sm font-medium rounded-md transition-colors inline-flex items-center gap-1",
+                          (isActive || isResActive || dropdownOpen)
+                            ? "text-[#1B2A5C]"
+                            : "text-[#1B2A5C]/70 hover:text-[#1B2A5C]"
+                        )}
+                      >
+                        {item.label}
+                        <ChevronDown
+                          className={cn(
+                            "h-3.5 w-3.5 transition-transform",
+                            dropdownOpen && "rotate-180"
+                          )}
+                        />
+                        {(isActive || isResActive) && (
+                          <span className="absolute inset-x-3 -bottom-0.5 h-0.5 bg-[#1B2A5C] rounded-full" />
+                        )}
+                      </button>
+
+                      {/* Dropdown panel */}
+                      <div
+                        className={cn(
+                          "absolute left-1/2 -translate-x-1/2 top-full pt-3 transition-all duration-200 z-50",
+                          dropdownOpen
+                            ? "opacity-100 visible translate-y-0"
+                            : "opacity-0 invisible -translate-y-1 pointer-events-none"
+                        )}
+                      >
+                        <div className="w-80 rounded-xl bg-white shadow-2xl border border-slate-100 p-2 overflow-hidden">
+                          <div className="px-3 py-2 mb-1 border-b border-slate-100">
+                            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#E31E24]">
+                              Resources
+                            </p>
+                            <p className="text-xs text-[#5A6B82] mt-0.5">
+                              Learn, grow & explore with Clipe Consult
+                            </p>
+                          </div>
+                          {item.children.map((child) => {
+                            const Icon = resourceIcons[child.label] ?? BookOpen;
+                            const childActive = activeSection === child.href.replace("#", "");
+                            return (
+                              <a
+                                key={child.href}
+                                href={child.href}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleNav(child.href);
+                                }}
+                                className={cn(
+                                  "group flex items-start gap-3 p-3 rounded-lg transition-colors",
+                                  childActive ? "bg-[#EEF1F8]" : "hover:bg-slate-50"
+                                )}
+                              >
+                                <div className={cn(
+                                  "inline-flex h-9 w-9 items-center justify-center rounded-lg flex-shrink-0 transition-colors",
+                                  childActive
+                                    ? "bg-[#1B2A5C] text-white"
+                                    : "bg-[#EEF1F8] text-[#1B2A5C] group-hover:bg-[#1B2A5C] group-hover:text-white"
+                                )}>
+                                  <Icon className="h-4 w-4" />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center justify-between gap-2">
+                                    <span className="text-sm font-semibold text-[#1B2A5C]">
+                                      {child.label}
+                                    </span>
+                                    <ChevronRight className="h-3.5 w-3.5 text-[#5A6B82]/40 group-hover:text-[#1B2A5C] group-hover:translate-x-0.5 transition-all" />
+                                  </div>
+                                  <p className="text-xs text-[#5A6B82] mt-0.5 leading-snug">
+                                    {child.description}
+                                  </p>
+                                </div>
+                              </a>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                // Regular nav item
                 return (
                   <a
                     key={item.href}
@@ -225,6 +349,78 @@ export function Header() {
           <nav className="flex-1 overflow-y-auto p-6 space-y-1" aria-label="Mobile">
             {navItems.map((item) => {
               const isActive = activeSection === item.href.replace("#", "");
+              const isResActive = item.label === "Resources" && isResourcesActive;
+
+              // Mobile Resources — expandable accordion
+              if (item.children?.length) {
+                return (
+                  <div key={item.href} className="rounded-lg overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={() => setMobileResourcesOpen((v) => !v)}
+                      aria-expanded={mobileResourcesOpen}
+                      className={cn(
+                        "w-full flex items-center justify-between px-4 py-3 text-base font-medium transition-colors",
+                        (isResActive || mobileResourcesOpen)
+                          ? "bg-[#EEF1F8] text-[#1B2A5C]"
+                          : "text-[#1B2A5C] hover:bg-slate-50"
+                      )}
+                    >
+                      <span className="flex items-center gap-2">
+                        {item.label}
+                        {isResActive && (
+                          <span className="h-1.5 w-1.5 rounded-full bg-[#E31E24]" />
+                        )}
+                      </span>
+                      <ChevronDown
+                        className={cn(
+                          "h-4 w-4 transition-transform",
+                          mobileResourcesOpen && "rotate-180"
+                        )}
+                      />
+                    </button>
+                    <div
+                      className={cn(
+                        "grid transition-all duration-200",
+                        mobileResourcesOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                      )}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="pl-3 pt-1 pb-2 space-y-0.5 border-l-2 border-[#EEF1F8] ml-4">
+                          {item.children.map((child) => {
+                            const Icon = resourceIcons[child.label] ?? BookOpen;
+                            const childActive = activeSection === child.href.replace("#", "");
+                            return (
+                              <a
+                                key={child.href}
+                                href={child.href}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleNav(child.href);
+                                }}
+                                className={cn(
+                                  "flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors",
+                                  childActive
+                                    ? "bg-[#1B2A5C] text-white"
+                                    : "text-[#1B2A5C]/80 hover:bg-slate-50"
+                                )}
+                              >
+                                <Icon className={cn(
+                                  "h-4 w-4",
+                                  childActive ? "text-white" : "text-[#E31E24]"
+                                )} />
+                                {child.label}
+                              </a>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
+              // Regular mobile nav item
               return (
                 <a
                   key={item.href}

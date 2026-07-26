@@ -59,7 +59,7 @@ export function Footer() {
         {/* Main footer */}
         <div className="py-12 grid gap-10 md:grid-cols-2 lg:grid-cols-12">
           {/* Brand */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-3">
             <div className="flex items-center gap-3 mb-5">
               <div className="relative h-14 w-14 rounded-lg overflow-hidden shadow-md flex-shrink-0 bg-white p-0.5">
                 <img src="/logo-icon.png" alt="Clipe Consult logo" className="h-full w-full object-contain" width={56} height={56} />
@@ -130,20 +130,47 @@ export function Footer() {
               Company
             </h4>
             <ul className="space-y-2.5">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNav(item.href);
-                    }}
-                    className="text-sm text-white/65 hover:text-white transition-colors"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+              {navItems
+                .filter((item) => item.label !== "Resources")
+                .map((item) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNav(item.href);
+                      }}
+                      className="text-sm text-white/65 hover:text-white transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+            </ul>
+          </div>
+
+          {/* Resources column */}
+          <div className="lg:col-span-2">
+            <h4 className="font-[family-name:var(--font-poppins)] text-sm font-bold uppercase tracking-wider text-white mb-4">
+              Resources
+            </h4>
+            <ul className="space-y-2.5">
+              {navItems
+                .find((n) => n.label === "Resources")
+                ?.children?.map((item) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNav(item.href);
+                      }}
+                      className="text-sm text-white/65 hover:text-white transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
             </ul>
           </div>
 
@@ -171,7 +198,7 @@ export function Footer() {
           </div>
 
           {/* Trust badges */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-2">
             <h4 className="font-[family-name:var(--font-poppins)] text-sm font-bold uppercase tracking-wider text-white mb-4">
               Why Trust Us
             </h4>

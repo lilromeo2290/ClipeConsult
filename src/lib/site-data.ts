@@ -404,16 +404,29 @@ export const careers: CareerItem[] = [
   },
 ];
 
-export const navItems = [
+export type NavChild = { label: string; href: string; description: string };
+export type NavItem = {
+  label: string;
+  href: string;
+  children?: NavChild[];
+};
+
+export const navItems: NavItem[] = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Projects", href: "#projects" },
   { label: "Industries", href: "#industries" },
-  { label: "Training", href: "#training" },
-  { label: "Blog", href: "#blog" },
-  { label: "Careers", href: "#careers" },
-  { label: "FAQs", href: "#faqs" },
+  {
+    label: "Resources",
+    href: "#resources",
+    children: [
+      { label: "Training", href: "#training", description: "IT courses, corporate training & ICT for schools" },
+      { label: "Blog", href: "#blog", description: "Insights, tips & tutorials on technology in Ghana" },
+      { label: "Careers", href: "#careers", description: "Open positions at Clipe Consult" },
+      { label: "FAQs", href: "#faqs", description: "Answers to the questions we hear most" },
+    ],
+  },
   { label: "Contact", href: "#contact" },
 ];
 
