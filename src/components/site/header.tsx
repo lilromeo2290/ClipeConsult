@@ -4,13 +4,18 @@ import { useEffect, useState } from "react";
 import {
   Menu, X, Phone, Mail, MapPin, Clock, MessageCircle,
   ChevronRight, ChevronDown, GraduationCap, BookOpen, Briefcase, HelpCircle,
+  Wrench, FolderKanban,
 } from "lucide-react";
 import { navItems, contactInfo } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
-// Icon mapping for Resources dropdown children
-const resourceIcons: Record<string, typeof GraduationCap> = {
+// Icon mapping for dropdown children — covers both Solutions and Resources sub-items
+const childIcons: Record<string, typeof GraduationCap> = {
+  // Solutions children
+  Services: Wrench,
+  Projects: FolderKanban,
+  // Resources children
   Training: GraduationCap,
   Blog: BookOpen,
   Careers: Briefcase,
@@ -21,8 +26,10 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  // Track which mobile accordion section is open (by label)
+  const [mobileOpenSection, setMobileOpenSection] = useState<string | null>(null);
+  // Track which desktop dropdown is open (by label)
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -32,7 +39,7 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    // Collect all section IDs including Resources children
+    // Collect all section IDs including dropdown children
     const ids = new Set<string>();
     navItems.forEach((n) => {
       ids.add(n.href.replace("#", ""));
@@ -53,11 +60,18 @@ export function Header() {
     return () => observer.disconnect();
   }, []);
 
-  // Determine if the active section is a Resources child (so the parent stays highlighted)
-  const resourcesChildIds = navItems
-    .find((n) => n.label === "Resources")
-    ?.children?.map((c) => c.href.replace("#", "")) ?? [];
-  const isResourcesActive = resourcesChildIds.includes(activeSection);
+  // Map each dropdown parent label to the list of its child section IDs
+  // so we can highlight the parent when any of its children is the active section.
+  const parentActiveMap: Record<string, string[]> = {};
+  navItems.forEach((n) => {
+    if (n.children?.length) {
+      parentActiveMap[n.label] = n.children.map((c) => c.href.replace("#", ""));
+    }
+  });
+  // Which dropdown parent (if any) currently has an active child section
+  const activeDropdownParent = Object.entries(parentActiveMap).find(([, ids]) =>
+    ids.includes(activeSection)
+  )?.[0] ?? null;
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -65,8 +79,8 @@ export function Header() {
 
   const handleNav = (href: string) => {
     setOpen(false);
-    setDropdownOpen(false);
-    setMobileResourcesOpen(false);
+    setOpenDropdown(null);
+    setMobileOpenSection(null);
     const el = document.getElementById(href.replace("#", ""));
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -155,25 +169,32 @@ export function Header() {
             <nav className="hidden xl:flex items-center gap-1" aria-label="Primary">
               {navItems.map((item) => {
                 const isActive = activeSection === item.href.replace("#", "");
-                const isResActive = item.label === "Resources" && isResourcesActive;
+                const isParentActive = item.label === activeDropdownParent;
+                const isOpen = openDropdown === item.label;
 
-                // Resources dropdown item
+                // Dropdown item (Solutions, Resources, etc.)
                 if (item.children?.length) {
+                  const subtitle =
+                    item.label === "Solutions"
+                      ? "What we do & what we've built"
+                      : item.label === "Resources"
+                      ? "Learn, grow & explore with Clipe Consult"
+                      : "";
                   return (
                     <div
                       key={item.href}
                       className="relative"
-                      onMouseEnter={() => setDropdownOpen(true)}
-                      onMouseLeave={() => setDropdownOpen(false)}
+                      onMouseEnter={() => setOpenDropdown(item.label)}
+                      onMouseLeave={() => setOpenDropdown((cur) => (cur === item.label ? null : cur))}
                     >
                       <button
                         type="button"
-                        onClick={() => setDropdownOpen((v) => !v)}
+                        onClick={() => setOpenDropdown((cur) => (cur === item.label ? null : item.label))}
                         aria-haspopup="true"
-                        aria-expanded={dropdownOpen}
+                        aria-expanded={isOpen}
                         className={cn(
                           "relative px-3 py-2 text-sm font-bold rounded-md transition-colors inline-flex items-center gap-1",
-                          (isActive || isResActive || dropdownOpen)
+                          (isActive || isParentActive || isOpen)
                             ? "text-[#1B2A5C]"
                             : "text-[#1B2A5C]/70 hover:text-[#1B2A5C]"
                         )}
@@ -182,10 +203,10 @@ export function Header() {
                         <ChevronDown
                           className={cn(
                             "h-3.5 w-3.5 transition-transform",
-                            dropdownOpen && "rotate-180"
+                            isOpen && "rotate-180"
                           )}
                         />
-                        {(isActive || isResActive) && (
+                        {(isActive || isParentActive) && (
                           <span className="absolute inset-x-3 -bottom-0.5 h-0.5 bg-[#1B2A5C] rounded-full" />
                         )}
                       </button>
@@ -194,7 +215,7 @@ export function Header() {
                       <div
                         className={cn(
                           "absolute left-1/2 -translate-x-1/2 top-full pt-3 transition-all duration-200 z-50",
-                          dropdownOpen
+                          isOpen
                             ? "opacity-100 visible translate-y-0"
                             : "opacity-0 invisible -translate-y-1 pointer-events-none"
                         )}
@@ -202,14 +223,14 @@ export function Header() {
                         <div className="w-80 rounded-xl bg-white shadow-2xl border border-slate-100 p-2 overflow-hidden">
                           <div className="px-3 py-2 mb-1 border-b border-slate-100">
                             <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#E31E24]">
-                              Resources
+                              {item.label}
                             </p>
-                            <p className="text-xs text-[#5A6B82] mt-0.5">
-                              Learn, grow & explore with Clipe Consult
-                            </p>
+                            {subtitle && (
+                              <p className="text-xs text-[#5A6B82] mt-0.5">{subtitle}</p>
+                            )}
                           </div>
                           {item.children.map((child) => {
-                            const Icon = resourceIcons[child.label] ?? BookOpen;
+                            const Icon = childIcons[child.label] ?? BookOpen;
                             const childActive = activeSection === child.href.replace("#", "");
                             return (
                               <a
@@ -349,46 +370,47 @@ export function Header() {
           <nav className="flex-1 overflow-y-auto p-6 space-y-1" aria-label="Mobile">
             {navItems.map((item) => {
               const isActive = activeSection === item.href.replace("#", "");
-              const isResActive = item.label === "Resources" && isResourcesActive;
+              const isParentActive = item.label === activeDropdownParent;
+              const isMobileOpen = mobileOpenSection === item.label;
 
-              // Mobile Resources — expandable accordion
+              // Mobile dropdown parent — expandable accordion (Solutions, Resources, etc.)
               if (item.children?.length) {
                 return (
                   <div key={item.href} className="rounded-lg overflow-hidden">
                     <button
                       type="button"
-                      onClick={() => setMobileResourcesOpen((v) => !v)}
-                      aria-expanded={mobileResourcesOpen}
+                      onClick={() => setMobileOpenSection((cur) => (cur === item.label ? null : item.label))}
+                      aria-expanded={isMobileOpen}
                       className={cn(
                         "w-full flex items-center justify-between px-4 py-3 text-base font-bold transition-colors",
-                        (isResActive || mobileResourcesOpen)
+                        (isParentActive || isMobileOpen)
                           ? "bg-[#EEF1F8] text-[#1B2A5C]"
                           : "text-[#1B2A5C] hover:bg-slate-50"
                       )}
                     >
                       <span className="flex items-center gap-2">
                         {item.label}
-                        {isResActive && (
+                        {isParentActive && (
                           <span className="h-1.5 w-1.5 rounded-full bg-[#E31E24]" />
                         )}
                       </span>
                       <ChevronDown
                         className={cn(
                           "h-4 w-4 transition-transform",
-                          mobileResourcesOpen && "rotate-180"
+                          isMobileOpen && "rotate-180"
                         )}
                       />
                     </button>
                     <div
                       className={cn(
                         "grid transition-all duration-200",
-                        mobileResourcesOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                        isMobileOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                       )}
                     >
                       <div className="overflow-hidden">
                         <div className="pl-3 pt-1 pb-2 space-y-0.5 border-l-2 border-[#EEF1F8] ml-4">
                           {item.children.map((child) => {
-                            const Icon = resourceIcons[child.label] ?? BookOpen;
+                            const Icon = childIcons[child.label] ?? BookOpen;
                             const childActive = activeSection === child.href.replace("#", "");
                             return (
                               <a

@@ -4,7 +4,7 @@ import {
   Phone, Mail, MapPin, Facebook, Linkedin, Twitter, Instagram,
   ArrowRight, MessageCircle, Clock, ShieldCheck,
 } from "lucide-react";
-import { navItems, services, contactInfo } from "@/lib/site-data";
+import { navItems, contactInfo } from "@/lib/site-data";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -131,7 +131,7 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5">
               {navItems
-                .filter((item) => item.label !== "Resources")
+                .filter((item) => !item.children?.length)
                 .map((item) => (
                   <li key={item.href}>
                     <a
@@ -149,7 +149,32 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Resources column */}
+          {/* Solutions column (dropdown children: Services, Projects) */}
+          <div className="lg:col-span-2">
+            <h4 className="font-[family-name:var(--font-poppins)] text-sm font-bold uppercase tracking-wider text-white mb-4">
+              Solutions
+            </h4>
+            <ul className="space-y-2.5">
+              {navItems
+                .find((n) => n.label === "Solutions")
+                ?.children?.map((item) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNav(item.href);
+                      }}
+                      className="text-sm font-medium text-white/70 hover:text-white transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+            </ul>
+          </div>
+
+          {/* Resources column (dropdown children: Training, Blog, FAQs) */}
           <div className="lg:col-span-2">
             <h4 className="font-[family-name:var(--font-poppins)] text-sm font-bold uppercase tracking-wider text-white mb-4">
               Resources
@@ -174,31 +199,8 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
-          <div className="lg:col-span-3">
-            <h4 className="font-[family-name:var(--font-poppins)] text-sm font-bold uppercase tracking-wider text-white mb-4">
-              Services
-            </h4>
-            <ul className="space-y-2.5">
-              {services.map((s) => (
-                <li key={s.id}>
-                  <a
-                    href="#services"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNav("#services");
-                    }}
-                    className="text-sm font-medium text-white/70 hover:text-white transition-colors"
-                  >
-                    {s.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Trust badges */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-3">
             <h4 className="font-[family-name:var(--font-poppins)] text-sm font-bold uppercase tracking-wider text-white mb-4">
               Why Trust Us
             </h4>

@@ -430,8 +430,14 @@ export const navItems: NavItem[] = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Our Team", href: "#team" },
-  { label: "Services", href: "#services" },
-  { label: "Projects", href: "#projects" },
+  {
+    label: "Solutions",
+    href: "#solutions",
+    children: [
+      { label: "Services", href: "#services", description: "Website design, software, IT support, hosting, networks & training" },
+      { label: "Projects", href: "#projects", description: "Real websites & software we've built for clients across Ghana" },
+    ],
+  },
   { label: "Industries", href: "#industries" },
   {
     label: "Resources",
