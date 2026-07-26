@@ -429,6 +429,7 @@ export type NavItem = {
 export const navItems: NavItem[] = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
+  { label: "Our Team", href: "#team" },
   { label: "Services", href: "#services" },
   { label: "Projects", href: "#projects" },
   { label: "Industries", href: "#industries" },
@@ -442,6 +443,100 @@ export const navItems: NavItem[] = [
     ],
   },
   { label: "Contact", href: "#contact" },
+];
+
+export type TeamMember = {
+  name: string;
+  role: string;
+  bio: string;
+  initials: string;
+  avatarBg: string; // tailwind gradient class
+  linkedin?: string;
+  twitter?: string;
+  email?: string;
+};
+
+export const teamMembers: TeamMember[] = [
+  {
+    name: "Emmanuel K. Dziedzom",
+    role: "Founder & Managing Director",
+    bio: "Visionary IT leader with 15+ years building technology solutions for Ghanaian businesses. Sets company strategy and oversees all client relationships.",
+    initials: "ED",
+    avatarBg: "from-[#1B2A5C] to-[#2A3A6A]",
+    linkedin: "#",
+    twitter: "#",
+    email: "emmanuel@clipeconsult.com",
+  },
+  {
+    name: "Grace Mensah",
+    role: "Technical Director",
+    bio: "Leads our software engineering and network infrastructure practice. Cisco-certified, AWS-certified, and obsessed with reliability.",
+    initials: "GM",
+    avatarBg: "from-[#E31E24] to-[#C0181F]",
+    linkedin: "#",
+    twitter: "#",
+    email: "grace@clipeconsult.com",
+  },
+  {
+    name: "Samuel K. Adjei",
+    role: "Head of Web Development",
+    bio: "Full-stack engineer specializing in Next.js, WordPress and e-commerce platforms. Has shipped 100+ websites for clients across Ghana.",
+    initials: "SA",
+    avatarBg: "from-[#1B2A5C] to-[#3A4D85]",
+    linkedin: "#",
+    twitter: "#",
+    email: "samuel@clipeconsult.com",
+  },
+  {
+    name: "Akosua Owusu",
+    role: "Head of Software Engineering",
+    bio: "Architects custom ERP, CRM and management systems. Passionate about clean code, automation and AI integration for African businesses.",
+    initials: "AO",
+    avatarBg: "from-[#E31E24] to-[#FF4A50]",
+    linkedin: "#",
+    twitter: "#",
+    email: "akosua@clipeconsult.com",
+  },
+  {
+    name: "Daniel Tettey",
+    role: "Head of Network & Infrastructure",
+    bio: "Designs and deploys secure LAN, WAN, WiFi and fibre networks. Fortinet & Cisco certified with deep experience in enterprise environments.",
+    initials: "DT",
+    avatarBg: "from-[#2A3A6A] to-[#1B2A5C]",
+    linkedin: "#",
+    twitter: "#",
+    email: "daniel@clipeconsult.com",
+  },
+  {
+    name: "Patricia A. Boateng",
+    role: "Head of Training & Consulting",
+    bio: "Designs and delivers our IT training programmes for schools, corporates and government. Microsoft Certified Trainer with a passion for skills development.",
+    initials: "PB",
+    avatarBg: "from-[#C0181F] to-[#E31E24]",
+    linkedin: "#",
+    twitter: "#",
+    email: "patricia@clipeconsult.com",
+  },
+  {
+    name: "Kwabena Asante",
+    role: "Head of Hardware & IT Support",
+    bio: "Leads our managed IT services team — repairs, CCTV, server maintenance, and 24/7 emergency support for businesses across Ghana.",
+    initials: "KA",
+    avatarBg: "from-[#3A4D85] to-[#1B2A5C]",
+    linkedin: "#",
+    twitter: "#",
+    email: "kwabena@clipeconsult.com",
+  },
+  {
+    name: "Ama Nyarko",
+    role: "Creative Director",
+    bio: "Brings brands to life through graphic design, UI/UX and digital branding. Ensures every Clipe Consult project is as beautiful as it is functional.",
+    initials: "AN",
+    avatarBg: "from-[#FF4A50] to-[#E31E24]",
+    linkedin: "#",
+    twitter: "#",
+    email: "ama@clipeconsult.com",
+  },
 ];
 
 export const contactInfo = {
