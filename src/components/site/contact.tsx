@@ -101,7 +101,7 @@ export function Contact() {
                 </div>
                 <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold text-[#1B2A5C] mb-1">Email Us</h3>
                 <p className="text-xs text-[#5A6B82] truncate">{contactInfo.emailPrimary}</p>
-                <p className="text-xs text-[#5A6B82] truncate">{contactInfo.emailSupport}</p>
+                <p className="text-xs text-[#5A6B82] truncate">{contactInfo.emailSecondary}</p>
               </a>
 
               <a
@@ -272,7 +272,7 @@ export function Contact() {
                       <Label htmlFor="phone" className="text-xs font-semibold text-[#1B2A5C]">
                         Phone / WhatsApp <span className="text-red-500">*</span>
                       </Label>
-                      <Input id="phone" name="phone" required placeholder="+233 244 000 000" className="h-11" />
+                      <Input id="phone" name="phone" required placeholder="+233 24 978 3736" className="h-11" />
                     </div>
                   </div>
 

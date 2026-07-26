@@ -115,7 +115,7 @@ const organizationSchema = {
   logo: `${SITE_URL}/logo.png`,
   image: `${SITE_URL}/og-image.svg`,
   email: "info@clipeconsult.com",
-  telephone: "+233 244 000 000",
+  telephone: "+233 24 978 3736",
   foundingDate: "2019",
   areaServed: ["Ghana", "Ho", "Volta Region", "Accra"],
   address: {
@@ -130,7 +130,7 @@ const organizationSchema = {
     {
       "@type": "ContactPoint",
       contactType: "sales",
-      telephone: "+233 244 000 000",
+      telephone: "+233 24 978 3736",
       email: "info@clipeconsult.com",
       areaServed: "GH",
       availableLanguage: ["English"],
@@ -138,8 +138,8 @@ const organizationSchema = {
     {
       "@type": "ContactPoint",
       contactType: "technical support",
-      telephone: "+233 244 111 111",
-      email: "support@clipeconsult.com",
+      telephone: "+233 53 539 9562",
+      email: "clipeconsult@gmail.com",
       areaServed: "GH",
       availableLanguage: ["English"],
     },
@@ -159,7 +159,7 @@ const localBusinessSchema = {
   name: "Clipe Consult",
   image: `${SITE_URL}/logo.png`,
   url: SITE_URL,
-  telephone: "+233 244 000 000",
+  telephone: "+233 24 978 3736",
   email: "info@clipeconsult.com",
   priceRange: "$$",
   address: {

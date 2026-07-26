@@ -92,7 +92,7 @@ export function CTA() {
         >
           <span className="flex items-center gap-2">
             <PhoneCall className="h-4 w-4 text-[#E31E24]" />
-            +233 244 000 000
+            +233 24 978 3736
           </span>
           <span className="hidden sm:inline h-1 w-1 rounded-full bg-white/30" />
           <span>Ho • Accra • Whole Ghana</span>

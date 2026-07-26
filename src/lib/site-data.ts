@@ -506,11 +506,11 @@ export const teamMembers: TeamMember[] = [
 ];
 
 export const contactInfo = {
-  phonePrimary: "+233 244 000 000",
-  phoneSecondary: "+233 244 111 111",
-  whatsapp: "+233 244 000 000",
+  phonePrimary: "+233 24 978 3736",
+  phoneSecondary: "+233 53 539 9562",
+  whatsapp: "+233 24 978 3736",
   emailPrimary: "info@clipeconsult.com",
-  emailSupport: "support@clipeconsult.com",
+  emailSecondary: "clipeconsult@gmail.com",
   address: "Main Street, Ho, Volta Region, Ghana",
   hoursWeekday: "Mon – Fri: 8:00 AM – 6:00 PM",
   hoursSaturday: "Saturday: 9:00 AM – 2:00 PM",
