@@ -83,7 +83,7 @@ export function About() {
               transition={{ duration: 0.5, delay: 0.15 }}
               className="mt-4 text-base lg:text-lg text-[#5A6B82] leading-relaxed"
             >
-              Our mission is simple: to make enterprise-grade technology accessible and affordable for every Ghanaian business — from one-person startups to government institutions — so they can compete, grow and thrive in the digital economy.
+              From our base in Ho, we serve businesses, schools, NGOs, churches, media houses and government institutions across Ghana — combining local understanding with international best practices to deliver technology that actually moves the needle for your organization.
             </motion.p>
 
             <motion.div
@@ -135,16 +135,16 @@ export function About() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="relative rounded-2xl overflow-hidden shadow-xl"
             >
-              <div className="aspect-[16/10] bg-gradient-to-br from-[#1B2A5C] via-[#1B2A5C] to-[#E31E24] relative">
+              <div className="aspect-[16/11] bg-gradient-to-br from-[#1B2A5C] via-[#1B2A5C] to-[#E31E24] relative">
                 <div className="absolute inset-0 bg-grid opacity-30" />
-                <div className="absolute inset-0 flex items-center justify-center p-8">
-                  <div className="text-center text-white">
+                <div className="absolute inset-0 flex items-center justify-center p-8 lg:p-10">
+                  <div className="text-center text-white max-w-2xl">
                     <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-white/15 backdrop-blur-sm mb-4">
-                      <Target className="h-8 w-8 text-white" />
+                      <Eye className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className="font-[family-name:var(--font-poppins)] text-2xl font-bold mb-2">Our Mission</h3>
-                    <p className="text-white/80 max-w-md mx-auto leading-relaxed">
-                      To empower Ghanaian businesses with reliable, secure and innovative technology solutions that drive measurable growth.
+                    <h3 className="font-[family-name:var(--font-poppins)] text-2xl lg:text-3xl font-bold mb-3">Our Vision</h3>
+                    <p className="text-white/85 text-sm lg:text-base leading-relaxed">
+                      To be a trusted leader in networking, software engineering, and digital technology solutions, delivering innovative, reliable, and value-driven services that empower businesses, enrich lives, and contribute to sustainable community development.
                     </p>
                   </div>
                 </div>
@@ -159,10 +159,10 @@ export function About() {
                 transition={{ duration: 0.5, delay: 0.15 }}
                 className="rounded-xl p-6 bg-[#1B2A5C] text-white shadow-lg"
               >
-                <Eye className="h-8 w-8 text-[#E31E24] mb-3" />
-                <h3 className="font-[family-name:var(--font-poppins)] text-xl font-bold mb-2">Our Vision</h3>
-                <p className="text-sm text-white/70 leading-relaxed">
-                  To be West Africa&apos;s most trusted IT consulting firm — known for technical excellence, integrity and customer success.
+                <Target className="h-8 w-8 text-[#E31E24] mb-3" />
+                <h3 className="font-[family-name:var(--font-poppins)] text-xl font-bold mb-2">Our Mission</h3>
+                <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                  At Clipe Consult, our mission is to provide reliable, innovative, and cost-effective technology solutions in networking, software engineering, website development, cybersecurity, and IT consultancy. We strive to exceed client expectations by delivering exceptional service, embracing continuous innovation, empowering our employees, and creating sustainable value for our clients, partners, and communities.
                 </p>
               </motion.div>
 
