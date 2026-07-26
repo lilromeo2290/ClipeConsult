@@ -94,7 +94,6 @@ export const metadata: Metadata = {
     description:
       "Website design, software development, IT support, hosting, networks & training for businesses across Ghana.",
     images: ["/og-image.svg"],
-    creator: "@clipeconsult",
   },
   category: "technology",
   other: {
@@ -146,9 +145,6 @@ const organizationSchema = {
   ],
   sameAs: [
     "https://www.facebook.com/clipeconsult",
-    "https://www.linkedin.com/company/clipeconsult",
-    "https://twitter.com/clipeconsult",
-    "https://www.instagram.com/clipeconsult",
   ],
 };
 

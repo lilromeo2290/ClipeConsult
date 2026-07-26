@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  Phone, Mail, MapPin, Facebook, Linkedin, Twitter, Instagram,
+  Phone, Mail, MapPin, Facebook,
   ArrowRight, MessageCircle, Clock, ShieldCheck,
 } from "lucide-react";
 import { navItems, contactInfo } from "@/lib/site-data";
@@ -101,26 +101,26 @@ export function Footer() {
               </li>
             </ul>
 
-            {/* Social */}
+            {/* Social — LinkedIn, X and Instagram removed per request */}
             <div className="mt-5 flex items-center gap-2">
-              {[
-                { icon: Facebook, label: "Facebook", href: "https://facebook.com/clipeconsult" },
-                { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/clipeconsult" },
-                { icon: Twitter, label: "Twitter", href: "https://twitter.com/clipeconsult" },
-                { icon: Instagram, label: "Instagram", href: "https://instagram.com/clipeconsult" },
-                { icon: MessageCircle, label: "WhatsApp", href: `https://wa.me/${contactInfo.whatsapp.replace(/\D/g, "")}` },
-              ].map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 border border-white/10 hover:bg-[#1B2A5C] hover:border-[#1B2A5C] transition-colors"
-                >
-                  <s.icon className="h-4 w-4" />
-                </a>
-              ))}
+              <a
+                href="https://facebook.com/clipeconsult"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 border border-white/10 hover:bg-[#1B2A5C] hover:border-[#1B2A5C] transition-colors"
+              >
+                <Facebook className="h-4 w-4" />
+              </a>
+              <a
+                href={`https://wa.me/${contactInfo.whatsapp.replace(/\D/g, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 border border-white/10 hover:bg-emerald-600 hover:border-emerald-600 transition-colors"
+              >
+                <MessageCircle className="h-4 w-4" />
+              </a>
             </div>
           </div>
 
