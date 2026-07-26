@@ -230,59 +230,74 @@ export type ProjectItem = {
   title: string;
   category: string;
   description: string;
+  url: string;
+  screenshot: string;
   tags: string[];
-  metric: string;
-  metricLabel: string;
 };
 
 export const projects: ProjectItem[] = [
   {
-    title: "EduTrack — School Management System",
-    category: "Software Development",
-    description: "A cloud-based platform managing 12,000+ students across 8 schools in the Volta Region — fees, grading, attendance and parent portal.",
-    tags: ["Next.js", "PostgreSQL", "AWS"],
-    metric: "12K+",
-    metricLabel: "Students managed",
+    title: "Dwell Chronicles Ghana",
+    category: "Real Estate Platform",
+    description:
+      "A property listings, land sales, rentals and construction services platform connecting buyers, tenants and developers across Ghana.",
+    url: "https://dwellchroniclesgh.com/",
+    screenshot: "/projects/dwellchroniclesgh.png",
+    tags: ["Web Design", "Listings", "Real Estate"],
   },
   {
-    title: "Volta Heritage Hotel Booking Engine",
-    category: "Website Development",
-    description: "A direct-booking website with channel manager integration that increased direct reservations by 38% in the first quarter.",
-    tags: ["WordPress", "Stripe", "WooCommerce"],
-    metric: "+38%",
-    metricLabel: "Direct bookings",
+    title: "Progressive Youth Club, Ho",
+    category: "NGO / Youth Organization",
+    description:
+      "Official website of PYC Club Ho — a youth-focused membership organization. We Stand For Support.",
+    url: "https://pycclub.org/",
+    screenshot: "/projects/pycclub.png",
+    tags: ["Web Design", "NGO", "Membership"],
   },
   {
-    title: "Ho Municipal Hospital Network",
-    category: "Network Solutions",
-    description: "Designed and deployed secure hospital-wide WiFi, LAN and firewall infrastructure across 5 buildings and 3 satellite clinics.",
-    tags: ["Cisco", "Fortinet", "Fibre"],
-    metric: "5",
-    metricLabel: "Buildings connected",
+    title: "Global Experience Ghana",
+    category: "Professional Development",
+    description:
+      "Corporate training and skills-alignment platform — Aligning Skills with Cooperate Goals for individuals and organisations.",
+    url: "https://globalexperiencegh.org/",
+    screenshot: "/projects/globalexperiencegh.png",
+    tags: ["Web Design", "Training", "Corporate"],
   },
   {
-    title: "CareGhana NGO Donor Platform",
-    category: "Software Development",
-    description: "A donor management and impact reporting dashboard that streamlined reporting and improved recurring donations.",
-    tags: ["React", "Node.js", "Charts.js"],
-    metric: "+64%",
-    metricLabel: "Recurring donors",
+    title: "RAS MUTA Foundation",
+    category: "Foundation / Memorial",
+    description:
+      "Memorial website honouring a broadcasting legend — sharing his legacy, stories and ongoing foundation work.",
+    url: "https://rasmutafoundation.org/",
+    screenshot: "/projects/rasmutafoundation.png",
+    tags: ["Web Design", "Foundation", "Content"],
   },
   {
-    title: "Grace Chapel Live Streaming",
-    category: "Hardware & IT Support",
-    description: "End-to-end live streaming setup with multi-camera switching, sound and network for weekly services reaching 4 continents.",
-    tags: ["OBS", "CCTV", "Networking"],
-    metric: "4",
-    metricLabel: "Continents reached",
+    title: "Fafaa FM Online",
+    category: "Radio / Media",
+    description:
+      "Live-streaming radio station website — Information For Intervention. News, presenters, live audio and community engagement.",
+    url: "https://fafaafmonline.com/",
+    screenshot: "/projects/fafaafmonline.png",
+    tags: ["Web Design", "Live Streaming", "Media"],
   },
   {
-    title: "Accra Retail Chain POS Rollout",
-    category: "Business Services",
-    description: "Deployed a unified POS, inventory and loyalty platform across 14 retail outlets with central reporting dashboard.",
-    tags: ["POS", "ERP", "Loyalty"],
-    metric: "14",
-    metricLabel: "Outlets live",
+    title: "Duamenefa Foundation",
+    category: "NGO / Peace Building",
+    description:
+      "Foundation website for community co-existence and peace-building work — Let Us Co-Exist in Peace.",
+    url: "https://duamenefafoundation.org/",
+    screenshot: "/projects/duamenefafoundation.png",
+    tags: ["Web Design", "NGO", "Community"],
+  },
+  {
+    title: "24Hour News Online",
+    category: "News / Media",
+    description:
+      "Round-the-clock Ghanaian news website delivering breaking news, politics, business and sports to a national audience.",
+    url: "https://24hournewsonline.com/",
+    screenshot: "/projects/24hournewsonline.png",
+    tags: ["Web Design", "News", "Media"],
   },
 ];
 
