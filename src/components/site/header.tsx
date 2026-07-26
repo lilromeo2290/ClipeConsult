@@ -172,7 +172,7 @@ export function Header() {
                         aria-haspopup="true"
                         aria-expanded={dropdownOpen}
                         className={cn(
-                          "relative px-3 py-2 text-sm font-medium rounded-md transition-colors inline-flex items-center gap-1",
+                          "relative px-3 py-2 text-sm font-bold rounded-md transition-colors inline-flex items-center gap-1",
                           (isActive || isResActive || dropdownOpen)
                             ? "text-[#1B2A5C]"
                             : "text-[#1B2A5C]/70 hover:text-[#1B2A5C]"
@@ -262,7 +262,7 @@ export function Header() {
                       handleNav(item.href);
                     }}
                     className={cn(
-                      "relative px-3 py-2 text-sm font-medium rounded-md transition-colors",
+                      "relative px-3 py-2 text-sm font-bold rounded-md transition-colors",
                       isActive
                         ? "text-[#1B2A5C]"
                         : "text-[#1B2A5C]/70 hover:text-[#1B2A5C]"
@@ -360,7 +360,7 @@ export function Header() {
                       onClick={() => setMobileResourcesOpen((v) => !v)}
                       aria-expanded={mobileResourcesOpen}
                       className={cn(
-                        "w-full flex items-center justify-between px-4 py-3 text-base font-medium transition-colors",
+                        "w-full flex items-center justify-between px-4 py-3 text-base font-bold transition-colors",
                         (isResActive || mobileResourcesOpen)
                           ? "bg-[#EEF1F8] text-[#1B2A5C]"
                           : "text-[#1B2A5C] hover:bg-slate-50"
@@ -399,7 +399,7 @@ export function Header() {
                                   handleNav(child.href);
                                 }}
                                 className={cn(
-                                  "flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors",
+                                  "flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-semibold transition-colors",
                                   childActive
                                     ? "bg-[#1B2A5C] text-white"
                                     : "text-[#1B2A5C]/80 hover:bg-slate-50"
@@ -430,7 +430,7 @@ export function Header() {
                     handleNav(item.href);
                   }}
                   className={cn(
-                    "flex items-center justify-between px-4 py-3 rounded-lg text-base font-medium transition-colors",
+                    "flex items-center justify-between px-4 py-3 rounded-lg text-base font-bold transition-colors",
                     isActive
                       ? "bg-[#EEF1F8] text-[#1B2A5C]"
                       : "text-[#1B2A5C] hover:bg-slate-50"

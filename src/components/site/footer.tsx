@@ -140,7 +140,7 @@ export function Footer() {
                         e.preventDefault();
                         handleNav(item.href);
                       }}
-                      className="text-sm text-white/65 hover:text-white transition-colors"
+                      className="text-sm font-medium text-white/70 hover:text-white transition-colors"
                     >
                       {item.label}
                     </a>
@@ -165,7 +165,7 @@ export function Footer() {
                         e.preventDefault();
                         handleNav(item.href);
                       }}
-                      className="text-sm text-white/65 hover:text-white transition-colors"
+                      className="text-sm font-medium text-white/70 hover:text-white transition-colors"
                     >
                       {item.label}
                     </a>
@@ -188,7 +188,7 @@ export function Footer() {
                       e.preventDefault();
                       handleNav("#services");
                     }}
-                    className="text-sm text-white/65 hover:text-white transition-colors"
+                    className="text-sm font-medium text-white/70 hover:text-white transition-colors"
                   >
                     {s.title}
                   </a>
