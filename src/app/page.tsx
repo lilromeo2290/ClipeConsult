@@ -7,7 +7,6 @@ import { WhyChooseUs } from "@/components/site/why-choose-us";
 import { Projects } from "@/components/site/projects";
 import { Industries } from "@/components/site/industries";
 import { Training } from "@/components/site/training";
-import { Blog } from "@/components/site/blog";
 import { FAQ } from "@/components/site/faq";
 import { CTA } from "@/components/site/cta";
 import { Contact } from "@/components/site/contact";
@@ -27,7 +26,6 @@ export default function Home() {
         <Projects />
         <Industries />
         <Training />
-        <Blog />
         <FAQ />
         <CTA />
         <Contact />

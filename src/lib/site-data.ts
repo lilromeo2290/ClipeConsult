@@ -444,7 +444,6 @@ export const navItems: NavItem[] = [
     href: "#resources",
     children: [
       { label: "Training", href: "#training", description: "IT courses, corporate training & ICT for schools" },
-      { label: "Blog", href: "#blog", description: "Insights, tips & tutorials on technology in Ghana" },
       { label: "FAQs", href: "#faqs", description: "Answers to the questions we hear most" },
     ],
   },
