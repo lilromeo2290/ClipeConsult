@@ -61,8 +61,8 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-4">
             <div className="flex items-center gap-3 mb-5">
-              <div className="relative h-14 w-auto rounded-lg overflow-hidden shadow-md flex-shrink-0 bg-white p-1">
-                <img src="/logo.png" alt="Clipe Consult logo" className="h-full w-auto object-contain" width={168} height={56} />
+              <div className="relative h-14 w-14 rounded-lg overflow-hidden shadow-md flex-shrink-0 bg-white p-0.5">
+                <img src="/logo-icon.png" alt="Clipe Consult logo" className="h-full w-full object-contain" width={56} height={56} />
               </div>
               <div className="flex flex-col leading-tight">
                 <span className="font-bold text-xl font-[family-name:var(--font-poppins)] text-white">

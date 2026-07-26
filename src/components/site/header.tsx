@@ -105,13 +105,13 @@ export function Header() {
               className="flex items-center gap-3 group"
               aria-label="Clipe Consult — Home"
             >
-              {/* Real logo — preserved aspect ratio (3:1), no crop */}
-              <div className="relative h-12 w-auto rounded-lg overflow-hidden shadow-md group-hover:shadow-lg transition-shadow flex-shrink-0 bg-white">
+              {/* Icon logo — square format, preserves aspect ratio */}
+              <div className="relative h-12 w-12 rounded-xl overflow-hidden shadow-md group-hover:shadow-lg transition-shadow flex-shrink-0 bg-white">
                 <img
-                  src="/logo.png"
+                  src="/logo-icon.png"
                   alt="Clipe Consult logo"
-                  className="h-full w-auto object-contain"
-                  width={144}
+                  className="h-full w-full object-contain p-0.5"
+                  width={48}
                   height={48}
                 />
               </div>
@@ -203,8 +203,8 @@ export function Header() {
         >
           <div className="flex items-center justify-between p-6 border-b border-slate-100">
             <div className="flex items-center gap-3">
-              <div className="relative h-10 w-auto rounded-md overflow-hidden shadow-sm flex-shrink-0 bg-white">
-                <img src="/logo.png" alt="Clipe Consult logo" className="h-full w-auto object-contain" width={120} height={40} />
+              <div className="relative h-10 w-10 rounded-lg overflow-hidden shadow-sm flex-shrink-0 bg-white">
+                <img src="/logo-icon.png" alt="Clipe Consult logo" className="h-full w-full object-contain p-0.5" width={40} height={40} />
               </div>
               <div className="flex flex-col leading-tight">
                 <span className="text-[#1B2A5C] font-bold text-base font-[family-name:var(--font-poppins)]">
