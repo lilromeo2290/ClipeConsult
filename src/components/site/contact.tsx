@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import {
   Phone, Mail, MapPin, Clock, MessageCircle, Send, CheckCircle2,
-  Facebook, Building2,
+  Building2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -185,31 +185,6 @@ export function Contact() {
                   className="text-xs font-semibold text-[#1B2A5C] hover:underline"
                 >
                   Open in Google Maps →
-                </a>
-              </div>
-            </div>
-
-            {/* Social */}
-            <div className="rounded-xl p-5 bg-[#1B2A5C] text-white">
-              <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold mb-3">Follow Clipe Consult</h3>
-              <div className="flex items-center gap-2">
-                <a
-                  href="https://facebook.com/clipeconsult"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Facebook"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 hover:bg-[#E31E24] transition-colors"
-                >
-                  <Facebook className="h-5 w-5" />
-                </a>
-                <a
-                  href={`https://wa.me/${contactInfo.whatsapp.replace(/\D/g, "")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="WhatsApp"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 hover:bg-emerald-600 transition-colors"
-                >
-                  <MessageCircle className="h-5 w-5" />
                 </a>
               </div>
             </div>
