@@ -18,7 +18,7 @@ export function Blog() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EEF1F8] text-[#1B2A5C] text-xs font-semibold mb-5"
           >
             <Rss className="h-3 w-3" />
-            From the Clipe Consult Blog
+            Latest Articles
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
