@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Target, Eye, Heart, Award, Users, TrendingUp, ShieldCheck, Clock } from "lucide-react";
+import { Target, Eye, Award, Users, TrendingUp, ShieldCheck, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const values = [
@@ -126,8 +126,9 @@ export function About() {
             </motion.div>
           </div>
 
-          {/* Right: mission/vision + image card */}
+          {/* Right: Vision + Mission featured cards */}
           <div className="space-y-6">
+            {/* Our Vision — large featured card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -151,35 +152,29 @@ export function About() {
               </div>
             </motion.div>
 
-            <div className="grid sm:grid-cols-2 gap-6">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: 0.15 }}
-                className="rounded-xl p-6 bg-[#1B2A5C] text-white shadow-lg"
-              >
-                <Target className="h-8 w-8 text-[#E31E24] mb-3" />
-                <h3 className="font-[family-name:var(--font-poppins)] text-xl font-bold mb-2">Our Mission</h3>
-                <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
-                  At Clipe Consult, our mission is to provide reliable, innovative, and cost-effective technology solutions in networking, software engineering, website development, cybersecurity, and IT consultancy. We strive to exceed client expectations by delivering exceptional service, embracing continuous innovation, empowering our employees, and creating sustainable value for our clients, partners, and communities.
-                </p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="rounded-xl p-6 bg-gradient-to-br from-[#1B2A5C] to-[#E31E24] text-white shadow-lg"
-              >
-                <Heart className="h-8 w-8 text-white mb-3" />
-                <h3 className="font-[family-name:var(--font-poppins)] text-xl font-bold mb-2">Our Promise</h3>
-                <p className="text-sm text-white/85 leading-relaxed">
-                  Honest advice, fair pricing and dependable support — every project, every client, every single time.
-                </p>
-              </motion.div>
-            </div>
+            {/* Our Mission — matching large featured card (gradient flipped for visual rhythm) */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="relative rounded-2xl overflow-hidden shadow-xl"
+            >
+              <div className="aspect-[16/11] bg-gradient-to-br from-[#E31E24] via-[#1B2A5C] to-[#1B2A5C] relative">
+                <div className="absolute inset-0 bg-grid opacity-30" />
+                <div className="absolute inset-0 flex items-center justify-center p-8 lg:p-10">
+                  <div className="text-center text-white max-w-2xl">
+                    <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-white/15 backdrop-blur-sm mb-4">
+                      <Target className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className="font-[family-name:var(--font-poppins)] text-2xl lg:text-3xl font-bold mb-3">Our Mission</h3>
+                    <p className="text-white/85 text-sm lg:text-base leading-relaxed">
+                      At Clipe Consult, our mission is to provide reliable, innovative, and cost-effective technology solutions in networking, software engineering, website development, cybersecurity, and IT consultancy. We strive to exceed client expectations by delivering exceptional service, embracing continuous innovation, empowering our employees, and creating sustainable value for our clients, partners, and communities.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
 
