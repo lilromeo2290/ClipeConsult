@@ -22,9 +22,9 @@ export function Industries() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E8F1FC] text-[#0056D2] text-xs font-semibold mb-5"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EEF1F8] text-[#1B2A5C] text-xs font-semibold mb-5"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#0056D2]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#1B2A5C]" />
             Industries We Serve
           </motion.div>
           <motion.h2
@@ -32,7 +32,7 @@ export function Industries() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl lg:text-5xl font-bold text-[#0B1F3A] leading-tight text-balance"
+            className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl lg:text-5xl font-bold text-[#1B2A5C] leading-tight text-balance"
           >
             Tailored IT solutions for every sector
           </motion.h2>
@@ -57,15 +57,15 @@ export function Industries() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.4, delay: (i % 4) * 0.06 }}
-                className="group relative rounded-xl p-5 bg-white border border-slate-200 hover:border-[#0056D2]/40 hover:shadow-lg transition-all overflow-hidden"
+                className="group relative rounded-xl p-5 bg-white border border-slate-200 hover:border-[#1B2A5C]/40 hover:shadow-lg transition-all overflow-hidden"
               >
-                <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-[#0056D2] to-[#4A90E2] origin-left scale-x-0 group-hover:scale-x-100 transition-transform" />
+                <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-[#1B2A5C] to-[#E31E24] origin-left scale-x-0 group-hover:scale-x-100 transition-transform" />
                 <div className="flex items-start gap-3">
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#E8F1FC] group-hover:bg-gradient-to-br group-hover:from-[#0056D2] group-hover:to-[#0B1F3A] transition-all flex-shrink-0">
-                    <Icon className="h-5 w-5 text-[#0056D2] group-hover:text-white transition-colors" />
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#EEF1F8] group-hover:bg-gradient-to-br group-hover:from-[#1B2A5C] group-hover:to-[#1B2A5C] transition-all flex-shrink-0">
+                    <Icon className="h-5 w-5 text-[#1B2A5C] group-hover:text-white transition-colors" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold text-[#0B1F3A] mb-1">
+                    <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold text-[#1B2A5C] mb-1">
                       {industry.name}
                     </h3>
                     <p className="text-xs text-[#5A6B82] leading-relaxed">{industry.description}</p>
@@ -91,7 +91,7 @@ export function Industries() {
                 e.preventDefault();
                 document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="text-[#0056D2] font-semibold hover:underline"
+              className="text-[#1B2A5C] font-semibold hover:underline"
             >
               Let&apos;s talk — we love new challenges →
             </a>

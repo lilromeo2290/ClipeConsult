@@ -44,9 +44,9 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E8F1FC] text-[#0056D2] text-xs font-semibold mb-5"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EEF1F8] text-[#1B2A5C] text-xs font-semibold mb-5"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#0056D2]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#1B2A5C]" />
             Get in Touch
           </motion.div>
           <motion.h2
@@ -54,7 +54,7 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl lg:text-5xl font-bold text-[#0B1F3A] leading-tight text-balance"
+            className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl lg:text-5xl font-bold text-[#1B2A5C] leading-tight text-balance"
           >
             Let&apos;s talk about your project
           </motion.h2>
@@ -82,24 +82,24 @@ export function Contact() {
             <div className="grid sm:grid-cols-2 gap-4">
               <a
                 href={`tel:${contactInfo.phonePrimary.replace(/\s/g, "")}`}
-                className="group rounded-xl p-5 bg-white border border-slate-200 hover:border-[#0056D2]/30 hover:shadow-lg transition-all"
+                className="group rounded-xl p-5 bg-white border border-slate-200 hover:border-[#1B2A5C]/30 hover:shadow-lg transition-all"
               >
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#E8F1FC] group-hover:bg-[#0056D2] transition-colors mb-3">
-                  <Phone className="h-5 w-5 text-[#0056D2] group-hover:text-white transition-colors" />
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#EEF1F8] group-hover:bg-[#1B2A5C] transition-colors mb-3">
+                  <Phone className="h-5 w-5 text-[#1B2A5C] group-hover:text-white transition-colors" />
                 </div>
-                <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold text-[#0B1F3A] mb-1">Call Us</h3>
+                <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold text-[#1B2A5C] mb-1">Call Us</h3>
                 <p className="text-xs text-[#5A6B82]">{contactInfo.phonePrimary}</p>
                 <p className="text-xs text-[#5A6B82]">{contactInfo.phoneSecondary}</p>
               </a>
 
               <a
                 href={`mailto:${contactInfo.emailPrimary}`}
-                className="group rounded-xl p-5 bg-white border border-slate-200 hover:border-[#0056D2]/30 hover:shadow-lg transition-all"
+                className="group rounded-xl p-5 bg-white border border-slate-200 hover:border-[#1B2A5C]/30 hover:shadow-lg transition-all"
               >
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#E8F1FC] group-hover:bg-[#0056D2] transition-colors mb-3">
-                  <Mail className="h-5 w-5 text-[#0056D2] group-hover:text-white transition-colors" />
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#EEF1F8] group-hover:bg-[#1B2A5C] transition-colors mb-3">
+                  <Mail className="h-5 w-5 text-[#1B2A5C] group-hover:text-white transition-colors" />
                 </div>
-                <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold text-[#0B1F3A] mb-1">Email Us</h3>
+                <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold text-[#1B2A5C] mb-1">Email Us</h3>
                 <p className="text-xs text-[#5A6B82] truncate">{contactInfo.emailPrimary}</p>
                 <p className="text-xs text-[#5A6B82] truncate">{contactInfo.emailSupport}</p>
               </a>
@@ -115,7 +115,7 @@ export function Contact() {
                     <MessageCircle className="h-5 w-5 text-emerald-600 group-hover:text-white transition-colors" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold text-[#0B1F3A] mb-0.5">Chat on WhatsApp</h3>
+                    <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold text-[#1B2A5C] mb-0.5">Chat on WhatsApp</h3>
                     <p className="text-xs text-[#5A6B82]">Fastest way to reach us — typically instant during work hours.</p>
                   </div>
                   <Send className="h-4 w-4 text-emerald-600 group-hover:translate-x-1 transition-transform" />
@@ -126,21 +126,21 @@ export function Contact() {
             {/* Address + hours */}
             <div className="rounded-xl p-5 bg-white border border-slate-200">
               <div className="flex items-start gap-4">
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#E8F1FC] flex-shrink-0">
-                  <MapPin className="h-5 w-5 text-[#0056D2]" />
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#EEF1F8] flex-shrink-0">
+                  <MapPin className="h-5 w-5 text-[#1B2A5C]" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold text-[#0B1F3A] mb-1">Visit Our Office</h3>
+                  <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold text-[#1B2A5C] mb-1">Visit Our Office</h3>
                   <p className="text-xs text-[#5A6B82] leading-relaxed">{contactInfo.address}</p>
                 </div>
               </div>
               <div className="my-4 h-px bg-slate-100" />
               <div className="flex items-start gap-4">
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#E8F1FC] flex-shrink-0">
-                  <Clock className="h-5 w-5 text-[#0056D2]" />
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#EEF1F8] flex-shrink-0">
+                  <Clock className="h-5 w-5 text-[#1B2A5C]" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold text-[#0B1F3A] mb-1">Business Hours</h3>
+                  <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold text-[#1B2A5C] mb-1">Business Hours</h3>
                   <p className="text-xs text-[#5A6B82]">{contactInfo.hoursWeekday}</p>
                   <p className="text-xs text-[#5A6B82]">{contactInfo.hoursSaturday}</p>
                   <p className="text-xs text-[#5A6B82]">{contactInfo.hoursSunday}</p>
@@ -150,7 +150,7 @@ export function Contact() {
 
             {/* Map */}
             <div className="rounded-xl overflow-hidden border border-slate-200 bg-white">
-              <div className="relative aspect-[16/10] bg-gradient-to-br from-[#0B1F3A] via-[#0056D2] to-[#4A90E2]">
+              <div className="relative aspect-[16/10] bg-gradient-to-br from-[#1B2A5C] via-[#1B2A5C] to-[#E31E24]">
                 <div className="absolute inset-0 bg-grid opacity-30" />
                 {/* Stylized map placeholder */}
                 <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice">
@@ -168,21 +168,21 @@ export function Contact() {
                     <span className="relative inline-flex h-4 w-4 rounded-full bg-white shadow-lg" />
                   </div>
                   <div className="mt-3 inline-block px-3 py-1.5 rounded-lg bg-white shadow-lg">
-                    <span className="text-xs font-bold text-[#0B1F3A]">Clipe Consult</span>
+                    <span className="text-xs font-bold text-[#1B2A5C]">Clipe Consult</span>
                     <span className="block text-[10px] text-[#5A6B82]">Ho, Volta Region</span>
                   </div>
                 </div>
               </div>
               <div className="p-4 flex items-center justify-between bg-white">
                 <div className="flex items-center gap-2">
-                  <Building2 className="h-4 w-4 text-[#0056D2]" />
+                  <Building2 className="h-4 w-4 text-[#1B2A5C]" />
                   <span className="text-xs text-[#5A6B82]">Main Street, Ho, Volta Region</span>
                 </div>
                 <a
                   href="https://www.google.com/maps/place/Ho,+Ghana"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs font-semibold text-[#0056D2] hover:underline"
+                  className="text-xs font-semibold text-[#1B2A5C] hover:underline"
                 >
                   Open in Google Maps →
                 </a>
@@ -190,7 +190,7 @@ export function Contact() {
             </div>
 
             {/* Social */}
-            <div className="rounded-xl p-5 bg-[#0B1F3A] text-white">
+            <div className="rounded-xl p-5 bg-[#1B2A5C] text-white">
               <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold mb-3">Follow Clipe Consult</h3>
               <div className="flex items-center gap-2">
                 {[
@@ -205,7 +205,7 @@ export function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.label}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 hover:bg-[#0056D2] transition-colors"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 hover:bg-[#1B2A5C] transition-colors"
                   >
                     <s.icon className="h-5 w-5" />
                   </a>
@@ -224,7 +224,7 @@ export function Contact() {
           >
             <div className="rounded-2xl p-6 lg:p-8 bg-white border border-slate-200 shadow-xl">
               <div className="mb-6">
-                <h3 className="font-[family-name:var(--font-poppins)] text-xl lg:text-2xl font-bold text-[#0B1F3A] mb-1">
+                <h3 className="font-[family-name:var(--font-poppins)] text-xl lg:text-2xl font-bold text-[#1B2A5C] mb-1">
                   Request a free consultation
                 </h3>
                 <p className="text-sm text-[#5A6B82]">
@@ -237,7 +237,7 @@ export function Contact() {
                   <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 mb-4">
                     <CheckCircle2 className="h-8 w-8 text-emerald-600" />
                   </div>
-                  <h4 className="font-[family-name:var(--font-poppins)] text-xl font-bold text-[#0B1F3A] mb-2">
+                  <h4 className="font-[family-name:var(--font-poppins)] text-xl font-bold text-[#1B2A5C] mb-2">
                     Thank you — message received!
                   </h4>
                   <p className="text-sm text-[#5A6B82] max-w-md">
@@ -248,13 +248,13 @@ export function Contact() {
                 <form onSubmit={onSubmit} className="space-y-4">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="firstName" className="text-xs font-semibold text-[#0B1F3A]">
+                      <Label htmlFor="firstName" className="text-xs font-semibold text-[#1B2A5C]">
                         First name <span className="text-red-500">*</span>
                       </Label>
                       <Input id="firstName" name="firstName" required placeholder="John" className="h-11" />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="lastName" className="text-xs font-semibold text-[#0B1F3A]">
+                      <Label htmlFor="lastName" className="text-xs font-semibold text-[#1B2A5C]">
                         Last name <span className="text-red-500">*</span>
                       </Label>
                       <Input id="lastName" name="lastName" required placeholder="Doe" className="h-11" />
@@ -263,13 +263,13 @@ export function Contact() {
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-xs font-semibold text-[#0B1F3A]">
+                      <Label htmlFor="email" className="text-xs font-semibold text-[#1B2A5C]">
                         Email <span className="text-red-500">*</span>
                       </Label>
                       <Input id="email" name="email" type="email" required placeholder="john@company.com" className="h-11" />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="phone" className="text-xs font-semibold text-[#0B1F3A]">
+                      <Label htmlFor="phone" className="text-xs font-semibold text-[#1B2A5C]">
                         Phone / WhatsApp <span className="text-red-500">*</span>
                       </Label>
                       <Input id="phone" name="phone" required placeholder="+233 244 000 000" className="h-11" />
@@ -278,13 +278,13 @@ export function Contact() {
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="organization" className="text-xs font-semibold text-[#0B1F3A]">
+                      <Label htmlFor="organization" className="text-xs font-semibold text-[#1B2A5C]">
                         Organization
                       </Label>
                       <Input id="organization" name="organization" placeholder="Your company / school / NGO" className="h-11" />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="service" className="text-xs font-semibold text-[#0B1F3A]">
+                      <Label htmlFor="service" className="text-xs font-semibold text-[#1B2A5C]">
                         Service of interest <span className="text-red-500">*</span>
                       </Label>
                       <Select name="service" required>
@@ -302,7 +302,7 @@ export function Contact() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="budget" className="text-xs font-semibold text-[#0B1F3A]">
+                    <Label htmlFor="budget" className="text-xs font-semibold text-[#1B2A5C]">
                       Estimated budget (optional)
                     </Label>
                     <Select name="budget">
@@ -320,7 +320,7 @@ export function Contact() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="message" className="text-xs font-semibold text-[#0B1F3A]">
+                    <Label htmlFor="message" className="text-xs font-semibold text-[#1B2A5C]">
                       Project details <span className="text-red-500">*</span>
                     </Label>
                     <Textarea
@@ -344,7 +344,7 @@ export function Contact() {
                     type="submit"
                     size="lg"
                     disabled={submitting}
-                    className="w-full h-12 bg-[#0056D2] hover:bg-[#004BB0] text-white text-base font-semibold shadow-brand group"
+                    className="w-full h-12 bg-[#1B2A5C] hover:bg-[#142149] text-white text-base font-semibold shadow-brand group"
                   >
                     {submitting ? (
                       <>

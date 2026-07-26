@@ -21,14 +21,14 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-[#0B1F3A] text-white pt-16 pb-24 lg:pt-24 lg:pb-32"
+      className="relative overflow-hidden bg-[#1B2A5C] text-white pt-16 pb-24 lg:pt-24 lg:pb-32"
       aria-label="Hero"
     >
       {/* Background layers */}
       <div className="absolute inset-0 bg-grid opacity-60" aria-hidden />
       <div className="absolute inset-0 bg-radial-fade" aria-hidden />
-      <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-[#0056D2]/30 blur-3xl" aria-hidden />
-      <div className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-[#4A90E2]/20 blur-3xl" aria-hidden />
+      <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-[#1B2A5C]/30 blur-3xl" aria-hidden />
+      <div className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-[#E31E24]/20 blur-3xl" aria-hidden />
 
       {/* Floating badges (desktop only) */}
       {floatingBadges.map((b, i) => (
@@ -44,7 +44,7 @@ export function Hero() {
             y: { duration: 4 + i, repeat: Infinity, ease: "easeInOut" },
           }}
         >
-          <b.icon className="h-4 w-4 text-[#4A90E2]" />
+          <b.icon className="h-4 w-4 text-[#E31E24]" />
           {b.label}
         </motion.div>
       ))}
@@ -72,7 +72,7 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.05 }}
               className="font-[family-name:var(--font-poppins)] text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-balance"
             >
-              Empowering Businesses Through <span className="bg-gradient-to-r from-[#4A90E2] to-white bg-clip-text text-transparent">Innovative IT Solutions</span>
+              Empowering Businesses Through <span className="bg-gradient-to-r from-[#E31E24] to-white bg-clip-text text-transparent">Innovative IT Solutions</span>
             </motion.h1>
 
             <motion.p
@@ -93,7 +93,7 @@ export function Hero() {
               <Button
                 size="lg"
                 onClick={() => scrollTo("contact")}
-                className="bg-[#0056D2] hover:bg-[#004BB0] text-white shadow-brand hover:shadow-lg transition-all h-12 px-6 text-base font-semibold group"
+                className="bg-[#E31E24] hover:bg-[#C0181F] text-white shadow-brand hover:shadow-lg transition-all h-12 px-6 text-base font-semibold group"
               >
                 Get Free Consultation
                 <ArrowRight className="h-5 w-5 ml-2 transition-transform group-hover:translate-x-1" />
@@ -128,7 +128,7 @@ export function Hero() {
                 <div key={s.label} className="flex flex-col">
                   <span className="font-[family-name:var(--font-poppins)] text-3xl lg:text-4xl font-extrabold text-white">
                     {s.value}
-                    <span className="text-[#4A90E2]">{s.suffix}</span>
+                    <span className="text-[#E31E24]">{s.suffix}</span>
                   </span>
                   <span className="mt-1 text-xs lg:text-sm text-white/65 leading-snug">{s.label}</span>
                 </div>
@@ -145,7 +145,7 @@ export function Hero() {
               className="relative"
             >
               {/* Glow */}
-              <div className="absolute -inset-4 bg-gradient-to-tr from-[#0056D2]/40 to-[#4A90E2]/30 blur-2xl rounded-3xl" aria-hidden />
+              <div className="absolute -inset-4 bg-gradient-to-tr from-[#1B2A5C]/40 to-[#E31E24]/30 blur-2xl rounded-3xl" aria-hidden />
 
               {/* Main card */}
               <div className="relative glass-card rounded-2xl p-6 shadow-2xl">
@@ -171,7 +171,7 @@ export function Hero() {
                       {[40, 65, 50, 80, 55, 90, 75, 95, 70, 88, 92, 78].map((h, i) => (
                         <motion.div
                           key={i}
-                          className="flex-1 rounded-t bg-gradient-to-t from-[#0056D2] to-[#4A90E2]"
+                          className="flex-1 rounded-t bg-gradient-to-t from-[#1B2A5C] to-[#E31E24]"
                           initial={{ height: 0 }}
                           animate={{ height: `${h}%` }}
                           transition={{ delay: 0.8 + i * 0.05, duration: 0.6, ease: "easeOut" }}
@@ -182,8 +182,8 @@ export function Hero() {
 
                   <div className="rounded-xl bg-white/5 border border-white/10 p-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="h-7 w-7 rounded-lg bg-[#0056D2]/30 flex items-center justify-center">
-                        <ShieldCheck className="h-4 w-4 text-[#4A90E2]" />
+                      <div className="h-7 w-7 rounded-lg bg-[#1B2A5C]/30 flex items-center justify-center">
+                        <ShieldCheck className="h-4 w-4 text-[#E31E24]" />
                       </div>
                       <span className="text-xs text-white/70 font-medium">Threats Blocked</span>
                     </div>
@@ -193,8 +193,8 @@ export function Hero() {
 
                   <div className="rounded-xl bg-white/5 border border-white/10 p-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="h-7 w-7 rounded-lg bg-[#0056D2]/30 flex items-center justify-center">
-                        <Cpu className="h-4 w-4 text-[#4A90E2]" />
+                      <div className="h-7 w-7 rounded-lg bg-[#1B2A5C]/30 flex items-center justify-center">
+                        <Cpu className="h-4 w-4 text-[#E31E24]" />
                       </div>
                       <span className="text-xs text-white/70 font-medium">Avg Load</span>
                     </div>
@@ -205,7 +205,7 @@ export function Hero() {
                   <div className="rounded-xl bg-white/5 border border-white/10 p-4 col-span-2">
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-xs text-white/70 font-medium">Active Projects</span>
-                      <span className="text-xs text-[#4A90E2]">View all</span>
+                      <span className="text-xs text-[#E31E24]">View all</span>
                     </div>
                     <div className="space-y-2">
                       {[
@@ -217,7 +217,7 @@ export function Hero() {
                           <span className="text-[11px] text-white/60 flex-1 truncate">{p.name}</span>
                           <div className="w-20 h-1.5 rounded-full bg-white/10 overflow-hidden">
                             <motion.div
-                              className="h-full bg-gradient-to-r from-[#0056D2] to-[#4A90E2]"
+                              className="h-full bg-gradient-to-r from-[#1B2A5C] to-[#E31E24]"
                               initial={{ width: 0 }}
                               animate={{ width: `${p.progress}%` }}
                               transition={{ delay: 1.4, duration: 0.8 }}

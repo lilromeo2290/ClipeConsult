@@ -1,41 +1,61 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0B1F3A"/>
-      <stop offset="1" stop-color="#0056D2"/>
+      <stop offset="0" stop-color="#1B2A5C"/>
+      <stop offset="1" stop-color="#0F1F4A"/>
     </linearGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#4A90E2"/>
-      <stop offset="1" stop-color="#FFFFFF"/>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#E31E24"/>
+      <stop offset="1" stop-color="#FF4A50"/>
     </linearGradient>
     <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
       <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
     </pattern>
   </defs>
+
   <rect width="1200" height="630" fill="url(#bg)"/>
   <rect width="1200" height="630" fill="url(#grid)"/>
-  <circle cx="980" cy="120" r="280" fill="rgba(74,144,226,0.18)"/>
-  <circle cx="180" cy="520" r="200" fill="rgba(0,86,210,0.25)"/>
+  <circle cx="980" cy="120" r="280" fill="rgba(227,30,36,0.15)"/>
+  <circle cx="180" cy="520" r="200" fill="rgba(58,77,133,0.4)"/>
 
-  <!-- Logo mark -->
+  <!-- Logo block (icon + wordmark) -->
   <g transform="translate(96, 96)">
-    <rect width="80" height="80" rx="18" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)"/>
-    <path d="M24 22 L24 58 L56 58" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="56" cy="22" r="4" fill="#4A90E2"/>
-    <circle cx="56" cy="58" r="4" fill="#FFFFFF"/>
+    <!-- Icon container -->
+    <g transform="translate(0, 0)">
+      <rect width="80" height="80" rx="18" fill="#0F1F4A"/>
+      <!-- Gear teeth -->
+      <g fill="#2A3D75">
+        <rect x="36" y="6" width="8" height="8" rx="1.5"/>
+        <rect x="36" y="66" width="8" height="8" rx="1.5"/>
+        <rect x="6" y="36" width="8" height="8" rx="1.5"/>
+        <rect x="66" y="36" width="8" height="8" rx="1.5"/>
+        <rect x="14" y="14" width="8" height="8" rx="1.5" transform="rotate(45 18 18)"/>
+        <rect x="58" y="14" width="8" height="8" rx="1.5" transform="rotate(-45 62 18)"/>
+        <rect x="14" y="58" width="8" height="8" rx="1.5" transform="rotate(-45 18 62)"/>
+        <rect x="58" y="58" width="8" height="8" rx="1.5" transform="rotate(45 62 62)"/>
+      </g>
+      <!-- Buildings -->
+      <polygon points="40,18 48,22 48,60 32,60 32,22" fill="#E31E24"/>
+      <polygon points="50,28 58,32 58,60 50,60" fill="#E31E24"/>
+      <polygon points="22,32 30,34 30,60 22,60" fill="#FFFFFF"/>
+      <!-- Swoosh -->
+      <path d="M 10 64 Q 40 72 70 64" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
+
+    <!-- Wordmark -->
+    <text x="100" y="40" font-family="Poppins, Arial, sans-serif" font-size="32" font-weight="800" fill="#FFFFFF" letter-spacing="2">CLIPE</text>
+    <text x="100" y="72" font-family="Poppins, Arial, sans-serif" font-size="22" font-weight="700" fill="#E31E24" letter-spacing="4.5">CONSULT</text>
   </g>
-  <text x="196" y="148" font-family="Poppins, Inter, sans-serif" font-size="36" font-weight="700" fill="#FFFFFF">Clipe Consult</text>
-  <text x="196" y="180" font-family="Inter, sans-serif" font-size="20" fill="rgba(255,255,255,0.7)">IT Consulting • Ghana</text>
 
   <!-- Headline -->
-  <text x="96" y="320" font-family="Poppins, sans-serif" font-size="64" font-weight="800" fill="#FFFFFF">Empowering Businesses</text>
-  <text x="96" y="392" font-family="Poppins, sans-serif" font-size="64" font-weight="800" fill="url(#accent)">Through Innovative IT</text>
+  <text x="96" y="320" font-family="Poppins, Arial, sans-serif" font-size="60" font-weight="800" fill="#FFFFFF">Empowering Businesses</text>
+  <text x="96" y="392" font-family="Poppins, Arial, sans-serif" font-size="60" font-weight="800" fill="url(#red)">Through Innovative IT</text>
 
-  <text x="96" y="448" font-family="Inter, sans-serif" font-size="26" fill="rgba(255,255,255,0.85)">Website Design • Software Development • IT Support • Hosting • Networks • Training</text>
+  <text x="96" y="448" font-family="Inter, Arial, sans-serif" font-size="24" fill="rgba(255,255,255,0.85)">Website Design • Software Development • IT Support • Hosting • Networks • Training</text>
 
   <g transform="translate(96, 510)">
-    <rect width="280" height="60" rx="30" fill="#0056D2"/>
-    <text x="140" y="38" font-family="Poppins, sans-serif" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle">Get Free Consultation</text>
+    <rect width="280" height="60" rx="30" fill="#E31E24"/>
+    <text x="140" y="38" font-family="Poppins, Arial, sans-serif" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle">Get Free Consultation</text>
   </g>
-  <text x="404" y="548" font-family="Inter, sans-serif" font-size="20" fill="rgba(255,255,255,0.85)">www.clipeconsult.com</text>
+  <text x="404" y="548" font-family="Inter, Arial, sans-serif" font-size="20" fill="rgba(255,255,255,0.85)">www.clipeconsult.com</text>
 </svg>

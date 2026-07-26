@@ -64,8 +64,12 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.svg",
-    apple: "/favicon.svg",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/logo.png", type: "image/png", sizes: "2172x724" },
+    ],
+    apple: [{ url: "/logo.png", sizes: "2172x724" }],
+    shortcut: ["/favicon.svg"],
   },
   openGraph: {
     type: "website",
@@ -94,7 +98,7 @@ export const metadata: Metadata = {
   },
   category: "technology",
   other: {
-    "theme-color": "#0056D2",
+    "theme-color": "#1B2A5C",
     "format-detection": "telephone=no",
   },
 };
@@ -104,10 +108,11 @@ const organizationSchema = {
   "@type": "Organization",
   name: "Clipe Consult",
   legalName: "Clipe Consult",
+  slogan: "Building Innovations | Engineering Excellence",
   description:
     "Ghana-based IT consulting company providing website design, software development, IT support, web hosting, network solutions, IT training and business technology services.",
   url: SITE_URL,
-  logo: `${SITE_URL}/favicon.svg`,
+  logo: `${SITE_URL}/logo.png`,
   image: `${SITE_URL}/og-image.svg`,
   email: "info@clipeconsult.com",
   telephone: "+233 244 000 000",
@@ -152,7 +157,7 @@ const localBusinessSchema = {
   "@type": "LocalBusiness",
   "@id": `${SITE_URL}/#localbusiness`,
   name: "Clipe Consult",
-  image: `${SITE_URL}/og-image.svg`,
+  image: `${SITE_URL}/logo.png`,
   url: SITE_URL,
   telephone: "+233 244 000 000",
   email: "info@clipeconsult.com",

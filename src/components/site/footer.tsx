@@ -25,9 +25,9 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#0B1F3A] text-white overflow-hidden">
+    <footer className="relative bg-[#1B2A5C] text-white overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-20" aria-hidden />
-      <div className="absolute top-0 right-0 h-64 w-64 rounded-full bg-[#0056D2]/15 blur-3xl" aria-hidden />
+      <div className="absolute top-0 right-0 h-64 w-64 rounded-full bg-[#1B2A5C]/15 blur-3xl" aria-hidden />
 
       <div className="container mx-auto max-w-7xl px-6 relative">
         {/* Top CTA strip */}
@@ -47,9 +47,9 @@ export function Footer() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="h-12 bg-white/10 border-white/15 text-white placeholder:text-white/40 focus:bg-white/15 focus:border-[#4A90E2]"
+              className="h-12 bg-white/10 border-white/15 text-white placeholder:text-white/40 focus:bg-white/15 focus:border-[#E31E24]"
             />
-            <Button type="submit" size="lg" className="h-12 bg-[#0056D2] hover:bg-[#004BB0] text-white px-6 group flex-shrink-0">
+            <Button type="submit" size="lg" className="h-12 bg-[#1B2A5C] hover:bg-[#142149] text-white px-6 group flex-shrink-0">
               Subscribe
               <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
@@ -61,41 +61,42 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-4">
             <div className="flex items-center gap-3 mb-5">
-              <div className="relative h-12 w-12 rounded-xl bg-gradient-to-br from-[#0056D2] to-[#4A90E2] flex items-center justify-center shadow-md">
-                <span className="text-white font-bold text-2xl font-[family-name:var(--font-poppins)]">C</span>
-                <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-emerald-400 ring-2 ring-[#0B1F3A]" />
+              <div className="relative h-14 w-14 rounded-xl overflow-hidden shadow-md flex-shrink-0 bg-white">
+                <img src="/logo.png" alt="Clipe Consult logo" className="h-full w-full object-cover" width={56} height={56} />
               </div>
               <div className="flex flex-col leading-tight">
-                <span className="font-bold text-xl font-[family-name:var(--font-poppins)]">Clipe Consult</span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-[#4A90E2] font-medium">
-                  IT Consulting • Ghana
+                <span className="font-bold text-xl font-[family-name:var(--font-poppins)] text-white">
+                  CLIPE <span className="text-[#E31E24]">CONSULT</span>
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.18em] text-white/55 font-medium">
+                  Building Innovations • Engineering Excellence
                 </span>
               </div>
             </div>
             <p className="text-sm text-white/65 leading-relaxed mb-5">
-              Empowering Ghanaian businesses through innovative IT solutions — website design, software development, IT support, hosting, networks and training. Trusted by 180+ organizations across Ghana.
+              <span className="text-white/90 font-semibold">Building Innovations | Engineering Excellence.</span> Empowering Ghanaian businesses through innovative IT solutions — website design, software development, IT support, hosting, networks and training. Trusted by 180+ organizations across Ghana.
             </p>
 
             {/* Contact list */}
             <ul className="space-y-2.5 text-sm">
               <li className="flex items-start gap-2.5 text-white/75">
-                <MapPin className="h-4 w-4 mt-0.5 text-[#4A90E2] flex-shrink-0" />
+                <MapPin className="h-4 w-4 mt-0.5 text-[#E31E24] flex-shrink-0" />
                 <span>{contactInfo.address}</span>
               </li>
               <li>
                 <a href={`tel:${contactInfo.phonePrimary.replace(/\s/g, "")}`} className="flex items-center gap-2.5 text-white/75 hover:text-white transition">
-                  <Phone className="h-4 w-4 text-[#4A90E2] flex-shrink-0" />
+                  <Phone className="h-4 w-4 text-[#E31E24] flex-shrink-0" />
                   <span>{contactInfo.phonePrimary}</span>
                 </a>
               </li>
               <li>
                 <a href={`mailto:${contactInfo.emailPrimary}`} className="flex items-center gap-2.5 text-white/75 hover:text-white transition">
-                  <Mail className="h-4 w-4 text-[#4A90E2] flex-shrink-0" />
+                  <Mail className="h-4 w-4 text-[#E31E24] flex-shrink-0" />
                   <span>{contactInfo.emailPrimary}</span>
                 </a>
               </li>
               <li className="flex items-start gap-2.5 text-white/75">
-                <Clock className="h-4 w-4 mt-0.5 text-[#4A90E2] flex-shrink-0" />
+                <Clock className="h-4 w-4 mt-0.5 text-[#E31E24] flex-shrink-0" />
                 <span>{contactInfo.hoursWeekday}<br />{contactInfo.hoursSaturday}</span>
               </li>
             </ul>
@@ -115,7 +116,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 border border-white/10 hover:bg-[#0056D2] hover:border-[#0056D2] transition-colors"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 border border-white/10 hover:bg-[#1B2A5C] hover:border-[#1B2A5C] transition-colors"
                 >
                   <s.icon className="h-4 w-4" />
                 </a>
@@ -182,7 +183,7 @@ export function Footer() {
                 { icon: Mail, label: "Ghana Data Protection Act compliant" },
               ].map((b) => (
                 <li key={b.label} className="flex items-start gap-2.5">
-                  <b.icon className="h-4 w-4 mt-0.5 text-[#4A90E2] flex-shrink-0" />
+                  <b.icon className="h-4 w-4 mt-0.5 text-[#E31E24] flex-shrink-0" />
                   <span className="text-sm text-white/65 leading-relaxed">{b.label}</span>
                 </li>
               ))}

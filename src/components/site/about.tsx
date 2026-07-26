@@ -39,7 +39,7 @@ export function About() {
     <section id="about" className="relative py-20 lg:py-28 bg-white overflow-hidden">
       {/* Decorative bg */}
       <div className="absolute inset-0 bg-grid-dark opacity-50" aria-hidden />
-      <div className="absolute top-1/2 -right-32 h-96 w-96 rounded-full bg-[#0056D2]/5 blur-3xl" aria-hidden />
+      <div className="absolute top-1/2 -right-32 h-96 w-96 rounded-full bg-[#1B2A5C]/5 blur-3xl" aria-hidden />
 
       <div className="container mx-auto max-w-7xl px-6 relative">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
@@ -50,9 +50,9 @@ export function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E8F1FC] text-[#0056D2] text-xs font-semibold mb-5"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EEF1F8] text-[#1B2A5C] text-xs font-semibold mb-5"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#0056D2]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#1B2A5C]" />
               About Clipe Consult
             </motion.div>
 
@@ -61,7 +61,7 @@ export function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, delay: 0.05 }}
-              className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl lg:text-5xl font-bold text-[#0B1F3A] leading-tight text-balance"
+              className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl lg:text-5xl font-bold text-[#1B2A5C] leading-tight text-balance"
             >
               Your trusted technology partner, rooted in Ghana.
             </motion.h2>
@@ -95,10 +95,10 @@ export function About() {
             >
               {highlights.map((h) => (
                 <div key={h.label} className="flex items-center gap-3 p-3 rounded-lg border border-slate-200 bg-white">
-                  <div className="h-9 w-9 rounded-lg bg-[#E8F1FC] flex items-center justify-center">
-                    <h.icon className="h-4 w-4 text-[#0056D2]" />
+                  <div className="h-9 w-9 rounded-lg bg-[#EEF1F8] flex items-center justify-center">
+                    <h.icon className="h-4 w-4 text-[#1B2A5C]" />
                   </div>
-                  <span className="text-sm font-medium text-[#0B1F3A]">{h.label}</span>
+                  <span className="text-sm font-medium text-[#1B2A5C]">{h.label}</span>
                 </div>
               ))}
             </motion.div>
@@ -112,14 +112,14 @@ export function About() {
             >
               <Button
                 onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
-                className="bg-[#0056D2] hover:bg-[#004BB0] text-white"
+                className="bg-[#1B2A5C] hover:bg-[#142149] text-white"
               >
                 Explore Our Services
               </Button>
               <Button
                 variant="outline"
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="border-[#0B1F3A]/20 text-[#0B1F3A] hover:bg-[#0B1F3A] hover:text-white"
+                className="border-[#1B2A5C]/20 text-[#1B2A5C] hover:bg-[#1B2A5C] hover:text-white"
               >
                 Talk to Our Team
               </Button>
@@ -135,7 +135,7 @@ export function About() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="relative rounded-2xl overflow-hidden shadow-xl"
             >
-              <div className="aspect-[16/10] bg-gradient-to-br from-[#0B1F3A] via-[#0056D2] to-[#4A90E2] relative">
+              <div className="aspect-[16/10] bg-gradient-to-br from-[#1B2A5C] via-[#1B2A5C] to-[#E31E24] relative">
                 <div className="absolute inset-0 bg-grid opacity-30" />
                 <div className="absolute inset-0 flex items-center justify-center p-8">
                   <div className="text-center text-white">
@@ -157,9 +157,9 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="rounded-xl p-6 bg-[#0B1F3A] text-white shadow-lg"
+                className="rounded-xl p-6 bg-[#1B2A5C] text-white shadow-lg"
               >
-                <Eye className="h-8 w-8 text-[#4A90E2] mb-3" />
+                <Eye className="h-8 w-8 text-[#E31E24] mb-3" />
                 <h3 className="font-[family-name:var(--font-poppins)] text-xl font-bold mb-2">Our Vision</h3>
                 <p className="text-sm text-white/70 leading-relaxed">
                   To be West Africa&apos;s most trusted IT consulting firm — known for technical excellence, integrity and customer success.
@@ -171,7 +171,7 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="rounded-xl p-6 bg-gradient-to-br from-[#0056D2] to-[#4A90E2] text-white shadow-lg"
+                className="rounded-xl p-6 bg-gradient-to-br from-[#1B2A5C] to-[#E31E24] text-white shadow-lg"
               >
                 <Heart className="h-8 w-8 text-white mb-3" />
                 <h3 className="font-[family-name:var(--font-poppins)] text-xl font-bold mb-2">Our Promise</h3>
@@ -192,7 +192,7 @@ export function About() {
             transition={{ duration: 0.5 }}
             className="text-center max-w-2xl mx-auto mb-10"
           >
-            <h3 className="font-[family-name:var(--font-poppins)] text-2xl md:text-3xl font-bold text-[#0B1F3A] mb-3">
+            <h3 className="font-[family-name:var(--font-poppins)] text-2xl md:text-3xl font-bold text-[#1B2A5C] mb-3">
               The values that drive every project
             </h3>
             <p className="text-[#5A6B82]">
@@ -208,14 +208,14 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="group relative rounded-2xl p-6 bg-white border border-slate-200 hover:border-[#0056D2]/30 hover:shadow-xl transition-all"
+                className="group relative rounded-2xl p-6 bg-white border border-slate-200 hover:border-[#1B2A5C]/30 hover:shadow-xl transition-all"
               >
-                <div className="absolute top-0 right-0 h-20 w-20 bg-gradient-to-br from-[#0056D2]/5 to-transparent rounded-bl-3xl rounded-tr-2xl transition-opacity group-hover:opacity-100 opacity-0" />
+                <div className="absolute top-0 right-0 h-20 w-20 bg-gradient-to-br from-[#1B2A5C]/5 to-transparent rounded-bl-3xl rounded-tr-2xl transition-opacity group-hover:opacity-100 opacity-0" />
                 <div className="relative">
-                  <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-[#0056D2] to-[#0B1F3A] flex items-center justify-center mb-4 shadow-md group-hover:scale-105 transition-transform">
+                  <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-[#1B2A5C] to-[#1B2A5C] flex items-center justify-center mb-4 shadow-md group-hover:scale-105 transition-transform">
                     <v.icon className="h-6 w-6 text-white" />
                   </div>
-                  <h4 className="font-[family-name:var(--font-poppins)] text-lg font-bold text-[#0B1F3A] mb-2">
+                  <h4 className="font-[family-name:var(--font-poppins)] text-lg font-bold text-[#1B2A5C] mb-2">
                     {v.title}
                   </h4>
                   <p className="text-sm text-[#5A6B82] leading-relaxed">{v.description}</p>

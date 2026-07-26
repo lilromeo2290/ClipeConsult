@@ -14,10 +14,10 @@ const perks = [
 
 export function Careers() {
   return (
-    <section id="careers" className="relative py-20 lg:py-28 bg-[#0B1F3A] text-white overflow-hidden">
+    <section id="careers" className="relative py-20 lg:py-28 bg-[#1B2A5C] text-white overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-30" aria-hidden />
-      <div className="absolute top-0 right-0 h-80 w-80 rounded-full bg-[#0056D2]/20 blur-3xl" aria-hidden />
-      <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-[#4A90E2]/15 blur-3xl" aria-hidden />
+      <div className="absolute top-0 right-0 h-80 w-80 rounded-full bg-[#1B2A5C]/20 blur-3xl" aria-hidden />
+      <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-[#E31E24]/15 blur-3xl" aria-hidden />
 
       <div className="container mx-auto max-w-7xl px-6 relative">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
@@ -30,7 +30,7 @@ export function Careers() {
               transition={{ duration: 0.5 }}
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-semibold mb-5"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#4A90E2]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#E31E24]" />
               Careers at Clipe Consult
             </motion.div>
             <motion.h2
@@ -62,7 +62,7 @@ export function Careers() {
                   transition={{ duration: 0.4, delay: i * 0.06 }}
                   className="rounded-xl p-4 bg-white/5 border border-white/10 backdrop-blur-sm"
                 >
-                  <perk.icon className="h-5 w-5 text-[#4A90E2] mb-2" />
+                  <perk.icon className="h-5 w-5 text-[#E31E24] mb-2" />
                   <h3 className="font-[family-name:var(--font-poppins)] text-sm font-bold mb-1">{perk.title}</h3>
                   <p className="text-xs text-white/60 leading-relaxed">{perk.description}</p>
                 </motion.div>
@@ -77,7 +77,7 @@ export function Careers() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, delay: 0.15 }}
-              className="rounded-2xl p-6 lg:p-8 bg-white text-[#0B1F3A] shadow-2xl"
+              className="rounded-2xl p-6 lg:p-8 bg-white text-[#1B2A5C] shadow-2xl"
             >
               <div className="flex items-center justify-between mb-6">
                 <div>
@@ -101,16 +101,16 @@ export function Careers() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.4, delay: i * 0.06 }}
-                    className="group rounded-xl p-4 border border-slate-200 hover:border-[#0056D2]/30 hover:bg-[#F4F6FA] transition-all cursor-pointer"
+                    className="group rounded-xl p-4 border border-slate-200 hover:border-[#1B2A5C]/30 hover:bg-[#F4F6FA] transition-all cursor-pointer"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-[family-name:var(--font-poppins)] text-base font-bold text-[#0B1F3A] group-hover:text-[#0056D2] transition-colors">
+                        <h4 className="font-[family-name:var(--font-poppins)] text-base font-bold text-[#1B2A5C] group-hover:text-[#1B2A5C] transition-colors">
                           {role.title}
                         </h4>
                         <p className="text-sm text-[#5A6B82] mt-1.5 leading-relaxed line-clamp-2">{role.description}</p>
                         <div className="flex flex-wrap items-center gap-3 mt-3 text-[11px] text-[#5A6B82]">
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#E8F1FC] text-[#0056D2] font-medium">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#EEF1F8] text-[#1B2A5C] font-medium">
                             <Briefcase className="h-3 w-3" />
                             {role.type}
                           </span>
@@ -120,7 +120,7 @@ export function Careers() {
                           </span>
                         </div>
                       </div>
-                      <ArrowRight className="h-5 w-5 text-[#0056D2] flex-shrink-0 mt-1 transition-transform group-hover:translate-x-1" />
+                      <ArrowRight className="h-5 w-5 text-[#1B2A5C] flex-shrink-0 mt-1 transition-transform group-hover:translate-x-1" />
                     </div>
                   </motion.div>
                 ))}
@@ -132,7 +132,7 @@ export function Careers() {
                 </p>
                 <Button
                   onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                  className="bg-[#0056D2] hover:bg-[#004BB0] text-white"
+                  className="bg-[#1B2A5C] hover:bg-[#142149] text-white"
                 >
                   Send your CV
                   <ArrowRight className="h-4 w-4 ml-2" />

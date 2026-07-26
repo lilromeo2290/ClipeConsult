@@ -50,25 +50,25 @@ export function Header() {
   return (
     <>
       {/* Top utility bar */}
-      <div className="hidden lg:block bg-[#0B1F3A] text-white/80 text-xs">
+      <div className="hidden lg:block bg-[#1B2A5C] text-white/80 text-xs">
         <div className="container mx-auto max-w-7xl px-6 h-10 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <a href={`tel:${contactInfo.phonePrimary.replace(/\s/g, "")}`} className="flex items-center gap-2 hover:text-white transition">
-              <Phone className="h-3.5 w-3.5 text-[#4A90E2]" />
+              <Phone className="h-3.5 w-3.5 text-[#E31E24]" />
               <span>{contactInfo.phonePrimary}</span>
             </a>
             <a href={`mailto:${contactInfo.emailPrimary}`} className="flex items-center gap-2 hover:text-white transition">
-              <Mail className="h-3.5 w-3.5 text-[#4A90E2]" />
+              <Mail className="h-3.5 w-3.5 text-[#E31E24]" />
               <span>{contactInfo.emailPrimary}</span>
             </a>
             <span className="flex items-center gap-2">
-              <MapPin className="h-3.5 w-3.5 text-[#4A90E2]" />
+              <MapPin className="h-3.5 w-3.5 text-[#E31E24]" />
               <span>Ho, Volta Region, Ghana</span>
             </span>
           </div>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-2">
-              <Clock className="h-3.5 w-3.5 text-[#4A90E2]" />
+              <Clock className="h-3.5 w-3.5 text-[#E31E24]" />
               <span>Mon – Fri: 8AM – 6PM</span>
             </span>
             <a
@@ -105,16 +105,22 @@ export function Header() {
               className="flex items-center gap-3 group"
               aria-label="Clipe Consult — Home"
             >
-              <div className="relative h-11 w-11 rounded-xl bg-gradient-to-br from-[#0056D2] to-[#0B1F3A] flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
-                <span className="text-white font-bold text-xl font-[family-name:var(--font-poppins)]">C</span>
-                <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-[#4A90E2] ring-2 ring-white" />
+              {/* Real logo */}
+              <div className="relative h-12 w-12 rounded-xl overflow-hidden shadow-md group-hover:shadow-lg transition-shadow flex-shrink-0">
+                <img
+                  src="/logo.png"
+                  alt="Clipe Consult logo"
+                  className="h-full w-full object-cover"
+                  width={48}
+                  height={48}
+                />
               </div>
               <div className="flex flex-col leading-tight">
-                <span className="text-[#0B1F3A] font-bold text-lg font-[family-name:var(--font-poppins)]">
-                  Clipe Consult
+                <span className="text-[#1B2A5C] font-bold text-lg font-[family-name:var(--font-poppins)]">
+                  CLIPE <span className="text-[#E31E24]">CONSULT</span>
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-[#0056D2] font-medium">
-                  IT Consulting • Ghana
+                <span className="text-[10px] uppercase tracking-[0.2em] text-[#5A6B82] font-medium">
+                  Building Innovations • Engineering Excellence
                 </span>
               </div>
             </a>
@@ -134,13 +140,13 @@ export function Header() {
                     className={cn(
                       "relative px-3 py-2 text-sm font-medium rounded-md transition-colors",
                       isActive
-                        ? "text-[#0056D2]"
-                        : "text-[#0B1F3A]/70 hover:text-[#0056D2]"
+                        ? "text-[#1B2A5C]"
+                        : "text-[#1B2A5C]/70 hover:text-[#1B2A5C]"
                     )}
                   >
                     {item.label}
                     {isActive && (
-                      <span className="absolute inset-x-3 -bottom-0.5 h-0.5 bg-[#0056D2] rounded-full" />
+                      <span className="absolute inset-x-3 -bottom-0.5 h-0.5 bg-[#1B2A5C] rounded-full" />
                     )}
                   </a>
                 );
@@ -152,7 +158,7 @@ export function Header() {
               <Button
                 asChild
                 size="sm"
-                className="hidden md:inline-flex bg-[#0056D2] hover:bg-[#004BB0] text-white shadow-md hover:shadow-brand transition-all"
+                className="hidden md:inline-flex bg-[#1B2A5C] hover:bg-[#142149] text-white shadow-md hover:shadow-brand transition-all"
               >
                 <a
                   href="#contact"
@@ -166,7 +172,7 @@ export function Header() {
                 </a>
               </Button>
               <button
-                className="xl:hidden inline-flex items-center justify-center h-11 w-11 rounded-lg border border-slate-200 text-[#0B1F3A] hover:bg-slate-50 transition"
+                className="xl:hidden inline-flex items-center justify-center h-11 w-11 rounded-lg border border-slate-200 text-[#1B2A5C] hover:bg-slate-50 transition"
                 onClick={() => setOpen(true)}
                 aria-label="Open menu"
                 aria-expanded={open}
@@ -186,7 +192,7 @@ export function Header() {
         )}
       >
         <div
-          className="absolute inset-0 bg-[#0B1F3A]/60 backdrop-blur-sm"
+          className="absolute inset-0 bg-[#1B2A5C]/60 backdrop-blur-sm"
           onClick={() => setOpen(false)}
         />
         <div
@@ -197,12 +203,14 @@ export function Header() {
         >
           <div className="flex items-center justify-between p-6 border-b border-slate-100">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-[#0056D2] to-[#0B1F3A] flex items-center justify-center">
-                <span className="text-white font-bold text-lg">C</span>
+              <div className="h-10 w-10 rounded-lg overflow-hidden shadow-sm flex-shrink-0">
+                <img src="/logo.png" alt="Clipe Consult logo" className="h-full w-full object-cover" width={40} height={40} />
               </div>
               <div className="flex flex-col leading-tight">
-                <span className="text-[#0B1F3A] font-bold text-base">Clipe Consult</span>
-                <span className="text-[10px] uppercase tracking-wider text-[#0056D2]">IT Consulting • Ghana</span>
+                <span className="text-[#1B2A5C] font-bold text-base font-[family-name:var(--font-poppins)]">
+                  CLIPE <span className="text-[#E31E24]">CONSULT</span>
+                </span>
+                <span className="text-[10px] uppercase tracking-wider text-[#5A6B82]">Building Innovations • Engineering Excellence</span>
               </div>
             </div>
             <button
@@ -210,7 +218,7 @@ export function Header() {
               onClick={() => setOpen(false)}
               aria-label="Close menu"
             >
-              <X className="h-5 w-5 text-[#0B1F3A]" />
+              <X className="h-5 w-5 text-[#1B2A5C]" />
             </button>
           </div>
 
@@ -228,8 +236,8 @@ export function Header() {
                   className={cn(
                     "flex items-center justify-between px-4 py-3 rounded-lg text-base font-medium transition-colors",
                     isActive
-                      ? "bg-[#E8F1FC] text-[#0056D2]"
-                      : "text-[#0B1F3A] hover:bg-slate-50"
+                      ? "bg-[#EEF1F8] text-[#1B2A5C]"
+                      : "text-[#1B2A5C] hover:bg-slate-50"
                   )}
                 >
                   {item.label}
@@ -242,7 +250,7 @@ export function Header() {
           <div className="p-6 border-t border-slate-100 space-y-3 bg-slate-50">
             <Button
               asChild
-              className="w-full bg-[#0056D2] hover:bg-[#004BB0] text-white shadow-md"
+              className="w-full bg-[#1B2A5C] hover:bg-[#142149] text-white shadow-md"
             >
               <a
                 href="#contact"
@@ -256,7 +264,7 @@ export function Header() {
             </Button>
             <a
               href={`tel:${contactInfo.phonePrimary.replace(/\s/g, "")}`}
-              className="flex items-center justify-center gap-2 text-sm text-[#0B1F3A] hover:text-[#0056D2]"
+              className="flex items-center justify-center gap-2 text-sm text-[#1B2A5C] hover:text-[#1B2A5C]"
             >
               <Phone className="h-4 w-4" />
               {contactInfo.phonePrimary}

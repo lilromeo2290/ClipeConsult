@@ -54,85 +54,89 @@
 
 :root {
   --radius: 0.625rem;
-  /* Brand colors */
-  --brand: #0056D2;
+  /* Brand colors — aligned with official Clipe Consult logo */
+  --brand: #1B2A5C;          /* Navy (primary) */
   --brand-foreground: #FFFFFF;
-  --navy: #0B1F3A;
+  --accent-red: #E31E24;     /* Red (accent) */
+  --accent-red-foreground: #FFFFFF;
+  --navy: #1B2A5C;
   --navy-foreground: #FFFFFF;
-  --lightblue: #E8F1FC;
+  --lightblue: #EEF1F8;      /* Soft tint of navy */
   --silver: #C9D2E0;
   /* Standard shadcn tokens */
   --background: #FFFFFF;
-  --foreground: #0B1F3A;
+  --foreground: #1B2A5C;
   --card: #FFFFFF;
-  --card-foreground: #0B1F3A;
+  --card-foreground: #1B2A5C;
   --popover: #FFFFFF;
-  --popover-foreground: #0B1F3A;
-  --primary: #0056D2;
+  --popover-foreground: #1B2A5C;
+  --primary: #1B2A5C;        /* Navy as primary action color */
   --primary-foreground: #FFFFFF;
-  --secondary: #F1F5FB;
-  --secondary-foreground: #0B1F3A;
+  --secondary: #F1F4FA;
+  --secondary-foreground: #1B2A5C;
   --muted: #F4F6FA;
   --muted-foreground: #5A6B82;
-  --accent: #E8F1FC;
-  --accent-foreground: #0056D2;
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: #E2E8F0;
-  --input: #E2E8F0;
-  --ring: #0056D2;
-  --chart-1: #0056D2;
-  --chart-2: #0B1F3A;
-  --chart-3: #4A90E2;
-  --chart-4: #6BB1FF;
-  --chart-5: #8FA8C9;
+  --accent: #EEF1F8;
+  --accent-foreground: #1B2A5C;
+  --destructive: #E31E24;    /* Red as destructive/emergency */
+  --border: #E2E6EF;
+  --input: #E2E6EF;
+  --ring: #1B2A5C;
+  --chart-1: #1B2A5C;
+  --chart-2: #E31E24;
+  --chart-3: #3A4D85;
+  --chart-4: #6B7BA8;
+  --chart-5: #BCC4D6;
   --sidebar: #FFFFFF;
-  --sidebar-foreground: #0B1F3A;
-  --sidebar-primary: #0056D2;
+  --sidebar-foreground: #1B2A5C;
+  --sidebar-primary: #1B2A5C;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #E8F1FC;
-  --sidebar-accent-foreground: #0056D2;
-  --sidebar-border: #E2E8F0;
-  --sidebar-ring: #0056D2;
+  --sidebar-accent: #EEF1F8;
+  --sidebar-accent-foreground: #1B2A5C;
+  --sidebar-border: #E2E6EF;
+  --sidebar-ring: #1B2A5C;
 }
 
 .dark {
-  --brand: #4A90E2;
+  --brand: #3A4D85;
   --brand-foreground: #FFFFFF;
-  --navy: #050E1F;
+  --accent-red: #FF4A50;
+  --accent-red-foreground: #FFFFFF;
+  --navy: #0A1330;
   --navy-foreground: #FFFFFF;
-  --lightblue: #1A2A47;
+  --lightblue: #1A2342;
   --silver: #4A5A75;
-  --background: #050E1F;
+  --background: #0A1330;
   --foreground: #F4F6FA;
-  --card: #0B1F3A;
+  --card: #1B2A5C;
   --card-foreground: #F4F6FA;
-  --popover: #0B1F3A;
+  --popover: #1B2A5C;
   --popover-foreground: #F4F6FA;
-  --primary: #4A90E2;
-  --primary-foreground: #0B1F3A;
-  --secondary: #1A2A47;
+  --primary: #3A4D85;
+  --primary-foreground: #0A1330;
+  --secondary: #1A2342;
   --secondary-foreground: #F4F6FA;
-  --muted: #1A2A47;
+  --muted: #1A2342;
   --muted-foreground: #A3B3CC;
-  --accent: #1A2A47;
-  --accent-foreground: #4A90E2;
-  --destructive: oklch(0.704 0.191 22.216);
+  --accent: #1A2342;
+  --accent-foreground: #3A4D85;
+  --destructive: #FF4A50;
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 18%);
-  --ring: #4A90E2;
-  --chart-1: #4A90E2;
-  --chart-2: #6BB1FF;
-  --chart-3: #8FA8C9;
+  --ring: #3A4D85;
+  --chart-1: #3A4D85;
+  --chart-2: #FF4A50;
+  --chart-3: #6B7BA8;
   --chart-4: #B0C4DE;
   --chart-5: #D6E2F2;
-  --sidebar: #0B1F3A;
+  --sidebar: #1B2A5C;
   --sidebar-foreground: #F4F6FA;
-  --sidebar-primary: #4A90E2;
-  --sidebar-primary-foreground: #0B1F3A;
-  --sidebar-accent: #1A2A47;
-  --sidebar-accent-foreground: #4A90E2;
+  --sidebar-primary: #3A4D85;
+  --sidebar-primary-foreground: #0A1330;
+  --sidebar-accent: #1A2342;
+  --sidebar-accent-foreground: #3A4D85;
   --sidebar-border: oklch(1 0 0 / 12%);
-  --sidebar-ring: #4A90E2;
+  --sidebar-ring: #3A4D85;
 }
 
 @layer base {
@@ -174,13 +178,13 @@
     background: radial-gradient(ellipse at top, rgba(0, 86, 210, 0.18), transparent 60%);
   }
   .gradient-text {
-    background: linear-gradient(135deg, #4A90E2 0%, #FFFFFF 100%);
+    background: linear-gradient(135deg, #E31E24 0%, #FFFFFF 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   .gradient-brand {
-    background: linear-gradient(135deg, #0056D2 0%, #0B1F3A 100%);
+    background: linear-gradient(135deg, #1B2A5C 0%, #1B2A5C 100%);
   }
   .gradient-brand-soft {
     background: linear-gradient(135deg, rgba(0, 86, 210, 0.08) 0%, rgba(11, 31, 58, 0.04) 100%);
@@ -215,7 +219,7 @@
   border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0056D2;
+  background: #1B2A5C;
 }
 
 /* Marquee animation */

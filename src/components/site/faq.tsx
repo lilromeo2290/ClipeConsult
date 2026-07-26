@@ -38,7 +38,7 @@ export function FAQ() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E8F1FC] text-[#0056D2] text-xs font-semibold mb-5"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EEF1F8] text-[#1B2A5C] text-xs font-semibold mb-5"
           >
             <HelpCircle className="h-3 w-3" />
             Frequently Asked Questions
@@ -48,7 +48,7 @@ export function FAQ() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl lg:text-5xl font-bold text-[#0B1F3A] leading-tight text-balance"
+            className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl lg:text-5xl font-bold text-[#1B2A5C] leading-tight text-balance"
           >
             Answers to the questions we hear most
           </motion.h2>
@@ -75,7 +75,7 @@ export function FAQ() {
                 transition={{ duration: 0.4, delay: i * 0.04 }}
                 className={cn(
                   "rounded-xl border bg-white transition-all overflow-hidden",
-                  isOpen ? "border-[#0056D2]/30 shadow-md" : "border-slate-200 hover:border-slate-300"
+                  isOpen ? "border-[#1B2A5C]/30 shadow-md" : "border-slate-200 hover:border-slate-300"
                 )}
               >
                 <button
@@ -86,14 +86,14 @@ export function FAQ() {
                 >
                   <span className={cn(
                     "font-[family-name:var(--font-poppins)] text-base lg:text-lg font-semibold transition-colors",
-                    isOpen ? "text-[#0056D2]" : "text-[#0B1F3A]"
+                    isOpen ? "text-[#1B2A5C]" : "text-[#1B2A5C]"
                   )}>
                     {item.question}
                   </span>
                   <span
                     className={cn(
                       "inline-flex h-8 w-8 items-center justify-center rounded-lg flex-shrink-0 transition-all",
-                      isOpen ? "bg-[#0056D2] text-white rotate-180" : "bg-[#F4F6FA] text-[#0B1F3A]"
+                      isOpen ? "bg-[#1B2A5C] text-white rotate-180" : "bg-[#F4F6FA] text-[#1B2A5C]"
                     )}
                   >
                     <ChevronDown className="h-4 w-4" />
@@ -122,9 +122,9 @@ export function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
-          className="mt-10 text-center p-6 rounded-2xl bg-gradient-to-r from-[#E8F1FC] to-[#F4F6FA] border border-[#0056D2]/15"
+          className="mt-10 text-center p-6 rounded-2xl bg-gradient-to-r from-[#EEF1F8] to-[#F4F6FA] border border-[#1B2A5C]/15"
         >
-          <h3 className="font-[family-name:var(--font-poppins)] text-lg font-bold text-[#0B1F3A] mb-2">
+          <h3 className="font-[family-name:var(--font-poppins)] text-lg font-bold text-[#1B2A5C] mb-2">
             Still have questions?
           </h3>
           <p className="text-sm text-[#5A6B82] mb-4">
@@ -132,7 +132,7 @@ export function FAQ() {
           </p>
           <Button
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="bg-[#0056D2] hover:bg-[#004BB0] text-white"
+            className="bg-[#1B2A5C] hover:bg-[#142149] text-white"
           >
             Get Free Consultation
           </Button>

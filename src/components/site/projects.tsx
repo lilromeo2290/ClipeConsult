@@ -6,12 +6,12 @@ import { projects } from "@/lib/site-data";
 import { Button } from "@/components/ui/button";
 
 const gradients = [
-  "from-[#0056D2] to-[#4A90E2]",
-  "from-[#0B1F3A] to-[#0056D2]",
-  "from-[#4A90E2] to-[#6BB1FF]",
-  "from-[#0B1F3A] to-[#1A3A5C]",
-  "from-[#0056D2] to-[#0B1F3A]",
-  "from-[#1A3A5C] to-[#4A90E2]",
+  "from-[#1B2A5C] to-[#E31E24]",
+  "from-[#1B2A5C] to-[#1B2A5C]",
+  "from-[#E31E24] to-[#FBD4D6]",
+  "from-[#1B2A5C] to-[#3A4D85]",
+  "from-[#1B2A5C] to-[#1B2A5C]",
+  "from-[#3A4D85] to-[#E31E24]",
 ];
 
 export function Projects() {
@@ -27,9 +27,9 @@ export function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E8F1FC] text-[#0056D2] text-xs font-semibold mb-5"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EEF1F8] text-[#1B2A5C] text-xs font-semibold mb-5"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#0056D2]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#1B2A5C]" />
               Selected Work
             </motion.div>
             <motion.h2
@@ -37,7 +37,7 @@ export function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, delay: 0.05 }}
-              className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl lg:text-5xl font-bold text-[#0B1F3A] leading-tight text-balance"
+              className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl lg:text-5xl font-bold text-[#1B2A5C] leading-tight text-balance"
             >
               Real projects. Measurable results.
             </motion.h2>
@@ -60,7 +60,7 @@ export function Projects() {
             <Button
               variant="outline"
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="border-[#0B1F3A]/20 text-[#0B1F3A] hover:bg-[#0B1F3A] hover:text-white"
+              className="border-[#1B2A5C]/20 text-[#1B2A5C] hover:bg-[#1B2A5C] hover:text-white"
             >
               Start your project
               <ArrowUpRight className="h-4 w-4 ml-2" />
@@ -95,7 +95,7 @@ export function Projects() {
 
               {/* Content */}
               <div className="p-6 flex flex-col flex-1">
-                <h3 className="font-[family-name:var(--font-poppins)] text-lg font-bold text-[#0B1F3A] mb-2 leading-tight group-hover:text-[#0056D2] transition-colors">
+                <h3 className="font-[family-name:var(--font-poppins)] text-lg font-bold text-[#1B2A5C] mb-2 leading-tight group-hover:text-[#1B2A5C] transition-colors">
                   {project.title}
                 </h3>
                 <p className="text-sm text-[#5A6B82] leading-relaxed mb-4 flex-1">{project.description}</p>
@@ -103,7 +103,7 @@ export function Projects() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-[#E8F1FC] text-[#0056D2]"
+                      className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-[#EEF1F8] text-[#1B2A5C]"
                     >
                       {tag}
                     </span>
@@ -119,14 +119,14 @@ export function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
-          className="mt-12 rounded-2xl p-6 lg:p-8 bg-gradient-to-r from-[#E8F1FC] to-[#F4F6FA] border border-[#0056D2]/15 flex flex-col md:flex-row items-center justify-between gap-6"
+          className="mt-12 rounded-2xl p-6 lg:p-8 bg-gradient-to-r from-[#EEF1F8] to-[#F4F6FA] border border-[#1B2A5C]/15 flex flex-col md:flex-row items-center justify-between gap-6"
         >
           <div className="flex items-center gap-4">
-            <div className="h-12 w-12 rounded-xl bg-[#0056D2] flex items-center justify-center flex-shrink-0">
+            <div className="h-12 w-12 rounded-xl bg-[#1B2A5C] flex items-center justify-center flex-shrink-0">
               <TrendingUp className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h3 className="font-[family-name:var(--font-poppins)] text-lg font-bold text-[#0B1F3A]">
+              <h3 className="font-[family-name:var(--font-poppins)] text-lg font-bold text-[#1B2A5C]">
                 250+ projects delivered — and counting
               </h3>
               <p className="text-sm text-[#5A6B82]">
@@ -136,7 +136,7 @@ export function Projects() {
           </div>
           <Button
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="bg-[#0056D2] hover:bg-[#004BB0] text-white flex-shrink-0"
+            className="bg-[#1B2A5C] hover:bg-[#142149] text-white flex-shrink-0"
           >
             Start your project
           </Button>

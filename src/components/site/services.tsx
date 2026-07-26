@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 export function Services() {
   return (
     <section id="services" className="relative py-20 lg:py-28 bg-gradient-to-b from-[#F4F6FA] to-white overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-2/3 bg-gradient-to-r from-transparent via-[#0056D2]/30 to-transparent" aria-hidden />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-2/3 bg-gradient-to-r from-transparent via-[#1B2A5C]/30 to-transparent" aria-hidden />
 
       <div className="container mx-auto max-w-7xl px-6 relative">
         {/* Section header */}
@@ -19,9 +19,9 @@ export function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E8F1FC] text-[#0056D2] text-xs font-semibold mb-5"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EEF1F8] text-[#1B2A5C] text-xs font-semibold mb-5"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#0056D2]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#1B2A5C]" />
             What We Do
           </motion.div>
           <motion.h2
@@ -29,7 +29,7 @@ export function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, delay: 0.05 }}
-            className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl lg:text-5xl font-bold text-[#0B1F3A] leading-tight text-balance"
+            className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl lg:text-5xl font-bold text-[#1B2A5C] leading-tight text-balance"
           >
             Seven services. One trusted IT partner.
           </motion.h2>
@@ -58,15 +58,15 @@ export function Services() {
                 className={cn(
                   "group relative rounded-2xl p-6 lg:p-7 transition-all duration-300 border overflow-hidden flex flex-col",
                   isFeatured
-                    ? "lg:row-span-1 bg-gradient-to-br from-[#0B1F3A] to-[#0056D2] text-white border-transparent shadow-xl hover:shadow-2xl"
-                    : "bg-white border-slate-200 hover:border-[#0056D2]/30 hover:shadow-xl"
+                    ? "lg:row-span-1 bg-gradient-to-br from-[#1B2A5C] to-[#1B2A5C] text-white border-transparent shadow-xl hover:shadow-2xl"
+                    : "bg-white border-slate-200 hover:border-[#1B2A5C]/30 hover:shadow-xl"
                 )}
               >
                 {/* Decorative number */}
                 <span
                   className={cn(
                     "absolute top-5 right-6 font-[family-name:var(--font-poppins)] text-5xl font-extrabold leading-none select-none",
-                    isFeatured ? "text-white/10" : "text-[#0056D2]/10 group-hover:text-[#0056D2]/20"
+                    isFeatured ? "text-white/10" : "text-[#1B2A5C]/10 group-hover:text-[#1B2A5C]/20"
                   )}
                 >
                   {service.number}
@@ -76,7 +76,7 @@ export function Services() {
                   <div
                     className={cn(
                       "inline-flex h-14 w-14 items-center justify-center rounded-xl mb-5 transition-transform group-hover:scale-105",
-                      isFeatured ? "bg-white/15 backdrop-blur-sm" : "bg-gradient-to-br from-[#0056D2] to-[#0B1F3A]"
+                      isFeatured ? "bg-white/15 backdrop-blur-sm" : "bg-gradient-to-br from-[#1B2A5C] to-[#1B2A5C]"
                     )}
                   >
                     <service.icon className={cn("h-7 w-7", isFeatured ? "text-white" : "text-white")} />
@@ -85,7 +85,7 @@ export function Services() {
                   <h3
                     className={cn(
                       "font-[family-name:var(--font-poppins)] text-xl lg:text-2xl font-bold mb-2 leading-tight",
-                      isFeatured ? "text-white" : "text-[#0B1F3A]"
+                      isFeatured ? "text-white" : "text-[#1B2A5C]"
                     )}
                   >
                     {service.title}
@@ -107,10 +107,10 @@ export function Services() {
                         <Check
                           className={cn(
                             "h-3.5 w-3.5 mt-0.5 flex-shrink-0",
-                            isFeatured ? "text-emerald-300" : "text-[#0056D2]"
+                            isFeatured ? "text-emerald-300" : "text-[#1B2A5C]"
                           )}
                         />
-                        <span className={isFeatured ? "text-white/85" : "text-[#0B1F3A]/80"}>{f}</span>
+                        <span className={isFeatured ? "text-white/85" : "text-[#1B2A5C]/80"}>{f}</span>
                       </li>
                     ))}
                   </ul>
@@ -122,7 +122,7 @@ export function Services() {
                         key={k}
                         className={cn(
                           "px-2 py-0.5 rounded-md text-[10px] font-medium",
-                          isFeatured ? "bg-white/10 text-white/70" : "bg-[#E8F1FC] text-[#0056D2]"
+                          isFeatured ? "bg-white/10 text-white/70" : "bg-[#EEF1F8] text-[#1B2A5C]"
                         )}
                       >
                         {k}
@@ -140,7 +140,7 @@ export function Services() {
                     }}
                     className={cn(
                       "inline-flex items-center gap-1.5 text-sm font-semibold transition-colors group/link",
-                      isFeatured ? "text-white hover:text-emerald-300" : "text-[#0056D2] hover:text-[#004BB0]"
+                      isFeatured ? "text-white hover:text-emerald-300" : "text-[#1B2A5C] hover:text-[#142149]"
                     )}
                   >
                     Request a quote
@@ -157,11 +157,11 @@ export function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: 0.24 }}
-            className="relative rounded-2xl p-7 bg-gradient-to-br from-[#E8F1FC] to-[#F4F6FA] border border-[#0056D2]/15 flex flex-col justify-between overflow-hidden"
+            className="relative rounded-2xl p-7 bg-gradient-to-br from-[#EEF1F8] to-[#F4F6FA] border border-[#1B2A5C]/15 flex flex-col justify-between overflow-hidden"
           >
-            <div className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-[#0056D2]/10 blur-2xl" aria-hidden />
+            <div className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-[#1B2A5C]/10 blur-2xl" aria-hidden />
             <div className="relative">
-              <h3 className="font-[family-name:var(--font-poppins)] text-xl lg:text-2xl font-bold text-[#0B1F3A] mb-3">
+              <h3 className="font-[family-name:var(--font-poppins)] text-xl lg:text-2xl font-bold text-[#1B2A5C] mb-3">
                 Need something custom?
               </h3>
               <p className="text-sm text-[#5A6B82] leading-relaxed mb-6">
@@ -170,7 +170,7 @@ export function Services() {
             </div>
             <Button
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="bg-[#0056D2] hover:bg-[#004BB0] text-white group"
+              className="bg-[#1B2A5C] hover:bg-[#142149] text-white group"
             >
               Talk to an Expert
               <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
@@ -194,7 +194,7 @@ export function Services() {
                 e.preventDefault();
                 document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="text-[#0056D2] font-semibold hover:underline"
+              className="text-[#1B2A5C] font-semibold hover:underline"
             >
               Ask about our managed IT service plans →
             </a>

@@ -8,10 +8,10 @@ export function CTA() {
   return (
     <section className="relative py-20 lg:py-28 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0056D2] via-[#0B1F3A] to-[#0B1F3A]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1B2A5C] via-[#1B2A5C] to-[#1B2A5C]" />
       <div className="absolute inset-0 bg-grid opacity-30" aria-hidden />
-      <div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-[#4A90E2]/30 blur-3xl" aria-hidden />
-      <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-[#0056D2]/40 blur-3xl" aria-hidden />
+      <div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-[#E31E24]/30 blur-3xl" aria-hidden />
+      <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-[#1B2A5C]/40 blur-3xl" aria-hidden />
 
       <div className="container mx-auto max-w-5xl px-6 relative text-center text-white">
         <motion.div
@@ -58,7 +58,7 @@ export function CTA() {
           <Button
             size="lg"
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="bg-white text-[#0056D2] hover:bg-white/90 h-13 px-7 text-base font-semibold shadow-xl group"
+            className="bg-[#E31E24] hover:bg-[#C0181F] text-white h-13 px-7 text-base font-semibold shadow-xl group"
           >
             Request a Quote
             <ArrowRight className="h-5 w-5 ml-2 transition-transform group-hover:translate-x-1" />
@@ -91,7 +91,7 @@ export function CTA() {
           className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-white/60"
         >
           <span className="flex items-center gap-2">
-            <PhoneCall className="h-4 w-4 text-[#4A90E2]" />
+            <PhoneCall className="h-4 w-4 text-[#E31E24]" />
             +233 244 000 000
           </span>
           <span className="hidden sm:inline h-1 w-1 rounded-full bg-white/30" />

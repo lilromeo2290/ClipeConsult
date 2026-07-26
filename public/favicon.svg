@@ -1,12 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0056D2"/>
-      <stop offset="1" stop-color="#0B1F3A"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="14" fill="url(#g)"/>
-  <path d="M22 18 L22 46 L44 46" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="44" cy="18" r="4" fill="#4A90E2"/>
-  <circle cx="44" cy="46" r="4" fill="#FFFFFF"/>
+  <!-- Navy background rounded square -->
+  <rect width="64" height="64" rx="12" fill="#1B2A5C"/>
+
+  <!-- Gear teeth (lighter navy ring) -->
+  <g fill="#2A3D75">
+    <rect x="29" y="6" width="6" height="6" rx="1"/>
+    <rect x="29" y="52" width="6" height="6" rx="1"/>
+    <rect x="6" y="29" width="6" height="6" rx="1"/>
+    <rect x="52" y="29" width="6" height="6" rx="1"/>
+    <rect x="13" y="13" width="6" height="6" rx="1" transform="rotate(45 16 16)"/>
+    <rect x="45" y="13" width="6" height="6" rx="1" transform="rotate(-45 48 16)"/>
+    <rect x="13" y="45" width="6" height="6" rx="1" transform="rotate(-45 16 48)"/>
+    <rect x="45" y="45" width="6" height="6" rx="1" transform="rotate(45 48 48)"/>
+  </g>
+
+  <!-- Center building (red, tallest) -->
+  <polygon points="32,16 38,20 38,46 26,46 26,20" fill="#E31E24"/>
+
+  <!-- Right building (red, medium) -->
+  <polygon points="40,24 46,27 46,46 40,46" fill="#E31E24"/>
+
+  <!-- Left building (white, shorter) -->
+  <polygon points="18,28 24,30 24,46 18,46" fill="#FFFFFF"/>
+
+  <!-- Curved swoosh base -->
+  <path d="M 10 48 Q 32 56 54 48" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
 </svg>
