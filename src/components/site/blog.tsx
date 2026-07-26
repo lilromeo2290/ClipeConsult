@@ -20,21 +20,12 @@ export function Blog() {
             <Rss className="h-3 w-3" />
             Latest Articles
           </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl lg:text-5xl font-bold text-[#1B2A5C] leading-tight text-balance"
-          >
-            Insights, tips and tutorials for the digital Ghana
-          </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-5 text-base lg:text-lg text-[#5A6B82] leading-relaxed"
+            className="text-base lg:text-lg text-[#5A6B82] leading-relaxed"
           >
             Practical, no-fluff articles on cybersecurity, web design, software development, networking, AI, Microsoft Office and more — written by our team for Ghanaian businesses.
           </motion.p>
