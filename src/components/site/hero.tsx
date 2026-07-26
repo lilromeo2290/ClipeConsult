@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight, MessageSquare, ListChecks, ShieldCheck, Cpu, Cloud, Code2, Globe, Zap } from "lucide-react";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, ListChecks, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const scrollTo = (id: string) => {
@@ -9,14 +10,36 @@ const scrollTo = (id: string) => {
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 
-const floatingBadges = [
-  { icon: Code2, label: "Custom Software", x: "-6%", y: "22%" },
-  { icon: Cloud, label: "Cloud Hosting", x: "92%", y: "16%" },
-  { icon: ShieldCheck, label: "Cybersecurity", x: "94%", y: "62%" },
-  { icon: Globe, label: "Web Design", x: "-8%", y: "70%" },
+type Showcase = {
+  name: string;
+  url: string;
+  screenshot: string;
+};
+
+const showcases: Showcase[] = [
+  { name: "Dwell Chronicles Ghana", url: "https://dwellchroniclesgh.com/", screenshot: "/projects/dwellchroniclesgh.png" },
+  { name: "Global Experience Ghana", url: "https://globalexperiencegh.org/", screenshot: "/projects/globalexperiencegh.png" },
+  { name: "Progressive Youth Club, Ho", url: "https://pycclub.org/", screenshot: "/projects/pycclub.png" },
+  { name: "RAS MUTA Foundation", url: "https://rasmutafoundation.org/", screenshot: "/projects/rasmutafoundation.png" },
+  { name: "Fafaa FM Online", url: "https://fafaafmonline.com/", screenshot: "/projects/fafaafmonline.png" },
+  { name: "Duamenefa Foundation", url: "https://duamenefafoundation.org/", screenshot: "/projects/duamenefafoundation.png" },
+  { name: "24Hour News Online", url: "https://24hournewsonline.com/", screenshot: "/projects/24hournewsonline.png" },
 ];
 
 export function Hero() {
+  const [current, setCurrent] = useState(0);
+
+  // Auto-advance the carousel every 3.5 seconds
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCurrent((c) => (c + 1) % showcases.length);
+    }, 3500);
+    return () => clearInterval(id);
+  }, []);
+
+  // Pause-on-hover would be nice but adds complexity; auto-advance is sufficient
+  const active = showcases[current];
+
   return (
     <section
       id="home"
@@ -29,29 +52,10 @@ export function Hero() {
       <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-[#1B2A5C]/30 blur-3xl" aria-hidden />
       <div className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-[#E31E24]/20 blur-3xl" aria-hidden />
 
-      {/* Floating badges (desktop only) */}
-      {floatingBadges.map((b, i) => (
-        <motion.div
-          key={b.label}
-          className="hidden xl:flex absolute z-10 items-center gap-2 px-4 py-2.5 rounded-full glass-card text-sm font-medium"
-          style={{ left: b.x, top: b.y }}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
-          transition={{
-            opacity: { delay: 0.8 + i * 0.15, duration: 0.5 },
-            scale: { delay: 0.8 + i * 0.15, duration: 0.5 },
-            y: { duration: 4 + i, repeat: Infinity, ease: "easeInOut" },
-          }}
-        >
-          <b.icon className="h-4 w-4 text-[#E31E24]" />
-          {b.label}
-        </motion.div>
-      ))}
-
       <div className="container mx-auto max-w-7xl px-6 relative z-20">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left content */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-6">
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -103,10 +107,19 @@ export function Hero() {
                 <ArrowRight className="h-4 w-4 ml-1.5" />
               </Button>
             </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="mt-6 text-xs text-white/55"
+            >
+              Live websites built and maintained by Clipe Consult — showcased on the right.
+            </motion.p>
           </div>
 
-          {/* Right visual */}
-          <div className="lg:col-span-5">
+          {/* Right visual: auto-rotating carousel of client website screenshots */}
+          <div className="lg:col-span-6">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -116,119 +129,141 @@ export function Hero() {
               {/* Glow */}
               <div className="absolute -inset-4 bg-gradient-to-tr from-[#1B2A5C]/40 to-[#E31E24]/30 blur-2xl rounded-3xl" aria-hidden />
 
-              {/* Main card */}
-              <div className="relative glass-card rounded-2xl p-6 shadow-2xl">
-                <div className="flex items-center justify-between mb-5">
-                  <div className="flex items-center gap-2">
-                    <div className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
-                    <div className="h-2.5 w-2.5 rounded-full bg-yellow-400/80" />
-                    <div className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
+              {/* Carousel card */}
+              <div className="relative glass-card rounded-2xl shadow-2xl overflow-hidden">
+                {/* Browser chrome */}
+                <div className="bg-[#0A1330]/95 backdrop-blur-sm px-3 py-2.5 flex items-center gap-2 border-b border-white/10">
+                  <div className="flex gap-1.5">
+                    <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/80" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
                   </div>
-                  <div className="text-[11px] text-white/50 font-mono">clipe-consult.com/dashboard</div>
+                  <div className="flex-1 mx-2 h-5 rounded-md bg-white/10 flex items-center px-2 overflow-hidden">
+                    <span className="text-[10px] text-white/70 font-mono truncate">
+                      {active.url.replace("https://", "")}
+                    </span>
+                  </div>
+                  <a
+                    href={active.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Open live site in new tab"
+                    className="inline-flex h-6 w-6 items-center justify-center rounded text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
                 </div>
 
-                {/* Mock dashboard */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-xl bg-white/5 border border-white/10 p-4 col-span-2">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs text-white/60 font-medium">System Uptime</span>
-                      <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1">
-                        <Zap className="h-3 w-3" /> 99.98%
-                      </span>
-                    </div>
-                    <div className="flex items-end gap-1.5 h-16">
-                      {[40, 65, 50, 80, 55, 90, 75, 95, 70, 88, 92, 78].map((h, i) => (
-                        <motion.div
-                          key={i}
-                          className="flex-1 rounded-t bg-gradient-to-t from-[#1B2A5C] to-[#E31E24]"
-                          initial={{ height: 0 }}
-                          animate={{ height: `${h}%` }}
-                          transition={{ delay: 0.8 + i * 0.05, duration: 0.6, ease: "easeOut" }}
-                        />
-                      ))}
-                    </div>
+                {/* Screenshot area (fixed aspect ratio to prevent layout shift) */}
+                <a
+                  href={active.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block relative aspect-[16/10] bg-slate-200 overflow-hidden group"
+                  aria-label={`Visit ${active.name} — opens in new tab`}
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={active.url}
+                      src={active.screenshot}
+                      alt={`Screenshot of ${active.name} website`}
+                      className="absolute inset-0 h-full w-full object-cover object-top"
+                      initial={{ opacity: 0, scale: 1.02 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  </AnimatePresence>
+
+                  {/* Subtle gradient overlay for depth */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1B2A5C]/30 via-transparent to-transparent pointer-events-none" />
+
+                  {/* Hover hint */}
+                  <div className="absolute inset-0 bg-[#1B2A5C]/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-[#1B2A5C] text-sm font-bold shadow-lg">
+                      <ExternalLink className="h-4 w-4" />
+                      Visit Live Site
+                    </span>
                   </div>
 
-                  <div className="rounded-xl bg-white/5 border border-white/10 p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="h-7 w-7 rounded-lg bg-[#1B2A5C]/30 flex items-center justify-center">
-                        <ShieldCheck className="h-4 w-4 text-[#E31E24]" />
-                      </div>
-                      <span className="text-xs text-white/70 font-medium">Threats Blocked</span>
+                  {/* Active site name badge */}
+                  <div className="absolute bottom-3 left-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-[#1B2A5C]/85 backdrop-blur-sm border border-white/15">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="text-[11px] font-semibold text-white">{active.name}</span>
                     </div>
-                    <div className="font-[family-name:var(--font-poppins)] text-2xl font-bold text-white">1,284</div>
-                    <div className="text-[10px] text-emerald-400 mt-1">▼ 12% vs last week</div>
                   </div>
+                </a>
 
-                  <div className="rounded-xl bg-white/5 border border-white/10 p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="h-7 w-7 rounded-lg bg-[#1B2A5C]/30 flex items-center justify-center">
-                        <Cpu className="h-4 w-4 text-[#E31E24]" />
-                      </div>
-                      <span className="text-xs text-white/70 font-medium">Avg Load</span>
-                    </div>
-                    <div className="font-[family-name:var(--font-poppins)] text-2xl font-bold text-white">42%</div>
-                    <div className="text-[10px] text-white/50 mt-1">All systems nominal</div>
-                  </div>
-
-                  <div className="rounded-xl bg-white/5 border border-white/10 p-4 col-span-2">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs text-white/70 font-medium">Active Projects</span>
-                      <span className="text-xs text-[#E31E24]">View all</span>
-                    </div>
-                    <div className="space-y-2">
-                      {[
-                        { name: "School ERP — Ho", progress: 78 },
-                        { name: "Hotel Booking Engine", progress: 92 },
-                        { name: "Network Refresh — Accra", progress: 45 },
-                      ].map((p) => (
-                        <div key={p.name} className="flex items-center gap-3">
-                          <span className="text-[11px] text-white/60 flex-1 truncate">{p.name}</span>
-                          <div className="w-20 h-1.5 rounded-full bg-white/10 overflow-hidden">
-                            <motion.div
-                              className="h-full bg-gradient-to-r from-[#1B2A5C] to-[#E31E24]"
-                              initial={{ width: 0 }}
-                              animate={{ width: `${p.progress}%` }}
-                              transition={{ delay: 1.4, duration: 0.8 }}
-                            />
-                          </div>
-                          <span className="text-[10px] text-white/70 w-8 text-right">{p.progress}%</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                {/* Dot navigation */}
+                <div className="bg-[#0A1330]/95 backdrop-blur-sm px-3 py-2.5 border-t border-white/10 flex items-center justify-center gap-1.5">
+                  {showcases.map((s, i) => (
+                    <button
+                      key={s.url}
+                      onClick={() => setCurrent(i)}
+                      aria-label={`Show ${s.name}`}
+                      aria-pressed={i === current}
+                      className="group/dot relative h-1.5 rounded-full transition-all duration-300"
+                      style={{
+                        width: i === current ? 28 : 8,
+                        backgroundColor: i === current ? "#E31E24" : "rgba(255,255,255,0.25)",
+                      }}
+                    />
+                  ))}
                 </div>
+              </div>
+
+              {/* Counter badge */}
+              <div className="absolute -top-3 -right-3 hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#E31E24] text-white text-[11px] font-bold shadow-lg">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-75 animate-ping" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
+                </span>
+                {String(current + 1).padStart(2, "0")} / {String(showcases.length).padStart(2, "0")} LIVE
               </div>
             </motion.div>
           </div>
         </div>
 
-        {/* Trust strip */}
+        {/* Scrolling marquee of all client thumbnails */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 lg:mt-24 pt-8 border-t border-white/10"
+          className="mt-16 lg:mt-20 pt-8 border-t border-white/10"
         >
           <p className="text-center text-xs uppercase tracking-[0.3em] text-white/40 mb-6">
-            Serving businesses across Ghana
+            Live client websites built by Clipe Consult
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-white/50 font-[family-name:var(--font-poppins)] font-semibold text-sm md:text-base">
-            <span>Schools</span>
-            <span className="hidden md:inline h-1 w-1 rounded-full bg-white/30" />
-            <span>Hotels</span>
-            <span className="hidden md:inline h-1 w-1 rounded-full bg-white/30" />
-            <span>Hospitals</span>
-            <span className="hidden md:inline h-1 w-1 rounded-full bg-white/30" />
-            <span>Churches</span>
-            <span className="hidden md:inline h-1 w-1 rounded-full bg-white/30" />
-            <span>NGOs</span>
-            <span className="hidden md:inline h-1 w-1 rounded-full bg-white/30" />
-            <span>Government</span>
-            <span className="hidden md:inline h-1 w-1 rounded-full bg-white/30" />
-            <span>Real Estate</span>
-            <span className="hidden md:inline h-1 w-1 rounded-full bg-white/30" />
-            <span>Manufacturing</span>
+          <div className="relative overflow-hidden mask-fade-r">
+            {/* Duplicate the array so the marquee loops seamlessly */}
+            <div className="flex gap-4 animate-marquee w-max">
+              {[...showcases, ...showcases].map((s, i) => (
+                <a
+                  key={`${s.url}-${i}`}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex-shrink-0 w-64 rounded-xl overflow-hidden border border-white/10 bg-white/5 hover:border-[#E31E24]/50 transition-colors"
+                  aria-label={`Visit ${s.name} — opens in new tab`}
+                >
+                  <div className="aspect-[16/10] bg-slate-200 overflow-hidden">
+                    <img
+                      src={s.screenshot}
+                      alt={`Screenshot of ${s.name}`}
+                      className="h-full w-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="px-3 py-2 flex items-center justify-between gap-2">
+                    <span className="text-[11px] font-semibold text-white/80 truncate">
+                      {s.name}
+                    </span>
+                    <ExternalLink className="h-3 w-3 text-white/40 group-hover:text-[#E31E24] transition-colors flex-shrink-0" />
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>
