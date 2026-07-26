@@ -423,7 +423,6 @@ export const navItems: NavItem[] = [
     children: [
       { label: "Training", href: "#training", description: "IT courses, corporate training & ICT for schools" },
       { label: "Blog", href: "#blog", description: "Insights, tips & tutorials on technology in Ghana" },
-      { label: "Careers", href: "#careers", description: "Open positions at Clipe Consult" },
       { label: "FAQs", href: "#faqs", description: "Answers to the questions we hear most" },
     ],
   },

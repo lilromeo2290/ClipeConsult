@@ -7,7 +7,6 @@ import { Projects } from "@/components/site/projects";
 import { Industries } from "@/components/site/industries";
 import { Training } from "@/components/site/training";
 import { Blog } from "@/components/site/blog";
-import { Careers } from "@/components/site/careers";
 import { FAQ } from "@/components/site/faq";
 import { CTA } from "@/components/site/cta";
 import { Contact } from "@/components/site/contact";
@@ -27,7 +26,6 @@ export default function Home() {
         <Industries />
         <Training />
         <Blog />
-        <Careers />
         <FAQ />
         <CTA />
         <Contact />
