@@ -1,9 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Linkedin, Twitter, Mail, Users, ArrowRight } from "lucide-react";
+import { Linkedin, Twitter, Mail, Users } from "lucide-react";
 import { teamMembers } from "@/lib/site-data";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export function Team() {
@@ -118,32 +117,6 @@ export function Team() {
             </motion.article>
           ))}
         </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="mt-14 rounded-2xl p-6 lg:p-8 bg-gradient-to-r from-[#1B2A5C] to-[#2A3A6A] text-white flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden relative"
-        >
-          <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full bg-[#E31E24]/20 blur-3xl" aria-hidden />
-          <div className="relative flex-1">
-            <h3 className="font-[family-name:var(--font-poppins)] text-xl lg:text-2xl font-bold mb-2">
-              Want to join our team?
-            </h3>
-            <p className="text-sm text-white/75 max-w-xl">
-              We&apos;re always looking for passionate engineers, designers and trainers who want to make a real impact on Ghanaian businesses. Send us your CV — we hire on a rolling basis.
-            </p>
-          </div>
-          <Button
-            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="bg-[#E31E24] hover:bg-[#C0181F] text-white flex-shrink-0 group relative z-10"
-          >
-            Send your CV
-            <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
-          </Button>
-        </motion.div>
       </div>
     </section>
   );
