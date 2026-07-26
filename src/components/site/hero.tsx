@@ -1,9 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, MessageSquare, ListChecks, ShieldCheck, Cpu, Cloud, Code2, Globe, Zap, Star } from "lucide-react";
+import { ArrowRight, MessageSquare, ListChecks, ShieldCheck, Cpu, Cloud, Code2, Globe, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { stats } from "@/lib/site-data";
 
 const scrollTo = (id: string) => {
   const el = document.getElementById(id);
@@ -53,19 +52,6 @@ export function Hero() {
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left content */}
           <div className="lg:col-span-7">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-medium backdrop-blur-sm mb-6"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-              </span>
-              <span className="text-white/90">Trusted IT partner for 180+ Ghanaian businesses</span>
-            </motion.div>
-
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -116,23 +102,6 @@ export function Hero() {
                 View Our Services
                 <ArrowRight className="h-4 w-4 ml-1.5" />
               </Button>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-              className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-2xl"
-            >
-              {stats.map((s) => (
-                <div key={s.label} className="flex flex-col">
-                  <span className="font-[family-name:var(--font-poppins)] text-3xl lg:text-4xl font-extrabold text-white">
-                    {s.value}
-                    <span className="text-[#E31E24]">{s.suffix}</span>
-                  </span>
-                  <span className="mt-1 text-xs lg:text-sm text-white/65 leading-snug">{s.label}</span>
-                </div>
-              ))}
             </motion.div>
           </div>
 
@@ -230,24 +199,6 @@ export function Hero() {
                   </div>
                 </div>
               </div>
-
-              {/* Floating review card */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2, duration: 0.6 }}
-                className="absolute -bottom-6 -left-6 hidden sm:block glass-card rounded-xl p-4 shadow-xl max-w-[240px]"
-              >
-                <div className="flex items-center gap-1 mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-xs text-white/85 leading-relaxed">
-                  &ldquo;Clipe Consult rebuilt our school platform — uptime is rock-solid and parents love the new portal.&rdquo;
-                </p>
-                <p className="text-[10px] text-white/55 mt-2 font-medium">— Headmaster, Volta Heritage School</p>
-              </motion.div>
             </motion.div>
           </div>
         </div>
