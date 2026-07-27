@@ -19,9 +19,11 @@ if [[ -f "${PID_FILE}" ]]; then
   rm -f "${PID_FILE}"
 fi
 
-# Launch the watcher in the background, detached from any terminal
-nohup bash "${PROJECT_DIR}/scripts/watcher.sh" > /dev/null 2>&1 &
+# Launch the watcher in a brand-new session (setsid) so it survives parent
+# shell exit. Redirections keep all output in the log file (none on stdout).
+setsid bash "${PROJECT_DIR}/scripts/watcher.sh" >> "${LOG_FILE}" 2>&1 &
 WATCHER_PID=$!
+disown "${WATCHER_PID}" 2>/dev/null || true
 
 echo "${WATCHER_PID}" > "${PID_FILE}"
 echo "[start-watcher] watcher started with PID ${WATCHER_PID}"
