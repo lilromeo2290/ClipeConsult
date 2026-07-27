@@ -52,3 +52,13 @@ prompt
 server.log
 # Skills directory
 /skills/
+# Local dev environment
+dev.log
+server.log
+.zscripts/
+.env.local
+.env.*.local
+
+# Agent browser / build artifacts
+download/
+upload/
