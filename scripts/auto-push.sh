@@ -45,8 +45,10 @@ fi
 if [[ "${PUSH_STATUS}" == "pushed" ]]; then
   COMMIT_HASH=$(git rev-parse --short HEAD)
   COMMIT_MSG=$(git log -1 --pretty=%s)
+  # Short timestamp for the worklog table (YYYY-MM-DD HH:MM)
+  SHORT_TS="$(date -u +'%Y-%m-%d %H:%M')"
   # Insert a new row at the end of the markdown table (before any trailing blank lines)
-  printf "| %s | \`%s\` | %s |\n" "${TIMESTAMP}" "${COMMIT_HASH}" "${COMMIT_MSG}" >> "${WORKLOG_FILE}"
+  printf "| %s | \`%s\` | %s |\n" "${SHORT_TS}" "${COMMIT_HASH}" "${COMMIT_MSG}" >> "${WORKLOG_FILE}"
 
   # Commit the worklog update too (so the worklog itself stays in sync on GitHub)
   git add "${WORKLOG_FILE}"
