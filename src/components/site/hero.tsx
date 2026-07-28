@@ -252,7 +252,7 @@ export function Hero() {
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex-shrink-0 w-[clamp(260px,calc((100vw-5rem)/3),400px)] rounded-xl overflow-hidden border border-white/10 bg-white/5 hover:border-[#E31E24]/50 hover:shadow-xl transition-all"
+                  className="group flex-shrink-0 w-[clamp(320px,calc((100vw-5.5rem)/3),460px)] rounded-xl overflow-hidden border border-white/10 bg-white/5 hover:border-[#E31E24]/50 hover:shadow-xl transition-all"
                   aria-label={`Visit ${s.name} — opens in new tab`}
                 >
                   <div className="aspect-[16/10] bg-slate-200 overflow-hidden relative">
