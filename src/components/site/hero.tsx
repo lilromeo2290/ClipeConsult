@@ -225,41 +225,63 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Scrolling marquee of all client thumbnails */}
+        {/* Scrolling marquee of all client thumbnails — full width, 3 visible at a time */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-16 lg:mt-20 pt-8 border-t border-white/10"
         >
-          <p className="text-center text-xs uppercase tracking-[0.3em] text-white/40 mb-6">
-            Live client websites built by Clipe Consult
-          </p>
+          <div className="flex items-center justify-between mb-6 gap-4">
+            <p className="text-xs uppercase tracking-[0.3em] text-white/40">
+              Live client websites built by Clipe Consult
+            </p>
+            <p className="text-[10px] text-white/30 hidden sm:flex items-center gap-1.5">
+              <span className="hidden md:inline">Hover to pause</span>
+              <span className="h-1 w-1 rounded-full bg-white/30 hidden md:inline" />
+              <span className="text-white/50">Click any card to visit</span>
+            </p>
+          </div>
           <div className="relative overflow-hidden mask-fade-r">
-            {/* Duplicate the array so the marquee loops seamlessly */}
-            <div className="flex gap-4 animate-marquee w-max">
+            {/* Duplicate the array so the marquee loops seamlessly.
+                Card width is set so exactly 3 fit comfortably on desktop. */}
+            <div className="flex gap-5 animate-marquee w-max">
               {[...showcases, ...showcases].map((s, i) => (
                 <a
                   key={`${s.url}-${i}`}
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex-shrink-0 w-64 rounded-xl overflow-hidden border border-white/10 bg-white/5 hover:border-[#E31E24]/50 transition-colors"
+                  className="group flex-shrink-0 w-[clamp(260px,calc((100vw-5rem)/3),400px)] rounded-xl overflow-hidden border border-white/10 bg-white/5 hover:border-[#E31E24]/50 hover:shadow-xl transition-all"
                   aria-label={`Visit ${s.name} — opens in new tab`}
                 >
-                  <div className="aspect-[16/10] bg-slate-200 overflow-hidden">
+                  <div className="aspect-[16/10] bg-slate-200 overflow-hidden relative">
                     <img
                       src={s.screenshot}
                       alt={`Screenshot of ${s.name}`}
                       className="h-full w-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
+                    {/* Hover overlay */}
+                    <div className="absolute inset-0 bg-[#1B2A5C]/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-[#1B2A5C] text-xs font-bold shadow-lg">
+                        <ExternalLink className="h-3 w-3" />
+                        Visit Live Site
+                      </span>
+                    </div>
+                    {/* Live badge */}
+                    <div className="absolute top-2 left-2">
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#1B2A5C]/85 backdrop-blur-sm text-[9px] font-bold uppercase tracking-wider text-white">
+                        <span className="h-1 w-1 rounded-full bg-emerald-400 animate-pulse" />
+                        Live
+                      </span>
+                    </div>
                   </div>
-                  <div className="px-3 py-2 flex items-center justify-between gap-2">
-                    <span className="text-[11px] font-semibold text-white/80 truncate">
+                  <div className="px-3 py-2.5 flex items-center justify-between gap-2">
+                    <span className="text-xs font-semibold text-white/85 truncate">
                       {s.name}
                     </span>
-                    <ExternalLink className="h-3 w-3 text-white/40 group-hover:text-[#E31E24] transition-colors flex-shrink-0" />
+                    <ExternalLink className="h-3.5 w-3.5 text-white/40 group-hover:text-[#E31E24] transition-colors flex-shrink-0" />
                   </div>
                 </a>
               ))}
