@@ -16,9 +16,6 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   // Compress responses in production (smaller payloads over the wire).
   compress: true,
   // Powered-by header off — small security/privacy win.
