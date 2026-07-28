@@ -20,9 +20,79 @@ This guide walks you through deploying the Clipe Consult Next.js website to a We
 
 ---
 
-## 🚀 Step 1: Install Node.js, Bun, and PM2 on the VPS
+## 🔍 Step 0: Check available ports (do this FIRST!)
+
+Webuzo VPS servers typically host multiple websites on the same machine. If you blindly use port 3000, you may collide with another app and **take that other site offline**. Always scan for an available port before deploying.
 
 SSH into your VPS as root:
+
+```bash
+ssh root@YOUR_VPS_IP
+```
+
+### Install `ss` (socket statistics — usually pre-installed)
+
+```bash
+apt-get install -y iproute2   # Debian/Ubuntu
+# OR
+yum install -y iproute        # CentOS/RHEL
+```
+
+### Scan for a free port
+
+After cloning the repo (Step 3 below), run this from the project directory:
+
+```bash
+bash scripts/check-port.sh
+```
+
+You'll see output like:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Scanning ports 3000–3020 for availability
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Primary range (3000-3020 — typical Next.js apps):
+  3000     ✗ IN USE  (by: node)
+  3001     ✗ IN USE  (by: apache2)
+  3002     ✓ free
+  3003     ✓ free
+  ...
+
+Common alternative ranges:
+  8080     ✗ IN USE  (by: nginx)
+  8081     ✓ free
+  ...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ✓ Recommended port: 3002
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+To use it, add to your .env file:
+
+  PORT=3002
+
+Then update your Nginx/Apache reverse proxy to point at http://127.0.0.1:3002
+and run:  bash deploy.sh
+```
+
+### Or check a specific port
+
+```bash
+PORT=3000 bash scripts/check-port.sh     # is 3000 free?
+bash scripts/check-port.sh 9000 9100     # scan a wider range
+```
+
+**Remember the chosen port** — you'll set it in `.env` (Step 4) and use it in the Nginx/Apache config (Step 7).
+
+> 💡 **Tip:** The `deploy.sh` script will also auto-detect a free port if you forget to set one, but it's better to pick one explicitly so it stays stable across restarts.
+
+---
+
+## 🚀 Step 1: Install Node.js, Bun, and PM2 on the VPS
+
+SSH into your VPS as root (if you haven't already from Step 0):
 
 ```bash
 ssh root@YOUR_VPS_IP
@@ -127,13 +197,24 @@ nano .env
 Set at minimum:
 
 ```bash
+# The public URL of your site
 NEXT_PUBLIC_SITE_URL="https://yourdomain.com"
-DATABASE_URL="file:./dev.db"   # SQLite for now — switch to MySQL later
+
+# The port your app will listen on (use the one you found in Step 0)
+# If you skip this, deploy.sh will auto-detect a free port on each deploy
+PORT=3002
+
+# Database (SQLite for now — switch to MySQL later)
+DATABASE_URL="file:./dev.db"
+
+# Where the contact form sends enquiries
 CONTACT_FORM_TO_EMAIL="info@clipeconsult.com"
 CONTACT_FORM_CC_EMAIL="clipeconsult@gmail.com"
 ```
 
 Save (`Ctrl+O`, `Enter`) and exit (`Ctrl+X`).
+
+> ⚠️ **Important:** The `PORT` you set here MUST match the port you use in your Nginx/Apache reverse proxy config (Step 7). If you change `PORT` later, update the reverse proxy too and reload.
 
 ---
 
@@ -185,7 +266,9 @@ pm2 save
 
 ## 🌐 Step 7: Configure the Webuzo reverse proxy
 
-The Next.js app is now running on **port 3000** inside the VPS. You need Webuzo (Nginx/Apache) to forward incoming traffic from port 80/443 to port 3000.
+The Next.js app is now running on the **port you chose in Step 0** (let's call it `$PORT`) inside the VPS. You need Webuzo (Nginx/Apache) to forward incoming traffic from port 80/443 to that port.
+
+> 💡 Throughout this step, **replace `$PORT` with the actual port number** you set in your `.env` file (e.g. `3002`).
 
 ### Option A: Use Webuzo's "Proxy" feature (easiest)
 
@@ -193,7 +276,7 @@ The Next.js app is now running on **port 3000** inside the VPS. You need Webuzo 
 2. Go to **Webuzo Admin → Web Services → Proxy**
 3. Add a new proxy:
    - **Domain:** `yourdomain.com`
-   - **Target URL:** `http://127.0.0.1:3000`
+   - **Target URL:** `http://127.0.0.1:$PORT` (e.g. `http://127.0.0.1:3002`)
    - **Forward headers:** enable
 4. Save and restart the web service
 
@@ -205,7 +288,7 @@ Edit the domain's Nginx config:
 nano /usr/local/apps/nginx/etc/conf.d/common/yourdomain.com.conf
 ```
 
-Add a location block that proxies to port 3000:
+Add a location block that proxies to your port (replace `3002` with your `$PORT`):
 
 ```nginx
 server {
@@ -214,7 +297,7 @@ server {
 
     # Proxy all traffic to the Next.js standalone server
     location / {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://127.0.0.1:3002;     # ← your $PORT
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -235,7 +318,7 @@ nginx -s reload
 
 ### Option C: Use Apache (if you're on Apache instead of Nginx)
 
-Edit your Apache vhost config and add:
+Edit your Apache vhost config and add (replace `3002` with your `$PORT`):
 
 ```apache
 <VirtualHost *:80>
@@ -243,8 +326,8 @@ Edit your Apache vhost config and add:
     ServerAlias www.yourdomain.com
 
     ProxyPreserveHost On
-    ProxyPass / http://127.0.0.1:3000/
-    ProxyPassReverse / http://127.0.0.1:3000/
+    ProxyPass / http://127.0.0.1:3002/      # ← your $PORT
+    ProxyPassReverse / http://127.0.0.1:3002/
     RequestHeader set X-Forwarded-Proto "http"
 </VirtualHost>
 ```
@@ -348,13 +431,31 @@ pm2 monit                       # interactive dashboard
 
 ## 🆘 Troubleshooting
 
-### "Port 3000 already in use"
+### "Port already in use" / "EADDRINUSE"
+
+Another process (probably another Webuzo site) is already listening on the port you chose. Find a new one and switch:
 
 ```bash
-lsof -i :3000              # find what's using the port
-kill -9 <PID>              # kill it
-pm2 restart clipe-consult
+# 1. Find what's using the port
+ss -ltnp | grep :3000        # or whichever port you tried
+
+# 2. Find a new free port
+bash scripts/check-port.sh
+
+# 3. Update .env with the new port
+nano .env
+# change: PORT=<new-port>
+
+# 4. Update your Nginx/Apache reverse proxy to point at the new port, then reload:
+nginx -t && nginx -s reload      # for Nginx
+# OR
+systemctl restart apache2        # for Apache
+
+# 5. Restart PM2 with the new port
+bash deploy.sh --no-build
 ```
+
+> ⚠️ **Never `kill -9` a process you don't recognize** — on a Webuzo VPS it might be another website. Always switch to a different port instead.
 
 ### "Build failed: out of memory"
 
