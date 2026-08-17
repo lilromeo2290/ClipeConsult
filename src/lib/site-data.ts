@@ -299,6 +299,24 @@ export const projects: ProjectItem[] = [
     screenshot: "/projects/24hournewsonline.png",
     tags: ["Web Design", "News", "Media"],
   },
+  {
+    title: "Volta Tourism Hub",
+    category: "Tourism / Travel",
+    description:
+      "Tourism platform showcasing Ghana's hidden paradise — discover attractions, tours, accommodation and cultural experiences across the Volta Region.",
+    url: "https://voltatourismhub.com/",
+    screenshot: "/projects/voltatourismhub.png",
+    tags: ["Web Design", "Tourism", "Listings"],
+  },
+  {
+    title: "SIV Engineering & Diagnostics",
+    category: "Automotive / Engineering",
+    description:
+      "Professional automotive services and repairs website for SIV Engineering & Diagnostics Services LTD — expert vehicle diagnostics, maintenance and repairs.",
+    url: "https://sivengineering.com/",
+    screenshot: "/projects/sivengineering.png",
+    tags: ["Web Design", "Automotive", "Engineering"],
+  },
 ];
 
 export type BlogCategory = { name: string; posts: number; };

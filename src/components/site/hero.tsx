@@ -24,6 +24,8 @@ const showcases: Showcase[] = [
   { name: "Fafaa FM Online", url: "https://fafaafmonline.com/", screenshot: "/projects/fafaafmonline.png" },
   { name: "Duamenefa Foundation", url: "https://duamenefafoundation.org/", screenshot: "/projects/duamenefafoundation.png" },
   { name: "24Hour News Online", url: "https://24hournewsonline.com/", screenshot: "/projects/24hournewsonline.png" },
+  { name: "Volta Tourism Hub", url: "https://voltatourismhub.com/", screenshot: "/projects/voltatourismhub.png" },
+  { name: "SIV Engineering & Diagnostics", url: "https://sivengineering.com/", screenshot: "/projects/sivengineering.png" },
 ];
 
 export function Hero() {
