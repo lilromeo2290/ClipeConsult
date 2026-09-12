@@ -1,0 +1,856 @@
+     1→[root@vps ~]#
+     2→[root@vps ~]# cat > /tmp/log-investigation.sh << 'SCRIPT'
+     3→> #!/bin/bash
+     4→> echo "############################################################"
+     5→> echo "#  HISTORICAL ACCESS LOG INVESTIGATION — READ-ONLY"
+     6→> echo "#  Generated: $(date -u)"
+     7→> echo "############################################################"
+     8→> echo ""
+     9→>
+    10→> echo "===== 1. WEB SERVER DETECTION ====="
+    11→> nginx -v 2>&1
+    12→> httpd -v 2>&1 | head -1
+    13→> echo "Listening on 80/443:"
+    14→> ss -ltnp 2>/dev/null | grep -E ':80 |:443 '
+    15→> echo ""
+    16→>
+    17→> echo "===== 2. ACCESS LOG LOCATIONS ====="
+    18→> ls -la /usr/local/apps/nginx/var/log/ 2>/dev/null | head -40
+    19→> echo ""
+    20→>
+    21→> echo "===== 3. LOG ROTATION CONFIG ====="
+    22→> ls /etc/logrotate.d/ 2>/dev/null
+    23→> echo ""
+    24→>
+    25→> analyze_log() {
+    26→>   local LOG_FILE="$1"
+    27→>   local LABEL="$2"
+    28→>   echo ""
+    29→>   echo "===== ${LABEL} ====="
+    30→>   echo "File: ${LOG_FILE}"
+    31→>   if [[ ! -f "$LOG_FILE" ]]; then
+    32→>     echo "  NOT FOUND"
+    33→>     return
+    34→>   fi
+    35→>   ls -la "$LOG_FILE"
+    36→>   echo "Size: $(du -h "$LOG_FILE" | cut -f1)"
+    37→>
+    38→>   local FILES=("$LOG_FILE")
+    39→>   for rot in "${LOG_FILE}".1 "${LOG_FILE}".2 "${LOG_FILE}".3 "${LOG_FILE}".1.gz "${LOG_FILE}".2.gz "${LOG_FILE}".3.gz "${LOG_FILE}"-*.gz; do
+    40→>     [[ -f "$rot" ]] && FILES+=("$rot")
+    41→>   done
+    42→>   echo "Log files found: ${#FILES[@]}"
+    43→>
+    44→>   read_all() {
+    45→>     for f in "${FILES[@]}"; do
+    46→>       if [[ "$f" == *.gz ]]; then zcat "$f" 2>/dev/null; else cat "$f" 2>/dev/null; fi
+    47→>     done
+    48→>   }
+    49→>
+    50→>   local TOTAL=$(read_all | wc -l)
+    51→>   echo "Total requests: ${TOTAL}"
+    52→>   echo "First entry: $(read_all | head -1 | awk '{print $4}' | sed 's/\[//')"
+    53→>   echo "Last entry:  $(read_all | tail -1 | awk '{print $4}' | sed 's/\[//')"
+    54→>   echo "Unique IPs:  $(read_all | awk '{print $1}' | sort -u | wc -l)"
+    55→>
+    56→>   echo "--- Top 10 IPs ---"
+    57→>   read_all | awk '{print $1}' | sort | uniq -c | sort -rn | head -10
+    58→>
+    59→>   echo "--- Requests by date (last 20) ---"
+    60→>   read_all | awk '{print $4}' | sed 's/\[//' | cut -d: -f1 | sort | uniq -c | tail -20
+    61→>
+    62→>   echo "--- Top 15 URLs ---"
+    63→>   read_all | awk -F'"' '{print $2}' | awk '{print $2}' | sort | uniq -c | sort -rn | head -15
+    64→>
+    65→>   echo "--- Top 10 referrers ---"
+    66→>   read_all | awk -F'"' '{print $4}' | sort | uniq -c | sort -rn | head -10
+    67→>
+    68→>   echo "--- HTTP status codes ---"
+    69→>   read_all | awk -F'"' '{print $3}' | awk '{print $1}' | sort | uniq -c | sort -rn | head -10
+    70→>
+    71→>   echo "--- Top 10 user-agents ---"
+    72→>   read_all | awk -F'"' '{print $6}' | sort | uniq -c | sort -rn | head -10
+    73→>
+    74→>   local BOTS=$(read_all | awk -F'"' '{print $6}' | grep -icE "bot|crawler|spider|googlebot|bing|baidu|yandex|facebook|whatsapp|telegram")
+    75→>   echo "Bot-like requests: ${BOTS} / ${TOTAL}"
+    76→> }
+    77→>
+    78→> for domain in clipeconsult.com clipe233eng.net globalexperiencegh.org rasmutafoundation.org melinawofoundation.org 24hournewsonline.com pycclub.org dwellchroniclesgh.com voltatourismhub.com sivengineering.com; do
+    79→>   analyze_log "/usr/local/apps/nginx/var/log/${domain}.log" "${domain}"
+    80→> done
+    81→>
+    82→> echo ""
+    83→> echo "############################################################"
+    84→> echo "#  END OF REPORT"
+    85→> echo "############################################################"
+    86→> SCRIPT
+    87→[root@vps ~]# chmod +x /tmp/log-investigation.sh
+    88→[root@vps ~]# bash /tmp/log-investigation.sh 2>&1 | tee /tmp/log-report.txt
+    89→############################################################
+    90→#  HISTORICAL ACCESS LOG INVESTIGATION — READ-ONLY
+    91→#  Generated: Sat Sep 12 08:49:10 AM UTC 2026
+    92→############################################################
+    93→
+    94→===== 1. WEB SERVER DETECTION =====
+    95→nginx version: nginx/1.20.1
+    96→Server version: Apache/2.4.67 (Unix)
+    97→Listening on 80/443:
+    98→LISTEN 0      511                                 0.0.0.0:443        0.0.0.0:*    users:(("nginx",pid=3207134,fd=7),("nginx",pid=2697852,fd=7),("nginx",pid=2697851,fd=7))
+    99→LISTEN 0      511                                 0.0.0.0:80         0.0.0.0:*    users:(("nginx",pid=3207134,fd=8),("nginx",pid=2697852,fd=8),("nginx",pid=2697851,fd=8))
+   100→LISTEN 0      511                                    [::]:443           [::]:*    users:(("nginx",pid=3207134,fd=6),("nginx",pid=2697852,fd=6),("nginx",pid=2697851,fd=6))
+   101→LISTEN 0      511                                    [::]:80            [::]:*    users:(("nginx",pid=3207134,fd=9),("nginx",pid=2697852,fd=9),("nginx",pid=2697851,fd=9))
+   102→
+   103→===== 2. ACCESS LOG LOCATIONS =====
+   104→total 19188
+   105→drwxr-xr-x 2 root webuzo   12288 Sep  7 00:00 .
+   106→drwxr-xr-x 5 root root      4096 Jul 17 00:33 ..
+   107→-rw-r----- 1 root webuzo       0 Sep  7 00:00 24hournewsonline.com.err
+   108→-rw-r----- 1 root webuzo  126081 Aug  6 18:49 24hournewsonline.com.err-backup-2026-08-09-1786248002.gz
+   109→-rw-r----- 1 root webuzo     419 Aug 23 00:00 24hournewsonline.com.err-backup-2026-08-24-1787544002.gz
+   110→-rw-r----- 1 root webuzo     307 Aug 30 00:00 24hournewsonline.com.err-backup-2026-08-31-1788148801.gz
+   111→-rw-r----- 1 root webuzo    1167 Sep  6 00:00 24hournewsonline.com.err-backup-2026-09-07-1788753602
+   112→-rw-r----- 1 root webuzo       0 Sep  7 00:00 24hournewsonline.com.log
+   113→-rw-r----- 1 root webuzo 6133860 Aug  6 18:49 24hournewsonline.com.log-backup-2026-08-09-1786248002.gz
+   114→-rw-r----- 1 root webuzo     361 Aug 23 00:00 24hournewsonline.com.log-backup-2026-08-24-1787544002.gz
+   115→-rw-r----- 1 root webuzo     333 Aug 30 00:00 24hournewsonline.com.log-backup-2026-08-31-1788148801.gz
+   116→-rw-r----- 1 root webuzo     523 Sep  6 00:00 24hournewsonline.com.log-backup-2026-09-07-1788753602
+   117→-rw-r----- 1 root webuzo       0 Sep  7 00:00 clipe233eng.net.err
+   118→-rw-r----- 1 root webuzo    6144 Jul 25 23:39 clipe233eng.net.err-backup-2026-07-26-1785038401.gz
+   119→-rw-r----- 1 root webuzo   21133 Aug  1 23:55 clipe233eng.net.err-backup-2026-08-02-1785643201.gz
+   120→-rw-r----- 1 root webuzo   26413 Aug  6 18:45 clipe233eng.net.err-backup-2026-08-09-1786248002.gz
+   121→-rw-r----- 1 root webuzo     364 Sep  6 00:00 clipe233eng.net.err-backup-2026-09-07-1788753602
+   122→-rw-r----- 1 root webuzo       0 Sep  7 00:00 clipe233eng.net.log
+   123→-rw-r----- 1 root webuzo  151478 Jul 26 00:00 clipe233eng.net.log-backup-2026-07-26-1785038401.gz
+   124→-rw-r----- 1 root webuzo  455812 Aug  2 00:00 clipe233eng.net.log-backup-2026-08-02-1785643201.gz
+   125→-rw-r----- 1 root webuzo  410805 Aug  6 18:45 clipe233eng.net.log-backup-2026-08-09-1786248002.gz
+   126→-rw-r----- 1 root webuzo     251 Sep  6 00:00 clipe233eng.net.log-backup-2026-09-07-1788753602
+   127→-rw-r----- 1 root webuzo       0 Aug  9 00:00 clipeconsult.com.err
+   128→-rw-r----- 1 root webuzo   14530 Aug  1 15:33 clipeconsult.com.err-backup-2026-08-02-1785643201.gz
+   129→-rw-r----- 1 root webuzo    3233 Aug  5 16:40 clipeconsult.com.err-backup-2026-08-09-1786248002
+   130→-rw-r----- 1 root webuzo       0 Aug  9 00:00 clipeconsult.com.log
+   131→-rw-r----- 1 root webuzo  157320 Aug  1 23:39 clipeconsult.com.log-backup-2026-08-02-1785643201.gz
+   132→-rw-r----- 1 root webuzo 1136653 Aug  6 18:43 clipeconsult.com.log-backup-2026-08-09-1786248002
+   133→-rw-r----- 1 root webuzo       0 Aug  9 00:00 dwellchroniclesgh.com.err
+   134→-rw-r----- 1 root webuzo   29598 Jul 25 14:44 dwellchroniclesgh.com.err-backup-2026-07-26-1785038401.gz
+   135→-rw-r----- 1 root webuzo    3644 Aug  1 14:09 dwellchroniclesgh.com.err-backup-2026-08-02-1785643201.gz
+   136→-rw-r----- 1 root webuzo    2743 Aug  5 16:40 dwellchroniclesgh.com.err-backup-2026-08-09-1786248002
+   137→-rw-r----- 1 root webuzo       0 Aug  9 00:00 dwellchroniclesgh.com.log
+   138→-rw-r----- 1 root webuzo   54034 Jul 25 23:58 dwellchroniclesgh.com.log-backup-2026-07-26-1785038401.gz
+   139→-rw-r----- 1 root webuzo   85835 Aug  1 23:51 dwellchroniclesgh.com.log-backup-2026-08-02-1785643201.gz
+   140→-rw-r----- 1 root webuzo  602489 Aug  6 18:45 dwellchroniclesgh.com.log-backup-2026-08-09-1786248002
+   141→-rw-r----- 1 root webuzo  743230 Sep 12 04:45 error.log
+   142→-rw-r----- 1 root webuzo    2027 Sep  7 00:00 error_log
+   143→-rw-r----- 1 root webuzo   45352 Aug 15 23:55 error.log-backup-2026-08-16-1786852801.gz
+   144→
+   145→===== 3. LOG ROTATION CONFIG =====
+   146→apache2
+   147→btmp
+   148→certbot
+   149→chrony
+   150→dnf
+   151→emps
+   152→exim
+   153→firewalld
+   154→kvm_stat
+   155→named
+   156→nginx
+   157→nginx.rpmnew
+   158→php84
+   159→php-fpm
+   160→rsyslog
+   161→samba
+   162→sssd
+   163→wtmp
+   164→
+   165→
+   166→===== clipeconsult.com =====
+   167→File: /usr/local/apps/nginx/var/log/clipeconsult.com.log
+   168→-rw-r----- 1 root webuzo 0 Aug  9 00:00 /usr/local/apps/nginx/var/log/clipeconsult.com.log
+   169→Size: 0
+   170→Log files found: 2
+   171→Total requests: 11695
+   172→First entry: 27/Jul/2026:23:39:13
+   173→Last entry:  01/Aug/2026:23:39:16
+   174→Unique IPs:  2273
+   175→--- Top 10 IPs ---
+   176→    357 154.58.229.19
+   177→    276 3.96.132.44
+   178→    268 63.178.229.0
+   179→    268 54.224.187.220
+   180→    223 20.215.216.94
+   181→    220 159.89.207.20
+   182→    210 45.32.119.175
+   183→    200 172.213.17.107
+   184→    182 52.165.196.84
+   185→    182 20.197.178.120
+   186→--- Requests by date (last 20) ---
+   187→   1815 01/Aug/2026
+   188→    463 27/Jul/2026
+   189→   1169 28/Jul/2026
+   190→   3292 29/Jul/2026
+   191→   2797 30/Jul/2026
+   192→   2159 31/Jul/2026
+   193→--- Top 15 URLs ---
+   194→   1637 /
+   195→    529 /wp-admin/install.php?step=1
+   196→    325 /wp-content/themes/astra/inc/builder/type/base/dynamic-css/widget/Separator.inc.php
+   197→    324 /wp-content/themes/astra/inc/builder/type/header/below-header/dynamic-css/rewrite.php
+   198→    321 /wp-content/plugins/elementor-pro/vendor_prefixed/php-di/php-di/src/Definition/ObjectDefinition/useragents.php
+   199→    307 /wp-admin/images/custom_file_3_1778668751.php
+   200→    306 /wp-content/themes/astra/inc/customizer/configurations/builder/header/configs/woo.header.php
+   201→    287 /wp-content/plugins/elementor/vendor_prefixed/twig/symfony/polyfill-mbstring/Resources/unidata/jswizard.inc.php
+   202→    216 /robots.txt
+   203→    121 /favicon.ico
+   204→    105 /favicon.svg
+   205→    101 /logo-icon.png
+   206→     90 /xmlrpc.php
+   207→     86 /_next/static/chunks/771dedee3f5e1621.js
+   208→     83 /_next/static/chunks/ff0f33b075e78fac.js
+   209→--- Top 10 referrers ---
+   210→   9301 -
+   211→   1445 https://clipeconsult.com/
+   212→    122 https://www.clipeconsult.com/
+   213→     99 http://clipeconsult.com
+   214→     95 http://www.clipeconsult.com
+   215→     73 https://clipe233eng.net/
+   216→     40 https://mail.clipeconsult.com/
+   217→     35 https://clipeconsult.com/_next/static/chunks/6b50158eb9a3089b.css
+   218→     25 https://www.clipeconsult.com/_next/static/chunks/6b50158eb9a3089b.css
+   219→     25 https://mail.clipeconsult.com/_next/static/chunks/6b50158eb9a3089b.css
+   220→--- HTTP status codes ---
+   221→   6586 404
+   222→   2795 200
+   223→   1095 301
+   224→    926 308
+   225→    210 304
+   226→     70 400
+   227→      5 405
+   228→      4 408
+   229→      3 206
+   230→      1 502
+   231→--- Top 10 user-agents ---
+   232→   1882 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+   233→   1775 -
+   234→    574 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+   235→    493 http://clipeconsult.com/wp-admin/install.php?step=1
+   236→    415 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+   237→    390 Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1
+   238→    350 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+   239→    329 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36
+   240→    240 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36
+   241→    207 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36
+   242→Bot-like requests: 1446 / 11695
+   243→
+   244→===== clipe233eng.net =====
+   245→File: /usr/local/apps/nginx/var/log/clipe233eng.net.log
+   246→-rw-r----- 1 root webuzo 0 Sep  7 00:00 /usr/local/apps/nginx/var/log/clipe233eng.net.log
+   247→Size: 0
+   248→Log files found: 4
+   249→Total requests: 83124
+   250→First entry: 20/Jul/2026:21:18:27
+   251→Last entry:  06/Aug/2026:18:45:11
+   252→Unique IPs:  9784
+   253→--- Top 10 IPs ---
+   254→   8472 153.75.247.4
+   255→   2429 20.197.195.24
+   256→   1831 66.249.69.41
+   257→   1679 34.50.12.75
+   258→   1088 20.206.105.145
+   259→   1059 20.218.243.163
+   260→    992 20.151.10.161
+   261→    933 20.251.58.190
+   262→    844 20.91.203.45
+   263→    834 66.249.69.32
+   264→--- Requests by date (last 20) ---
+   265→   2093 01/Aug/2026
+   266→   3612 02/Aug/2026
+   267→  10403 03/Aug/2026
+   268→   8710 04/Aug/2026
+   269→   9214 05/Aug/2026
+   270→   5360 06/Aug/2026
+   271→    155 20/Jul/2026
+   272→   2481 21/Jul/2026
+   273→   3658 22/Jul/2026
+   274→   2219 23/Jul/2026
+   275→   2125 24/Jul/2026
+   276→   4696 25/Jul/2026
+   277→   2846 26/Jul/2026
+   278→   6448 27/Jul/2026
+   279→   7297 28/Jul/2026
+   280→   2854 29/Jul/2026
+   281→   5826 30/Jul/2026
+   282→   3127 31/Jul/2026
+   283→--- Top 15 URLs ---
+   284→  10709 /
+   285→   1616 /wp-content/themes/astra/inc/builder/type/header/below-header/dynamic-css/rewrite.php
+   286→   1597 /wp-content/plugins/elementor-pro/vendor_prefixed/php-di/php-di/src/Definition/ObjectDefinition/useragents.php
+   287→   1591 /wp-content/themes/astra/inc/builder/type/base/dynamic-css/widget/Separator.inc.php
+   288→   1578 /wp-content/themes/astra/inc/customizer/configurations/builder/header/configs/woo.header.php
+   289→   1518 /wp-content/plugins/elementor/vendor_prefixed/twig/symfony/polyfill-mbstring/Resources/unidata/jswizard.inc.php
+   290→   1514 /wp-admin/images/custom_file_3_1778668751.php
+   291→    591 /robots.txt
+   292→    365 /wp-admin/install.php?step=1
+   293→    308 /wp-content/plugins/hellopress/wp_filemanager.php
+   294→    295 /this_is_a_new_hello_world.php
+   295→    291 /logo.png
+   296→    228 /1.php
+   297→    221 /222.php
+   298→    208 /8.php
+   299→--- Top 10 referrers ---
+   300→  76376 -
+   301→   1845 https://clipe233eng.net/
+   302→    168 https://clipe233eng.net/wp-admin/edit.php
+   303→    153 http://clipe233eng.net/
+   304→    106 http://clipe233eng.net
+   305→    103 binance.com
+   306→    101 http://www.clipe233eng.net
+   307→     60 https://24hournewsonline.com/
+   308→     53 http://m.24hournewsonline.com
+   309→     51 http://m.pycclub.org
+   310→--- HTTP status codes ---
+   311→  34961 404
+   312→  24166 301
+   313→  10936 308
+   314→  10802 200
+   315→   1863 502
+   316→    210 304
+   317→    112 405
+   318→     53 400
+   319→     18 500
+   320→      2 206
+   321→--- Top 10 user-agents ---
+   322→  31318 -
+   323→  12077 Mozilla/5.0 (compatible; AhrefsBot/7.0; +http://ahrefs.com/robot/)
+   324→   9496 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+   325→   8462 curl/7.76.1
+   326→   2693 Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.7871.186 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+   327→   2002 Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75 Mobile/14E5239e Safari/602.1
+   328→   1712 Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; Perplexity-User/1.0; +https://perplexity.ai/perplexity-user
+   329→   1680 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+   330→   1101 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36
+   331→    805 Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+   332→Bot-like requests: 18410 / 83124
+   333→
+   334→===== globalexperiencegh.org =====
+   335→File: /usr/local/apps/nginx/var/log/globalexperiencegh.org.log
+   336→-rw-r----- 1 root webuzo 0 Aug 24 00:00 /usr/local/apps/nginx/var/log/globalexperiencegh.org.log
+   337→Size: 0
+   338→Log files found: 4
+   339→Total requests: 22732
+   340→First entry: 20/Jul/2026:21:30:00
+   341→Last entry:  06/Aug/2026:18:48:27
+   342→Unique IPs:  1163
+   343→--- Top 10 IPs ---
+   344→   8420 153.75.247.4
+   345→    508 154.161.43.241
+   346→    444 154.161.44.133
+   347→    435 154.160.17.79
+   348→    409 154.161.51.196
+   349→    339 154.161.35.166
+   350→    337 4.184.60.71
+   351→    331 102.176.65.219
+   352→    310 102.176.75.120
+   353→    281 154.161.39.111
+   354→--- Requests by date (last 20) ---
+   355→   1519 01/Aug/2026
+   356→   1701 02/Aug/2026
+   357→   1416 03/Aug/2026
+   358→   1265 04/Aug/2026
+   359→   1690 05/Aug/2026
+   360→    911 06/Aug/2026
+   361→    254 20/Jul/2026
+   362→    325 21/Jul/2026
+   363→    441 22/Jul/2026
+   364→   1092 23/Jul/2026
+   365→   1145 24/Jul/2026
+   366→    875 25/Jul/2026
+   367→   1282 26/Jul/2026
+   368→   1418 27/Jul/2026
+   369→   2100 28/Jul/2026
+   370→   1563 29/Jul/2026
+   371→   1164 30/Jul/2026
+   372→   2571 31/Jul/2026
+   373→--- Top 15 URLs ---
+   374→  10213 /
+   375→    672 /images/logo.png
+   376→    397 /wp-admin/install.php?step=1
+   377→    321 /robots.txt
+   378→    305 /images/slider-3.jpg
+   379→    255 /.git/config
+   380→    226 /images/team-ceo.jpg
+   381→    216 /images/team-it-director.png
+   382→    215 /images/volunteer-group.jpg
+   383→    215 /images/slider-volunteer-ghana.jpg
+   384→    214 /images/team-joycelyn-ankomah.jpg
+   385→    212 /gallery/gallery-1.jpg
+   386→    208 /gallery/gallery-3.jpg
+   387→    208 /gallery/gallery-2.jpg
+   388→    207 /gallery/gallery-5.jpg
+   389→--- Top 10 referrers ---
+   390→  14105 -
+   391→   5512 https://globalexperiencegh.org/
+   392→   1962 https://www.globalexperiencegh.org/
+   393→    241 http://globalexperiencegh.org
+   394→    214 http://www.globalexperiencegh.org
+   395→    134 https://globalexperiencegh.org/pricing
+   396→     79 https://www.globalexperiencegh.org/pricing
+   397→     70 https://www.globalexperiencegh.org/donate
+   398→     55 https://www.globalexperiencegh.org/gallery
+   399→     46 https://globalexperiencegh.org/apply?program=Gap+Year
+   400→--- HTTP status codes ---
+   401→  17839 200
+   402→   2432 404
+   403→   1497 301
+   404→    537 502
+   405→    225 308
+   406→     79 304
+   407→     30 405
+   408→     28 400
+   409→     25 500
+   410→     17 499
+   411→--- Top 10 user-agents ---
+   412→   8417 curl/7.76.1
+   413→   2808 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36
+   414→   1659 Mozilla/5.0 (Linux; U; Android 14; en-us; TECNO KL5 Build/UP1A.231005.007) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.6478.71 Mobile Safari/537.36 PHX/21.9
+   415→    844 Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1
+   416→    720 Mozilla/5.0 (Linux; U; Android 14; en-us; TECNO KL5 Build/UP1A.231005.007) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.6478.71 Mobile Safari/537.36 PHX/21.8
+   417→    577 Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36
+   418→    565 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+   419→    551 Mozilla/5.0 (l9scan/2.0.43e2734323e25373e2335313; +https://leakix.net)
+   420→    453 Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+   421→    435 Mozilla/5.0 (Windows NT 6.1; rv:109.0) Gecko/20100101 Firefox/115.0
+   422→Bot-like requests: 1114 / 22732
+   423→
+   424→===== rasmutafoundation.org =====
+   425→File: /usr/local/apps/nginx/var/log/rasmutafoundation.org.log
+   426→-rw-r----- 1 root webuzo 0 Aug  9 00:00 /usr/local/apps/nginx/var/log/rasmutafoundation.org.log
+   427→Size: 0
+   428→Log files found: 3
+   429→Total requests: 9391
+   430→First entry: 20/Jul/2026:21:47:09
+   431→Last entry:  02/Aug/2026:00:00:05
+   432→Unique IPs:  814
+   433→--- Top 10 IPs ---
+   434→   5432 153.75.247.4
+   435→    219 34.17.129.20
+   436→    174 34.159.38.71
+   437→    174 154.161.1.88
+   438→    174 136.66.254.33
+   439→    165 157.143.3.35
+   440→    148 216.144.249.201
+   441→     99 154.161.39.111
+   442→     75 45.45.237.7
+   443→     75 154.58.229.19
+   444→--- Requests by date (last 20) ---
+   445→    960 01/Aug/2026
+   446→      1 02/Aug/2026
+   447→    247 20/Jul/2026
+   448→    421 21/Jul/2026
+   449→    311 22/Jul/2026
+   450→   1009 23/Jul/2026
+   451→    388 24/Jul/2026
+   452→    886 25/Jul/2026
+   453→    865 26/Jul/2026
+   454→    938 27/Jul/2026
+   455→    937 28/Jul/2026
+   456→    846 29/Jul/2026
+   457→    793 30/Jul/2026
+   458→    789 31/Jul/2026
+   459→--- Top 15 URLs ---
+   460→   6638 /
+   461→    314 /wp-admin/install.php?step=1
+   462→    217 /robots.txt
+   463→     93 /sitemap.xml
+   464→     83 /favicon.ico
+   465→     80 /manifest.webmanifest
+   466→     77 /ras-muta-logo.jpg
+   467→     73 /placeholders/avatar-1.svg
+   468→     68 /placeholders/program-scholarships.svg
+   469→     68 /placeholders/program-mentorship.svg
+   470→     67 /placeholders/program-community.svg
+   471→     67 /placeholders/hero-broadcaster.svg
+   472→     62 /muta.png
+   473→     36 /icon-192x192.png
+   474→     30 /placeholders/avatar-2.svg
+   475→--- Top 10 referrers ---
+   476→   8283 -
+   477→    645 https://rasmutafoundation.org/
+   478→    168 http://rasmutafoundation.org
+   479→    167 http://www.rasmutafoundation.org
+   480→     33 http://rasmutafoundation.org/
+   481→     19 https://www.rasmutafoundation.org/
+   482→     17 https://rasmutafoundation.org/index.js
+   483→      8 https://rasmutafoundation.org/?
+   484→      7 https://mail.rasmutafoundation.org/
+   485→      6 https://rasmutafoundation.org
+   486→--- HTTP status codes ---
+   487→   7078 200
+   488→   1346 404
+   489→    784 301
+   490→    128 308
+   491→     23 206
+   492→     12 304
+   493→     11 400
+   494→      5 502
+   495→      3 405
+   496→      1 499
+   497→--- Top 10 user-agents ---
+   498→   5432 curl/7.76.1
+   499→    684 Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1
+   500→    516 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36
+   501→    335 CCBot/2.0 (https://commoncrawl.org/faq/)
+   502→    314 http://rasmutafoundation.org/wp-admin/install.php?step=1
+   503→    165 Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36
+   504→     78 Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; ClaudeBot/1.0; +claudebot@anthropic.com)
+   505→     74 Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) Chrome/116.0.1938.76 Safari/537.36
+   506→     66 Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+   507→     65 Mozilla/5.0 (l9scan/2.0.43e2734323e25373e2335313; +https://leakix.net)
+   508→Bot-like requests: 1161 / 9391
+   509→
+   510→===== melinawofoundation.org =====
+   511→File: /usr/local/apps/nginx/var/log/melinawofoundation.org.log
+   512→-rw-r----- 1 root webuzo 0 Sep  7 00:00 /usr/local/apps/nginx/var/log/melinawofoundation.org.log
+   513→Size: 0
+   514→Log files found: 4
+   515→Total requests: 143199
+   516→First entry: 26/Jul/2026:00:00:13
+   517→Last entry:  30/Aug/2026:00:00:06
+   518→Unique IPs:  4756
+   519→--- Top 10 IPs ---
+   520→  54686 66.249.69.38
+   521→  23533 66.249.69.39
+   522→  14144 153.75.247.4
+   523→   8175 66.249.69.40
+   524→   4329 74.7.227.170
+   525→   3130 74.7.241.12
+   526→   2960 74.7.227.190
+   527→   2459 74.7.227.142
+   528→   1496 66.249.78.7
+   529→   1328 66.249.69.41
+   530→--- Requests by date (last 20) ---
+   531→  29278 01/Aug/2026
+   532→  40017 02/Aug/2026
+   533→  10654 03/Aug/2026
+   534→  12780 04/Aug/2026
+   535→  20013 05/Aug/2026
+   536→   3646 06/Aug/2026
+   537→   4171 26/Jul/2026
+   538→   4090 27/Jul/2026
+   539→   3562 28/Jul/2026
+   540→   3913 29/Jul/2026
+   541→      1 30/Aug/2026
+   542→   4498 30/Jul/2026
+   543→   6576 31/Jul/2026
+   544→--- Top 15 URLs ---
+   545→  14936 /
+   546→   1197 /wp-content/themes/betheme/functions/admin/class.mfn.changelog.php
+   547→   1193 /wp-content/themes/betheme/functions/plugins/elementor/class-mfn-elementor-widget-opening-hours.php
+   548→    812 /xmlrpc.php
+   549→    292 /robots.txt
+   550→    162 /sitemap.xml
+   551→    139 /wp-includes/im8ea434/index.php
+   552→    133 /?sitemap-1.xml
+   553→    132 /?sitemap-4.xml
+   554→    132 /?sitemap-3.xml
+   555→    132 /?sitemap-2.xml
+   556→    129 /?sitemap-6.xml
+   557→    129 /?sitemap-5.xml
+   558→    128 /?sitemap-7.xml
+   559→    127 /?sitemap-9.xml
+   560→--- Top 10 referrers ---
+   561→ 129717 -
+   562→  12952 https://www.melinawofoundation.org/sitemap302.xml
+   563→    138 https://melinawofoundation.org/wp-includes/im8ea434/index.php
+   564→     91 http://melinawofoundation.org
+   565→     90 http://www.melinawofoundation.org
+   566→     29 http://melinawofoundation.org/
+   567→     18 https://melinawofoundation.org/
+   568→     16 https://melinawofoundation.org
+   569→     14 https://melinawofoundation.org/?yt1
+   570→     10 https://www.melinawofoundation.org/wp-admin/
+   571→--- HTTP status codes ---
+   572→  94159 200
+   573→  44288 500
+   574→   4486 301
+   575→    226 404
+   576→     22 400
+   577→     13 499
+   578→      5 502
+   579→--- Top 10 user-agents ---
+   580→  89042 Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.7871.186 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+   581→  14142 curl/7.76.1
+   582→  13007 Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GPTBot/1.4; +https://openai.com/gptbot)
+   583→   7497 -
+   584→   4897 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 (compatible; meta-externalagent/1.1 (+https://developers.facebook.com/docs/sharing/webmasters/crawler))
+   585→   2480 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 (compatible; meta-externalagent/1.1 (+https://developers.facebook.com/docs/sharing/webmasters/crawler))
+   586→   2416 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+   587→   2352 Mozilla/5.0 (compatible; AhrefsBot/7.0; +http://ahrefs.com/robot/)
+   588→   1102 Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+   589→    931 Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) Chrome/116.0.1938.76 Safari/537.36
+   590→Bot-like requests: 115950 / 143199
+   591→
+   592→===== 24hournewsonline.com =====
+   593→File: /usr/local/apps/nginx/var/log/24hournewsonline.com.log
+   594→-rw-r----- 1 root webuzo 0 Sep  7 00:00 /usr/local/apps/nginx/var/log/24hournewsonline.com.log
+   595→Size: 0
+   596→Log files found: 4
+   597→Total requests: 460357
+   598→First entry: 02/Aug/2026:00:00:20
+   599→Last entry:  30/Aug/2026:00:00:06
+   600→Unique IPs:  2787
+   601→--- Top 10 IPs ---
+   602→ 120756 74.7.227.11
+   603→  90568 74.7.241.37
+   604→  45346 66.249.73.66
+   605→  33203 144.76.32.120
+   606→  30271 66.249.73.67
+   607→  26154 74.7.243.192
+   608→  25434 66.249.73.65
+   609→  18783 66.249.73.68
+   610→  10455 66.249.73.69
+   611→   8322 153.75.247.4
+   612→--- Requests by date (last 20) ---
+   613→ 194574 02/Aug/2026
+   614→  82548 03/Aug/2026
+   615→  59728 04/Aug/2026
+   616→  57159 05/Aug/2026
+   617→  66326 06/Aug/2026
+   618→     20 23/Aug/2026
+   619→      2 30/Aug/2026
+   620→--- Top 15 URLs ---
+   621→   3625 /
+   622→   2925 /wp-admin/admin-ajax.php
+   623→    364 /robots.txt
+   624→    215 /wp-content/uploads/2026/07/ChatGPT-Image-Jul-17-2026-01_58_27-AM-1.png
+   625→    184 /wp-content/themes/sahifa/js/tie-scripts.js
+   626→    183 /wp-content/themes/sahifa/style.css
+   627→    183 /wp-content/themes/sahifa/js/ilightbox.packed.js
+   628→    176 /wp-content/uploads/2026/08/FB_IMG_1785785504714-310x165.jpg
+   629→    174 /wp-content/themes/sahifa/js/search.js
+   630→    171 /wp-content/themes/sahifa/css/ilightbox/dark-skin/skin.css
+   631→    170 /wp-content/themes/sahifa/fonts/fontawesome/fontawesome-webfont.woff2?v=4.7.0
+   632→    169 /wp-includes/js/jquery/jquery.min.js
+   633→    168 /wp-includes/js/jquery/jquery-migrate.min.js
+   634→    153 /sitemap.xml
+   635→    148 /wp-content/uploads/2026/07/cropped-45c20949-edff-4756-a7cd-2c8aac97b435-192x192.jpg
+   636→--- Top 10 referrers ---
+   637→ 208408 -
+   638→   5293 https://24hournewsonline.com/goods.php?sitemap399.xml
+   639→   5292 https://24hournewsonline.com/?sitemap86.xml
+   640→   5292 https://24hournewsonline.com/?sitemap489.xml
+   641→   5288 https://24hournewsonline.com/?sitemapindex.xml
+   642→   5287 https://24hournewsonline.com/?sitemap250.xml
+   643→   5286 https://24hournewsonline.com/?sitemap75.xml
+   644→   5284 https://24hournewsonline.com/?sitemap35.xml
+   645→   5231 https://24hournewsonline.com/?sitemap-product.xml
+   646→   4038 https://24hournewsonline.com/wp-admin/post-new.php
+   647→--- HTTP status codes ---
+   648→ 343393 200
+   649→ 102871 301
+   650→   6296 404
+   651→   5215 403
+   652→   1487 304
+   653→    513 499
+   654→    401 206
+   655→    124 302
+   656→     37 502
+   657→     10 401
+   658→--- Top 10 user-agents ---
+   659→ 237485 Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GPTBot/1.4; +https://openai.com/gptbot)
+   660→ 141545 Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.7871.186 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+   661→  33203 Mozilla/5.0 (compatible; SERankingBacklinksBot/1.0; +https://seranking.com/backlinks-crawler)
+   662→   6466 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 (compatible; meta-externalagent/1.1 (+https://developers.facebook.com/docs/sharing/webmasters/crawler))
+   663→   6342 Mozilla/5.0 (compatible; DataForSeoBot/1.0; +https://dataforseo.com/dataforseo-bot)
+   664→   6293 Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Mobile Safari/537.36
+   665→   5598 WordPress/7.0.2; https://24hournewsonline.com
+   666→   3463 Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.7871.186 Mobile Safari/537.36 (compatible; GoogleOther)
+   667→   3261 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 (compatible; meta-externalagent/1.1 (+https://developers.facebook.com/docs/sharing/webmasters/crawler))
+   668→   2723 curl/7.76.1
+   669→Bot-like requests: 433652 / 460357
+   670→
+   671→===== pycclub.org =====
+   672→File: /usr/local/apps/nginx/var/log/pycclub.org.log
+   673→-rw-r----- 1 root webuzo 0 Aug  9 00:00 /usr/local/apps/nginx/var/log/pycclub.org.log
+   674→Size: 0
+   675→Log files found: 3
+   676→Total requests: 12764
+   677→First entry: 22/Jul/2026:19:55:52
+   678→Last entry:  01/Aug/2026:23:36:54
+   679→Unique IPs:  1460
+   680→--- Top 10 IPs ---
+   681→   3036 185.177.72.22
+   682→    555 154.161.39.111
+   683→    360 157.143.3.35
+   684→    276 63.177.61.217
+   685→    276 45.45.237.214
+   686→    149 145.241.230.205
+   687→    144 91.92.47.112
+   688→    140 154.160.6.1
+   689→    121 104.23.221.179
+   690→     99 104.23.221.178
+   691→--- Requests by date (last 20) ---
+   692→    340 01/Aug/2026
+   693→    654 22/Jul/2026
+   694→   1590 23/Jul/2026
+   695→   1883 24/Jul/2026
+   696→   1234 25/Jul/2026
+   697→   1121 26/Jul/2026
+   698→    664 27/Jul/2026
+   699→    684 28/Jul/2026
+   700→   3577 29/Jul/2026
+   701→    546 30/Jul/2026
+   702→    471 31/Jul/2026
+   703→--- Top 15 URLs ---
+   704→   2240 /
+   705→   1444 /wp-admin/install.php?step=1
+   706→    251 /pyc-logo-512.png
+   707→    215 /pyc-logo.png
+   708→    211 /robots.txt
+   709→    210 /hero-bg.jpg
+   710→    204 /images/history-community.jpg
+   711→    180 /pyc-favicon.png
+   712→    160 /favicon.ico
+   713→    130 /francis-aba.jpg
+   714→    122 /?_rsc=7h4NYy5eoyMcNlUN
+   715→    120 /?_rsc=yIp22O3xgPPxC28X
+   716→    120 /?_rsc=8nTjltbQWvg6NcbE
+   717→     99 /wp-login.php
+   718→     99 /borborbor-album.jpg
+   719→--- Top 10 referrers ---
+   720→   9485 -
+   721→   1911 https://pycclub.org/
+   722→    184 https://pycclub.org/gallery
+   723→    184 http://pycclub.org
+   724→    176 http://www.pycclub.org
+   725→     85 https://www.google.com/search?q=pycclub.org
+   726→     63 https://www.google.com/search?q=www.pycclub.org
+   727→     59 https://mail.pycclub.org/
+   728→     53 http://pycclub.org/
+   729→     50 https://www.pycclub.org/
+   730→--- HTTP status codes ---
+   731→   4216 200
+   732→   3121 502
+   733→   2950 404
+   734→   1744 301
+   735→    466 308
+   736→    139 304
+   737→     91 400
+   738→     15 405
+   739→     14 500
+   740→      7 206
+   741→--- Top 10 user-agents ---
+   742→   3021 curl/8.7.1
+   743→   1444 http://pycclub.org/wp-admin/install.php?step=1
+   744→    702 Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1
+   745→    653 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36
+   746→    386 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+   747→    360 Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36
+   748→    336 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+   749→    222 Mozilla/5.0 (l9scan/2.0.43e2734323e25373e2335313; +https://leakix.net)
+   750→    185 Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.4 Mobile/15E148 Safari/604.1
+   751→    185 facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)
+   752→Bot-like requests: 1202 / 12764
+   753→
+   754→===== dwellchroniclesgh.com =====
+   755→File: /usr/local/apps/nginx/var/log/dwellchroniclesgh.com.log
+   756→-rw-r----- 1 root webuzo 0 Aug  9 00:00 /usr/local/apps/nginx/var/log/dwellchroniclesgh.com.log
+   757→Size: 0
+   758→Log files found: 3
+   759→Total requests: 12133
+   760→First entry: 23/Jul/2026:03:33:28
+   761→Last entry:  01/Aug/2026:23:51:51
+   762→Unique IPs:  1089
+   763→--- Top 10 IPs ---
+   764→    718 41.210.27.215
+   765→    574 154.160.6.1
+   766→    538 54.179.159.243
+   767→    538 15.135.194.171
+   768→    538 15.134.208.235
+   769→    396 159.89.207.20
+   770→    378 45.32.119.175
+   771→    290 157.143.3.35
+   772→    276 3.255.177.208
+   773→    276 18.216.99.5
+   774→--- Requests by date (last 20) ---
+   775→    438 01/Aug/2026
+   776→    966 23/Jul/2026
+   777→   2241 24/Jul/2026
+   778→   2157 25/Jul/2026
+   779→   1503 26/Jul/2026
+   780→   1605 27/Jul/2026
+   781→    806 28/Jul/2026
+   782→    699 29/Jul/2026
+   783→   1242 30/Jul/2026
+   784→    476 31/Jul/2026
+   785→--- Top 15 URLs ---
+   786→   1859 /
+   787→   1199 /wp-admin/install.php?step=1
+   788→    299 /logo.jpg
+   789→    210 /robots.txt
+   790→    165 /favicon.ico
+   791→    130 /api/youtube
+   792→    119 /_next/static/chunks/turbopack-9fd3387fc3ab23c3.js
+   793→    119 /_next/static/chunks/771dedee3f5e1621.js
+   794→    117 /_next/static/chunks/d2be314c3ece3fbe.js
+   795→    117 /_next/static/chunks/a2bdfa79f36c1bef.js
+   796→    116 /_next/static/chunks/82abf2d65f5428ae.js
+   797→    114 /_next/static/chunks/4aa0ae93078abf12.js
+   798→    113 /_next/static/chunks/ff1a16fafef87110.js
+   799→     99 /_next/static/chunks/757f4aab6fdf4f52.js
+   800→     97 /_next/static/chunks/5b1a49d925079782.js
+   801→--- Top 10 referrers ---
+   802→   7700 -
+   803→   2412 https://dwellchroniclesgh.com/
+   804→    565 https://www.dwellchroniclesgh.com/
+   805→    310 https://dwellchroniclesgh.com/airbnb
+   806→    149 http://www.dwellchroniclesgh.com
+   807→    149 http://dwellchroniclesgh.com
+   808→    116 https://dwellchroniclesgh.com/blog/why-you-need-a-gutter-system-in-building-maintenance
+   809→     74 https://dwellchroniclesgh.com/blog/why-ho-volta-region-ghana-next-big-real-estate-hotspot
+   810→     72 https://www.dwellchroniclesgh.com/airbnb
+   811→     70 https://mail.dwellchroniclesgh.com/
+   812→--- HTTP status codes ---
+   813→   4995 200
+   814→   3885 404
+   815→   1525 301
+   816→    820 308
+   817→    491 502
+   818→    246 304
+   819→     76 400
+   820→     74 206
+   821→     16 405
+   822→      4 500
+   823→--- Top 10 user-agents ---
+   824→   1199 http://dwellchroniclesgh.com/wp-admin/install.php?step=1
+   825→   1195 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36
+   826→   1093 Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+   827→    591 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+   828→    591 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+   829→    588 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
+   830→    562 Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1
+   831→    440 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36
+   832→    313 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 (Silvy X Ran; +https://silvyxran.love; +https://silver.inc)
+   833→    290 Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36
+   834→Bot-like requests: 1260 / 12133
+   835→
+   836→===== voltatourismhub.com =====
+   837→File: /usr/local/apps/nginx/var/log/voltatourismhub.com.log
+   838→  NOT FOUND
+   839→
+   840→===== sivengineering.com =====
+   841→File: /usr/local/apps/nginx/var/log/sivengineering.com.log
+   842→  NOT FOUND
+   843→
+   844→############################################################
+   845→#  END OF REPORT
+   846→############################################################
+   847→[root@vps ~]# echo ""
+   848→
+   849→[root@vps ~]# echo "=== Report saved to /tmp/log-report.txt ==="
+   850→=== Report saved to /tmp/log-report.txt ===
+   851→[root@vps ~]# echo "=== Lines: $(wc -l < /tmp/log-report.txt) ==="
+   852→=== Lines: 758 ===
+   853→[root@vps ~]#
+   854→[root@vps ~]#
+   855→[root@vps ~]#
+   856→[root@vps ~]#
