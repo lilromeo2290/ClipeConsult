@@ -1,35 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  Menu, X, Phone, Mail, MapPin, Clock, MessageCircle,
-  ChevronRight, ChevronDown, GraduationCap, BookOpen, Briefcase, HelpCircle,
-  Wrench, FolderKanban,
-} from "lucide-react";
+import { Menu, X, Phone, ChevronRight } from "lucide-react";
 import { navItems, contactInfo } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-
-// Icon mapping for dropdown children — covers both Solutions and Resources sub-items
-const childIcons: Record<string, typeof GraduationCap> = {
-  // Solutions children
-  Services: Wrench,
-  Projects: FolderKanban,
-  // Resources children
-  Training: GraduationCap,
-  Blog: BookOpen,
-  Careers: Briefcase,
-  FAQs: HelpCircle,
-};
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  // Track which mobile accordion section is open (by label)
-  const [mobileOpenSection, setMobileOpenSection] = useState<string | null>(null);
-  // Track which desktop dropdown is open (by label)
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -39,12 +19,7 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    // Collect all section IDs including dropdown children
-    const ids = new Set<string>();
-    navItems.forEach((n) => {
-      ids.add(n.href.replace("#", ""));
-      n.children?.forEach((c) => ids.add(c.href.replace("#", "")));
-    });
+    const ids = navItems.map((n) => n.href.replace("#", ""));
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -60,66 +35,31 @@ export function Header() {
     return () => observer.disconnect();
   }, []);
 
-  // Map each dropdown parent label to the list of its child section IDs
-  // so we can highlight the parent when any of its children is the active section.
-  const parentActiveMap: Record<string, string[]> = {};
-  navItems.forEach((n) => {
-    if (n.children?.length) {
-      parentActiveMap[n.label] = n.children.map((c) => c.href.replace("#", ""));
-    }
-  });
-  // Which dropdown parent (if any) currently has an active child section
-  const activeDropdownParent = Object.entries(parentActiveMap).find(([, ids]) =>
-    ids.includes(activeSection)
-  )?.[0] ?? null;
-
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
   const handleNav = (href: string) => {
     setOpen(false);
-    setOpenDropdown(null);
-    setMobileOpenSection(null);
     const el = document.getElementById(href.replace("#", ""));
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
     <>
       {/* Top utility bar */}
-      <div className="hidden lg:block bg-[#1B2A5C] text-white/80 text-xs">
+      <div className="hidden lg:block bg-[#002060] text-white/80 text-xs">
         <div className="container mx-auto max-w-7xl px-6 h-10 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <a href={`tel:${contactInfo.phonePrimary.replace(/\s/g, "")}`} className="flex items-center gap-2 hover:text-white transition">
-              <Phone className="h-3.5 w-3.5 text-[#E31E24]" />
+              <Phone className="h-3.5 w-3.5 text-[#ED1C24]" />
               <span>{contactInfo.phonePrimary}</span>
             </a>
-            <a href={`mailto:${contactInfo.emailPrimary}`} className="flex items-center gap-2 hover:text-white transition">
-              <Mail className="h-3.5 w-3.5 text-[#E31E24]" />
-              <span>{contactInfo.emailPrimary}</span>
-            </a>
-            <span className="flex items-center gap-2">
-              <MapPin className="h-3.5 w-3.5 text-[#E31E24]" />
-              <span>Ho, Volta Region, Ghana</span>
-            </span>
+            <span className="text-white/40">|</span>
+            <span className="tracking-wider text-white/60">IDEAS TODAY <span className="text-[#ED1C24]">•</span> SOLUTIONS TOMORROW</span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-2">
-              <Clock className="h-3.5 w-3.5 text-[#E31E24]" />
-              <span>Mon – Fri: 8AM – 6PM</span>
-            </span>
-            <a
-              href={`https://wa.me/${contactInfo.whatsapp.replace(/\D/g, "")}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition font-medium"
-            >
-              <MessageCircle className="h-3.5 w-3.5" />
-              WhatsApp Chat
-            </a>
+            <span className="text-white/60">TECHNOLOGY <span className="text-[#ED1C24]">•</span> BUSINESS SOLUTIONS <span className="text-[#ED1C24]">•</span> DIGITAL SYSTEMS</span>
           </div>
         </div>
       </div>
@@ -138,30 +78,16 @@ export function Header() {
             {/* Logo */}
             <a
               href="#home"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNav("#home");
-              }}
+              onClick={(e) => { e.preventDefault(); handleNav("#home"); }}
               className="flex items-center gap-3 group"
-              aria-label="Clipe Consult — Home"
+              aria-label="RACLIPE CONSULT — Home"
             >
-              {/* Icon logo — square format, preserves aspect ratio */}
-              <div className="relative h-12 w-12 rounded-xl overflow-hidden shadow-md group-hover:shadow-lg transition-shadow flex-shrink-0 bg-white">
+              <div className="relative h-12 w-auto max-w-[200px] flex items-center">
                 <img
-                  src="/logo-icon.png"
-                  alt="Clipe Consult logo"
-                  className="h-full w-full object-contain p-0.5"
-                  width={48}
-                  height={48}
+                  src="/raclipe-logo.png"
+                  alt="RACLIPE CONSULT logo"
+                  className="h-full w-auto object-contain"
                 />
-              </div>
-              <div className="flex flex-col leading-tight">
-                <span className="text-[#1B2A5C] font-bold text-lg font-[family-name:var(--font-poppins)]">
-                  CLIPE <span className="text-[#E31E24]">CONSULT</span>
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-[#5A6B82] font-medium">
-                  Building Innovations • Engineering Excellence
-                </span>
               </div>
             </a>
 
@@ -169,129 +95,19 @@ export function Header() {
             <nav className="hidden xl:flex items-center gap-1" aria-label="Primary">
               {navItems.map((item) => {
                 const isActive = activeSection === item.href.replace("#", "");
-                const isParentActive = item.label === activeDropdownParent;
-                const isOpen = openDropdown === item.label;
-
-                // Dropdown item (Solutions, Resources, etc.)
-                if (item.children?.length) {
-                  const subtitle =
-                    item.label === "Solutions"
-                      ? "What we do & what we've built"
-                      : item.label === "Resources"
-                      ? "Learn, grow & explore with Clipe Consult"
-                      : "";
-                  return (
-                    <div
-                      key={item.href}
-                      className="relative"
-                      onMouseEnter={() => setOpenDropdown(item.label)}
-                      onMouseLeave={() => setOpenDropdown((cur) => (cur === item.label ? null : cur))}
-                    >
-                      <button
-                        type="button"
-                        onClick={() => setOpenDropdown((cur) => (cur === item.label ? null : item.label))}
-                        aria-haspopup="true"
-                        aria-expanded={isOpen}
-                        className={cn(
-                          "relative px-3 py-2 text-sm font-bold rounded-md transition-colors inline-flex items-center gap-1",
-                          (isActive || isParentActive || isOpen)
-                            ? "text-[#1B2A5C]"
-                            : "text-[#1B2A5C]/70 hover:text-[#1B2A5C]"
-                        )}
-                      >
-                        {item.label}
-                        <ChevronDown
-                          className={cn(
-                            "h-3.5 w-3.5 transition-transform",
-                            isOpen && "rotate-180"
-                          )}
-                        />
-                        {(isActive || isParentActive) && (
-                          <span className="absolute inset-x-3 -bottom-0.5 h-0.5 bg-[#1B2A5C] rounded-full" />
-                        )}
-                      </button>
-
-                      {/* Dropdown panel */}
-                      <div
-                        className={cn(
-                          "absolute left-1/2 -translate-x-1/2 top-full pt-3 transition-all duration-200 z-50",
-                          isOpen
-                            ? "opacity-100 visible translate-y-0"
-                            : "opacity-0 invisible -translate-y-1 pointer-events-none"
-                        )}
-                      >
-                        <div className="w-80 rounded-xl bg-white shadow-2xl border border-slate-100 p-2 overflow-hidden">
-                          <div className="px-3 py-2 mb-1 border-b border-slate-100">
-                            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#E31E24]">
-                              {item.label}
-                            </p>
-                            {subtitle && (
-                              <p className="text-xs text-[#5A6B82] mt-0.5">{subtitle}</p>
-                            )}
-                          </div>
-                          {item.children.map((child) => {
-                            const Icon = childIcons[child.label] ?? BookOpen;
-                            const childActive = activeSection === child.href.replace("#", "");
-                            return (
-                              <a
-                                key={child.href}
-                                href={child.href}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  handleNav(child.href);
-                                }}
-                                className={cn(
-                                  "group flex items-start gap-3 p-3 rounded-lg transition-colors",
-                                  childActive ? "bg-[#EEF1F8]" : "hover:bg-slate-50"
-                                )}
-                              >
-                                <div className={cn(
-                                  "inline-flex h-9 w-9 items-center justify-center rounded-lg flex-shrink-0 transition-colors",
-                                  childActive
-                                    ? "bg-[#1B2A5C] text-white"
-                                    : "bg-[#EEF1F8] text-[#1B2A5C] group-hover:bg-[#1B2A5C] group-hover:text-white"
-                                )}>
-                                  <Icon className="h-4 w-4" />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-center justify-between gap-2">
-                                    <span className="text-sm font-semibold text-[#1B2A5C]">
-                                      {child.label}
-                                    </span>
-                                    <ChevronRight className="h-3.5 w-3.5 text-[#5A6B82]/40 group-hover:text-[#1B2A5C] group-hover:translate-x-0.5 transition-all" />
-                                  </div>
-                                  <p className="text-xs text-[#5A6B82] mt-0.5 leading-snug">
-                                    {child.description}
-                                  </p>
-                                </div>
-                              </a>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                }
-
-                // Regular nav item
                 return (
                   <a
                     key={item.href}
                     href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNav(item.href);
-                    }}
+                    onClick={(e) => { e.preventDefault(); handleNav(item.href); }}
                     className={cn(
                       "relative px-3 py-2 text-sm font-bold rounded-md transition-colors",
-                      isActive
-                        ? "text-[#1B2A5C]"
-                        : "text-[#1B2A5C]/70 hover:text-[#1B2A5C]"
+                      isActive ? "text-[#002060]" : "text-[#002060]/70 hover:text-[#002060]"
                     )}
                   >
                     {item.label}
                     {isActive && (
-                      <span className="absolute inset-x-3 -bottom-0.5 h-0.5 bg-[#1B2A5C] rounded-full" />
+                      <span className="absolute inset-x-3 -bottom-0.5 h-0.5 bg-[#ED1C24] rounded-full" />
                     )}
                   </a>
                 );
@@ -303,21 +119,18 @@ export function Header() {
               <Button
                 asChild
                 size="sm"
-                className="hidden md:inline-flex bg-[#1B2A5C] hover:bg-[#142149] text-white shadow-md hover:shadow-brand transition-all"
+                className="hidden md:inline-flex bg-[#ED1C24] hover:bg-[#B8181F] text-white shadow-md transition-all"
               >
                 <a
                   href="#contact"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNav("#contact");
-                  }}
+                  onClick={(e) => { e.preventDefault(); handleNav("#contact"); }}
                 >
-                  Get Free Consultation
+                  START YOUR PROJECT
                   <ChevronRight className="h-4 w-4 ml-1" />
                 </a>
               </Button>
               <button
-                className="xl:hidden inline-flex items-center justify-center h-11 w-11 rounded-lg border border-slate-200 text-[#1B2A5C] hover:bg-slate-50 transition"
+                className="xl:hidden inline-flex items-center justify-center h-11 w-11 rounded-lg border border-slate-200 text-[#002060] hover:bg-slate-50 transition"
                 onClick={() => setOpen(true)}
                 aria-label="Open menu"
                 aria-expanded={open}
@@ -337,7 +150,7 @@ export function Header() {
         )}
       >
         <div
-          className="absolute inset-0 bg-[#1B2A5C]/60 backdrop-blur-sm"
+          className="absolute inset-0 bg-[#002060]/60 backdrop-blur-sm"
           onClick={() => setOpen(false)}
         />
         <div
@@ -347,115 +160,27 @@ export function Header() {
           )}
         >
           <div className="flex items-center justify-between p-6 border-b border-slate-100">
-            <div className="flex items-center gap-3">
-              <div className="relative h-10 w-10 rounded-lg overflow-hidden shadow-sm flex-shrink-0 bg-white">
-                <img src="/logo-icon.png" alt="Clipe Consult logo" className="h-full w-full object-contain p-0.5" width={40} height={40} />
-              </div>
-              <div className="flex flex-col leading-tight">
-                <span className="text-[#1B2A5C] font-bold text-base font-[family-name:var(--font-poppins)]">
-                  CLIPE <span className="text-[#E31E24]">CONSULT</span>
-                </span>
-                <span className="text-[10px] uppercase tracking-wider text-[#5A6B82]">Building Innovations • Engineering Excellence</span>
-              </div>
-            </div>
+            <img src="/raclipe-logo.png" alt="RACLIPE CONSULT" className="h-10 w-auto object-contain" />
             <button
               className="inline-flex items-center justify-center h-10 w-10 rounded-lg border border-slate-200 hover:bg-slate-50"
               onClick={() => setOpen(false)}
               aria-label="Close menu"
             >
-              <X className="h-5 w-5 text-[#1B2A5C]" />
+              <X className="h-5 w-5 text-[#002060]" />
             </button>
           </div>
 
           <nav className="flex-1 overflow-y-auto p-6 space-y-1" aria-label="Mobile">
             {navItems.map((item) => {
               const isActive = activeSection === item.href.replace("#", "");
-              const isParentActive = item.label === activeDropdownParent;
-              const isMobileOpen = mobileOpenSection === item.label;
-
-              // Mobile dropdown parent — expandable accordion (Solutions, Resources, etc.)
-              if (item.children?.length) {
-                return (
-                  <div key={item.href} className="rounded-lg overflow-hidden">
-                    <button
-                      type="button"
-                      onClick={() => setMobileOpenSection((cur) => (cur === item.label ? null : item.label))}
-                      aria-expanded={isMobileOpen}
-                      className={cn(
-                        "w-full flex items-center justify-between px-4 py-3 text-base font-bold transition-colors",
-                        (isParentActive || isMobileOpen)
-                          ? "bg-[#EEF1F8] text-[#1B2A5C]"
-                          : "text-[#1B2A5C] hover:bg-slate-50"
-                      )}
-                    >
-                      <span className="flex items-center gap-2">
-                        {item.label}
-                        {isParentActive && (
-                          <span className="h-1.5 w-1.5 rounded-full bg-[#E31E24]" />
-                        )}
-                      </span>
-                      <ChevronDown
-                        className={cn(
-                          "h-4 w-4 transition-transform",
-                          isMobileOpen && "rotate-180"
-                        )}
-                      />
-                    </button>
-                    <div
-                      className={cn(
-                        "grid transition-all duration-200",
-                        isMobileOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-                      )}
-                    >
-                      <div className="overflow-hidden">
-                        <div className="pl-3 pt-1 pb-2 space-y-0.5 border-l-2 border-[#EEF1F8] ml-4">
-                          {item.children.map((child) => {
-                            const Icon = childIcons[child.label] ?? BookOpen;
-                            const childActive = activeSection === child.href.replace("#", "");
-                            return (
-                              <a
-                                key={child.href}
-                                href={child.href}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  handleNav(child.href);
-                                }}
-                                className={cn(
-                                  "flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-semibold transition-colors",
-                                  childActive
-                                    ? "bg-[#1B2A5C] text-white"
-                                    : "text-[#1B2A5C]/80 hover:bg-slate-50"
-                                )}
-                              >
-                                <Icon className={cn(
-                                  "h-4 w-4",
-                                  childActive ? "text-white" : "text-[#E31E24]"
-                                )} />
-                                {child.label}
-                              </a>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              }
-
-              // Regular mobile nav item
               return (
                 <a
                   key={item.href}
                   href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNav(item.href);
-                  }}
+                  onClick={(e) => { e.preventDefault(); handleNav(item.href); }}
                   className={cn(
                     "flex items-center justify-between px-4 py-3 rounded-lg text-base font-bold transition-colors",
-                    isActive
-                      ? "bg-[#EEF1F8] text-[#1B2A5C]"
-                      : "text-[#1B2A5C] hover:bg-slate-50"
+                    isActive ? "bg-[#EEF1F8] text-[#002060]" : "text-[#002060] hover:bg-slate-50"
                   )}
                 >
                   {item.label}
@@ -468,21 +193,15 @@ export function Header() {
           <div className="p-6 border-t border-slate-100 space-y-3 bg-slate-50">
             <Button
               asChild
-              className="w-full bg-[#1B2A5C] hover:bg-[#142149] text-white shadow-md"
+              className="w-full bg-[#ED1C24] hover:bg-[#B8181F] text-white shadow-md"
             >
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNav("#contact");
-                }}
-              >
-                Get Free Consultation
+              <a href="#contact" onClick={(e) => { e.preventDefault(); handleNav("#contact"); }}>
+                START YOUR PROJECT
               </a>
             </Button>
             <a
               href={`tel:${contactInfo.phonePrimary.replace(/\s/g, "")}`}
-              className="flex items-center justify-center gap-2 text-sm text-[#1B2A5C] hover:text-[#1B2A5C]"
+              className="flex items-center justify-center gap-2 text-sm text-[#002060]"
             >
               <Phone className="h-4 w-4" />
               {contactInfo.phonePrimary}

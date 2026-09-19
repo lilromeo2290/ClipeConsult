@@ -54,47 +54,50 @@
 
 :root {
   --radius: 0.625rem;
-  /* Brand colors — aligned with official Clipe Consult logo */
-  --brand: #1B2A5C;          /* Navy (primary) */
+  /* RACLIPE CONSULT brand colors — from official logo */
+  --brand: #002060;            /* Navy (primary) — from RACLIPE wordmark */
   --brand-foreground: #FFFFFF;
-  --accent-red: #E31E24;     /* Red (accent) */
+  --accent-red: #ED1C24;       /* Red (accent) — from the "A" in RACLIPE */
   --accent-red-foreground: #FFFFFF;
-  --navy: #1B2A5C;
+  --navy: #002060;
   --navy-foreground: #FFFFFF;
-  --lightblue: #EEF1F8;      /* Soft tint of navy */
+  --charcoal: #333333;         /* Charcoal — from "CONSULT" text */
+  --charcoal-foreground: #FFFFFF;
+  --lightblue: #EEF1F8;        /* Soft tint of navy */
   --silver: #C9D2E0;
+  --gray: #6B7280;             /* Gray for secondary text */
   /* Standard shadcn tokens */
   --background: #FFFFFF;
-  --foreground: #1B2A5C;
+  --foreground: #002060;
   --card: #FFFFFF;
-  --card-foreground: #1B2A5C;
+  --card-foreground: #002060;
   --popover: #FFFFFF;
-  --popover-foreground: #1B2A5C;
-  --primary: #1B2A5C;        /* Navy as primary action color */
+  --popover-foreground: #002060;
+  --primary: #002060;          /* Navy as primary action color */
   --primary-foreground: #FFFFFF;
   --secondary: #F1F4FA;
-  --secondary-foreground: #1B2A5C;
+  --secondary-foreground: #002060;
   --muted: #F4F6FA;
-  --muted-foreground: #5A6B82;
+  --muted-foreground: #6B7280;
   --accent: #EEF1F8;
-  --accent-foreground: #1B2A5C;
-  --destructive: #E31E24;    /* Red as destructive/emergency */
+  --accent-foreground: #002060;
+  --destructive: #ED1C24;      /* Red as destructive/emergency */
   --border: #E2E6EF;
   --input: #E2E6EF;
-  --ring: #1B2A5C;
-  --chart-1: #1B2A5C;
-  --chart-2: #E31E24;
+  --ring: #002060;
+  --chart-1: #002060;
+  --chart-2: #ED1C24;
   --chart-3: #3A4D85;
   --chart-4: #6B7BA8;
   --chart-5: #BCC4D6;
   --sidebar: #FFFFFF;
-  --sidebar-foreground: #1B2A5C;
-  --sidebar-primary: #1B2A5C;
+  --sidebar-foreground: #002060;
+  --sidebar-primary: #002060;
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #EEF1F8;
-  --sidebar-accent-foreground: #1B2A5C;
+  --sidebar-accent-foreground: #002060;
   --sidebar-border: #E2E6EF;
-  --sidebar-ring: #1B2A5C;
+  --sidebar-ring: #002060;
 }
 
 .dark {
@@ -108,9 +111,9 @@
   --silver: #4A5A75;
   --background: #0A1330;
   --foreground: #F4F6FA;
-  --card: #1B2A5C;
+  --card: #002060;
   --card-foreground: #F4F6FA;
-  --popover: #1B2A5C;
+  --popover: #002060;
   --popover-foreground: #F4F6FA;
   --primary: #3A4D85;
   --primary-foreground: #0A1330;
@@ -129,7 +132,7 @@
   --chart-3: #6B7BA8;
   --chart-4: #B0C4DE;
   --chart-5: #D6E2F2;
-  --sidebar: #1B2A5C;
+  --sidebar: #002060;
   --sidebar-foreground: #F4F6FA;
   --sidebar-primary: #3A4D85;
   --sidebar-primary-foreground: #0A1330;
@@ -178,13 +181,13 @@
     background: radial-gradient(ellipse at top, rgba(0, 86, 210, 0.18), transparent 60%);
   }
   .gradient-text {
-    background: linear-gradient(135deg, #E31E24 0%, #FFFFFF 100%);
+    background: linear-gradient(135deg, #ED1C24 0%, #FFFFFF 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   .gradient-brand {
-    background: linear-gradient(135deg, #1B2A5C 0%, #1B2A5C 100%);
+    background: linear-gradient(135deg, #002060 0%, #002060 100%);
   }
   .gradient-brand-soft {
     background: linear-gradient(135deg, rgba(0, 86, 210, 0.08) 0%, rgba(11, 31, 58, 0.04) 100%);
@@ -220,7 +223,7 @@
   border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #1B2A5C;
+  background: #002060;
 }
 
 /* Marquee animation — slow enough to read site names */

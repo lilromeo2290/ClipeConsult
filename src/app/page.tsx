@@ -1,14 +1,13 @@
 import { Header } from "@/components/site/header";
 import { Hero } from "@/components/site/hero";
+import { Stats } from "@/components/site/stats";
+import { Services } from "@/components/site/services";
+import { Projects } from "@/components/site/projects";
+import { Africa } from "@/components/site/africa";
+import { Lab } from "@/components/site/lab";
+import { Process } from "@/components/site/process";
 import { About } from "@/components/site/about";
 import { Team } from "@/components/site/team";
-import { Services } from "@/components/site/services";
-import { WhyChooseUs } from "@/components/site/why-choose-us";
-import { Projects } from "@/components/site/projects";
-import { Industries } from "@/components/site/industries";
-import { Training } from "@/components/site/training";
-import { FAQ } from "@/components/site/faq";
-import { CTA } from "@/components/site/cta";
 import { Contact } from "@/components/site/contact";
 import { Footer } from "@/components/site/footer";
 import { FloatingActions } from "@/components/site/floating-actions";
@@ -19,15 +18,14 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <Hero />
+        <Stats />
+        <Services />
+        <Projects />
+        <Africa />
+        <Lab />
+        <Process />
         <About />
         <Team />
-        <Services />
-        <WhyChooseUs />
-        <Projects />
-        <Industries />
-        <Training />
-        <FAQ />
-        <CTA />
         <Contact />
       </main>
       <Footer />

@@ -1,104 +1,89 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Target, Eye, Award, Users, TrendingUp, ShieldCheck, Clock } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const values = [
-  {
-    icon: Award,
-    title: "Excellence",
-    description: "We hold ourselves to international standards on every project — from a simple website to a multi-site ERP rollout.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Integrity",
-    description: "Transparent pricing, honest advice, and recommendations that serve your business — not our bottom line.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Innovation",
-    description: "We continuously invest in modern tools, frameworks and training so our clients always stay ahead of the curve.",
-  },
-  {
-    icon: Users,
-    title: "Partnership",
-    description: "We measure success by your growth. Most of our clients stay with us for years and refer us to their networks.",
-  },
-];
-
-const highlights = [
-  { icon: Award, label: "Certified Engineers" },
-  { icon: Clock, label: "24/7 Support" },
-  { icon: ShieldCheck, label: "Secure by Design" },
-  { icon: TrendingUp, label: "Agile Delivery" },
-];
-
 export function About() {
-  return (
-    <section id="about" className="relative py-20 lg:py-28 bg-white overflow-hidden">
-      {/* Decorative bg */}
-      <div className="absolute inset-0 bg-grid-dark opacity-50" aria-hidden />
-      <div className="absolute top-1/2 -right-32 h-96 w-96 rounded-full bg-[#1B2A5C]/5 blur-3xl" aria-hidden />
+  const focusAreas = [
+    "Software Development",
+    "Digital Transformation",
+    "IT Infrastructure",
+    "Cybersecurity",
+    "Cloud",
+    "Enterprise Systems",
+    "Technology Consulting",
+  ];
 
+  return (
+    <section id="about" className="relative py-20 lg:py-28 bg-gradient-to-b from-white to-[#F4F6FA] overflow-hidden">
       <div className="container mx-auto max-w-7xl px-6 relative">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Left: intro */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left: Visual */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="relative"
+          >
+            <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-[#002060] to-[#001845] overflow-hidden relative shadow-2xl">
+              <div className="absolute inset-0 bg-grid opacity-30" />
+              {/* Logo centered */}
+              <div className="absolute inset-0 flex items-center justify-center p-12">
+                <img
+                  src="/raclipe-logo.png"
+                  alt="RACLIPE CONSULT"
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
+              {/* Accent */}
+              <div className="absolute bottom-0 inset-x-0 h-1 bg-gradient-to-r from-[#ED1C24] to-[#002060]" />
+            </div>
+          </motion.div>
+
+          {/* Right: Content */}
           <div>
-            <motion.div
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EEF1F8] text-[#1B2A5C] text-xs font-semibold mb-5"
+              className="text-xs uppercase tracking-[0.3em] font-bold text-[#ED1C24] mb-4"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#1B2A5C]" />
-              About Clipe Consult
-            </motion.div>
-
+              About RACLIPE CONSULT
+            </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, delay: 0.05 }}
-              className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl lg:text-5xl font-bold text-[#1B2A5C] leading-tight text-balance"
+              className="font-[family-name:var(--font-poppins)] text-3xl md:text-4xl font-bold text-[#002060] leading-tight text-balance mb-6"
             >
-              Your trusted technology partner, rooted in Ghana.
+              Technology that works in the real world.
             </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="mt-6 text-base lg:text-lg text-[#5A6B82] leading-relaxed"
-            >
-              Founded in Ho and serving clients across Ghana, Clipe Consult is a full-service IT consulting firm helping organizations adopt modern technology with confidence. We design websites, build software, deploy networks, secure infrastructure and train teams — all under one roof.
-            </motion.p>
-
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, delay: 0.15 }}
-              className="mt-4 text-base lg:text-lg text-[#5A6B82] leading-relaxed"
+              className="text-base text-[#6B7280] leading-relaxed mb-6"
             >
-              From our base in Ho, we serve businesses, schools, NGOs, churches, media houses and government institutions across Ghana — combining local understanding with international best practices to deliver technology that actually moves the needle for your organization.
+              RACLIPE CONSULT provides technology, business solutions and digital systems for organizations. We design, build, secure and support technology that helps businesses operate, grow and compete — from a business website to a complete enterprise platform.
             </motion.p>
 
+            {/* Focus areas */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="mt-8 grid grid-cols-2 gap-3"
+              transition={{ duration: 0.5, delay: 0.25 }}
+              className="grid grid-cols-2 gap-3 mb-8"
             >
-              {highlights.map((h) => (
-                <div key={h.label} className="flex items-center gap-3 p-3 rounded-lg border border-slate-200 bg-white">
-                  <div className="h-9 w-9 rounded-lg bg-[#EEF1F8] flex items-center justify-center">
-                    <h.icon className="h-4 w-4 text-[#1B2A5C]" />
-                  </div>
-                  <span className="text-sm font-medium text-[#1B2A5C]">{h.label}</span>
+              {focusAreas.map((area) => (
+                <div key={area} className="flex items-center gap-2.5">
+                  <CheckCircle2 className="h-5 w-5 text-[#ED1C24] flex-shrink-0" />
+                  <span className="text-sm font-medium text-[#002060]">{area}</span>
                 </div>
               ))}
             </motion.div>
@@ -107,116 +92,15 @@ export function About() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: 0.25 }}
-              className="mt-8 flex flex-wrap items-center gap-3"
+              transition={{ duration: 0.5, delay: 0.35 }}
             >
               <Button
-                onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
-                className="bg-[#1B2A5C] hover:bg-[#142149] text-white"
-              >
-                Explore Our Services
-              </Button>
-              <Button
-                variant="outline"
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="border-[#1B2A5C]/20 text-[#1B2A5C] hover:bg-[#1B2A5C] hover:text-white"
+                className="bg-[#002060] hover:bg-[#001845] text-white"
               >
-                Talk to Our Team
+                Start Your Project
               </Button>
             </motion.div>
-          </div>
-
-          {/* Right: Vision + Mission featured cards */}
-          <div className="space-y-6">
-            {/* Our Vision — large featured card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="relative rounded-2xl overflow-hidden shadow-xl"
-            >
-              <div className="aspect-[16/11] bg-gradient-to-br from-[#1B2A5C] via-[#1B2A5C] to-[#E31E24] relative">
-                <div className="absolute inset-0 bg-grid opacity-30" />
-                <div className="absolute inset-0 flex items-center justify-center p-8 lg:p-10">
-                  <div className="text-center text-white max-w-2xl">
-                    <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-white/15 backdrop-blur-sm mb-4">
-                      <Eye className="h-8 w-8 text-white" />
-                    </div>
-                    <h3 className="font-[family-name:var(--font-poppins)] text-2xl lg:text-3xl font-bold mb-3">Our Vision</h3>
-                    <p className="text-white/85 text-sm lg:text-base leading-relaxed">
-                      To be a trusted leader in networking, software engineering, and digital technology solutions, delivering innovative, reliable, and value-driven services that empower businesses, enrich lives, and contribute to sustainable community development.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Our Mission — matching large featured card (gradient flipped for visual rhythm) */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="relative rounded-2xl overflow-hidden shadow-xl"
-            >
-              <div className="aspect-[16/11] bg-gradient-to-br from-[#E31E24] via-[#1B2A5C] to-[#1B2A5C] relative">
-                <div className="absolute inset-0 bg-grid opacity-30" />
-                <div className="absolute inset-0 flex items-center justify-center p-8 lg:p-10">
-                  <div className="text-center text-white max-w-2xl">
-                    <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-white/15 backdrop-blur-sm mb-4">
-                      <Target className="h-8 w-8 text-white" />
-                    </div>
-                    <h3 className="font-[family-name:var(--font-poppins)] text-2xl lg:text-3xl font-bold mb-3">Our Mission</h3>
-                    <p className="text-white/85 text-sm lg:text-base leading-relaxed">
-                      At Clipe Consult, our mission is to provide reliable, innovative, and cost-effective technology solutions in networking, software engineering, website development, cybersecurity, and IT consultancy. We strive to exceed client expectations by delivering exceptional service, embracing continuous innovation, empowering our employees, and creating sustainable value for our clients, partners, and communities.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Values row */}
-        <div className="mt-16 lg:mt-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-2xl mx-auto mb-10"
-          >
-            <h3 className="font-[family-name:var(--font-poppins)] text-2xl md:text-3xl font-bold text-[#1B2A5C] mb-3">
-              The values that drive every project
-            </h3>
-            <p className="text-[#5A6B82]">
-              These four principles shape how we hire, how we build and how we serve our clients across Ghana.
-            </p>
-          </motion.div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((v, i) => (
-              <motion.div
-                key={v.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="group relative rounded-2xl p-6 bg-white border border-slate-200 hover:border-[#1B2A5C]/30 hover:shadow-xl transition-all"
-              >
-                <div className="absolute top-0 right-0 h-20 w-20 bg-gradient-to-br from-[#1B2A5C]/5 to-transparent rounded-bl-3xl rounded-tr-2xl transition-opacity group-hover:opacity-100 opacity-0" />
-                <div className="relative">
-                  <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-[#1B2A5C] to-[#1B2A5C] flex items-center justify-center mb-4 shadow-md group-hover:scale-105 transition-transform">
-                    <v.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <h4 className="font-[family-name:var(--font-poppins)] text-lg font-bold text-[#1B2A5C] mb-2">
-                    {v.title}
-                  </h4>
-                  <p className="text-sm text-[#5A6B82] leading-relaxed">{v.description}</p>
-                </div>
-              </motion.div>
-            ))}
           </div>
         </div>
       </div>

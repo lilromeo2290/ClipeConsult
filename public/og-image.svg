@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#1B2A5C"/>
-      <stop offset="1" stop-color="#0F1F4A"/>
+      <stop offset="0" stop-color="#002060"/>
+      <stop offset="1" stop-color="#001845"/>
     </linearGradient>
-    <linearGradient id="red" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#E31E24"/>
-      <stop offset="1" stop-color="#FF4A50"/>
+    <linearGradient id="redGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ED1C24"/>
+      <stop offset="1" stop-color="#FF3030"/>
     </linearGradient>
     <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
       <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
@@ -15,47 +15,37 @@
 
   <rect width="1200" height="630" fill="url(#bg)"/>
   <rect width="1200" height="630" fill="url(#grid)"/>
-  <circle cx="980" cy="120" r="280" fill="rgba(227,30,36,0.15)"/>
-  <circle cx="180" cy="520" r="200" fill="rgba(58,77,133,0.4)"/>
+  <circle cx="980" cy="120" r="280" fill="rgba(237,28,36,0.15)"/>
+  <circle cx="180" cy="520" r="200" fill="rgba(26,58,110,0.4)"/>
 
-  <!-- Logo block (icon + wordmark) -->
+  <!-- Logo block -->
   <g transform="translate(96, 96)">
-    <!-- Icon container -->
-    <g transform="translate(0, 0)">
-      <rect width="80" height="80" rx="18" fill="#0F1F4A"/>
-      <!-- Gear teeth -->
-      <g fill="#2A3D75">
-        <rect x="36" y="6" width="8" height="8" rx="1.5"/>
-        <rect x="36" y="66" width="8" height="8" rx="1.5"/>
-        <rect x="6" y="36" width="8" height="8" rx="1.5"/>
-        <rect x="66" y="36" width="8" height="8" rx="1.5"/>
-        <rect x="14" y="14" width="8" height="8" rx="1.5" transform="rotate(45 18 18)"/>
-        <rect x="58" y="14" width="8" height="8" rx="1.5" transform="rotate(-45 62 18)"/>
-        <rect x="14" y="58" width="8" height="8" rx="1.5" transform="rotate(-45 18 62)"/>
-        <rect x="58" y="58" width="8" height="8" rx="1.5" transform="rotate(45 62 62)"/>
-      </g>
-      <!-- Buildings -->
-      <polygon points="40,18 48,22 48,60 32,60 32,22" fill="#E31E24"/>
-      <polygon points="50,28 58,32 58,60 50,60" fill="#E31E24"/>
-      <polygon points="22,32 30,34 30,60 22,60" fill="#FFFFFF"/>
-      <!-- Swoosh -->
-      <path d="M 10 64 Q 40 72 70 64" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+    <rect width="80" height="80" rx="18" fill="#001845"/>
+    <g fill="#1A3A6E">
+      <rect x="36" y="6" width="8" height="8" rx="1.5"/>
+      <rect x="36" y="66" width="8" height="8" rx="1.5"/>
+      <rect x="6" y="36" width="8" height="8" rx="1.5"/>
+      <rect x="66" y="36" width="8" height="8" rx="1.5"/>
     </g>
-
-    <!-- Wordmark -->
-    <text x="100" y="40" font-family="Poppins, Arial, sans-serif" font-size="32" font-weight="800" fill="#FFFFFF" letter-spacing="2">CLIPE</text>
-    <text x="100" y="72" font-family="Poppins, Arial, sans-serif" font-size="22" font-weight="700" fill="#E31E24" letter-spacing="4.5">CONSULT</text>
+    <polygon points="40,18 48,22 48,60 32,60 32,22" fill="#ED1C24"/>
+    <polygon points="50,28 58,32 58,60 50,60" fill="#ED1C24"/>
+    <polygon points="22,32 30,34 30,60 22,60" fill="#1A3A6E"/>
+    <path d="M 10 64 Q 40 72 70 64" fill="none" stroke="#ED1C24" stroke-width="2.5" stroke-linecap="round"/>
   </g>
+
+  <text x="196" y="135" font-family="Poppins, Arial, sans-serif" font-size="36" font-weight="800" fill="#FFFFFF" letter-spacing="2">
+    <tspan>R</tspan><tspan fill="#ED1C24">A</tspan><tspan>CLIPE</tspan>
+  </text>
+  <text x="196" y="172" font-family="Poppins, Arial, sans-serif" font-size="22" font-weight="700" fill="#C9D2E0" letter-spacing="4">CONSULT</text>
+  <text x="196" y="200" font-family="Inter, Arial, sans-serif" font-size="11" fill="#C9D2E0" letter-spacing="1.5">
+    TECHNOLOGY <tspan fill="#ED1C24">•</tspan> BUSINESS SOLUTIONS <tspan fill="#ED1C24">•</tspan> DIGITAL SYSTEMS
+  </text>
 
   <!-- Headline -->
-  <text x="96" y="320" font-family="Poppins, Arial, sans-serif" font-size="60" font-weight="800" fill="#FFFFFF">Empowering Businesses</text>
-  <text x="96" y="392" font-family="Poppins, Arial, sans-serif" font-size="60" font-weight="800" fill="url(#red)">Through Innovative IT</text>
+  <text x="96" y="320" font-family="Poppins, Arial, sans-serif" font-size="56" font-weight="800" fill="#FFFFFF">WE BUILD THE</text>
+  <text x="96" y="385" font-family="Poppins, Arial, sans-serif" font-size="56" font-weight="800" fill="url(#redGrad)">TECHNOLOGY THAT</text>
+  <text x="96" y="450" font-family="Poppins, Arial, sans-serif" font-size="56" font-weight="800" fill="#FFFFFF">MOVES BUSINESS</text>
+  <text x="96" y="515" font-family="Poppins, Arial, sans-serif" font-size="56" font-weight="800" fill="#FFFFFF">FORWARD.</text>
 
-  <text x="96" y="448" font-family="Inter, Arial, sans-serif" font-size="24" fill="rgba(255,255,255,0.85)">Website Design • Software Development • IT Support • Hosting • Networks • Training</text>
-
-  <g transform="translate(96, 510)">
-    <rect width="280" height="60" rx="30" fill="#E31E24"/>
-    <text x="140" y="38" font-family="Poppins, Arial, sans-serif" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle">Get Free Consultation</text>
-  </g>
-  <text x="404" y="548" font-family="Inter, Arial, sans-serif" font-size="20" fill="rgba(255,255,255,0.85)">www.clipeconsult.com</text>
+  <text x="96" y="575" font-family="Inter, Arial, sans-serif" font-size="20" fill="rgba(255,255,255,0.7)">IDEAS TODAY <tspan fill="#ED1C24">•</tspan> SOLUTIONS TOMORROW</text>
 </svg>
