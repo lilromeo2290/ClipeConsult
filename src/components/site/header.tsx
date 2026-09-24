@@ -75,14 +75,14 @@ export function Header() {
       >
         <div className="container mx-auto max-w-7xl px-6">
           <div className="flex h-20 items-center justify-between gap-4">
-            {/* Logo */}
+            {/* Logo — enlarged for better visibility */}
             <a
               href="#home"
               onClick={(e) => { e.preventDefault(); handleNav("#home"); }}
-              className="flex items-center gap-3 group"
+              className="flex items-center group"
               aria-label="RACLIPE CONSULT — Home"
             >
-              <div className="relative h-12 w-auto max-w-[200px] flex items-center">
+              <div className="relative h-16 lg:h-20 w-auto flex items-center flex-shrink-0">
                 <img
                   src="/raclipe-logo.png"
                   alt="RACLIPE CONSULT logo"
@@ -121,10 +121,7 @@ export function Header() {
                 size="sm"
                 className="hidden md:inline-flex bg-[#ED1C24] hover:bg-[#B8181F] text-white shadow-md transition-all"
               >
-                <a
-                  href="#contact"
-                  onClick={(e) => { e.preventDefault(); handleNav("#contact"); }}
-                >
+                <a href="#contact" onClick={(e) => { e.preventDefault(); handleNav("#contact"); }}>
                   START YOUR PROJECT
                   <ChevronRight className="h-4 w-4 ml-1" />
                 </a>
@@ -160,7 +157,7 @@ export function Header() {
           )}
         >
           <div className="flex items-center justify-between p-6 border-b border-slate-100">
-            <img src="/raclipe-logo.png" alt="RACLIPE CONSULT" className="h-10 w-auto object-contain" />
+            <img src="/raclipe-logo.png" alt="RACLIPE CONSULT" className="h-14 w-auto object-contain" />
             <button
               className="inline-flex items-center justify-center h-10 w-10 rounded-lg border border-slate-200 hover:bg-slate-50"
               onClick={() => setOpen(false)}

@@ -16,10 +16,10 @@ export function Footer() {
 
       <div className="container mx-auto max-w-7xl px-6 relative py-12">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-12">
-          {/* Brand */}
+          {/* Brand — enlarged logo */}
           <div className="lg:col-span-4">
             <div className="mb-5">
-              <img src="/raclipe-logo.png" alt="RACLIPE CONSULT" className="h-14 w-auto object-contain" />
+              <img src="/raclipe-logo.png" alt="RACLIPE CONSULT" className="h-20 w-auto object-contain" />
             </div>
             <p className="text-xs uppercase tracking-[0.2em] text-white/50 font-medium mb-2">
               TECHNOLOGY <span className="text-[#ED1C24]">•</span> BUSINESS SOLUTIONS <span className="text-[#ED1C24]">•</span> DIGITAL SYSTEMS
@@ -28,7 +28,6 @@ export function Footer() {
               RACLIPE CONSULT designs, builds, secures and supports technology that works in the real world.
             </p>
 
-            {/* Contact info */}
             <ul className="space-y-2.5 text-sm">
               <li>
                 <a href={`tel:${contactInfo.phonePrimary.replace(/\s/g, "")}`} className="flex items-center gap-2.5 text-white/75 hover:text-white transition">
@@ -48,7 +47,6 @@ export function Footer() {
               </li>
             </ul>
 
-            {/* Social */}
             <div className="mt-5 flex items-center gap-2">
               <a
                 href="https://facebook.com/clipeconsult"
